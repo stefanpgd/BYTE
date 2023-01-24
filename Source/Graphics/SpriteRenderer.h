@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <glm/glm.hpp>
 
 class Texture;
 class ShaderProgram;
@@ -21,6 +22,8 @@ public:
 	bool FlipX = false;
 	bool FlipY = false;
 	bool PauseAnimation = false;
+	float Emission = 0.0f;
+	glm::vec3 Color = glm::vec3(0.0f);
 
 private:
 	Texture* texture;

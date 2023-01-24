@@ -11,8 +11,14 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
 
+	virtual void ImGuiDraw() override;
+
 private:
-	SpriteRenderer* spriteRenderer;
+	SpriteRenderer* playerRenderer;
+	SpriteRenderer* eyeRenderer;
+
+	Transform eyeTransform;
+
 	Camera* camera;
 
 	float movementSpeed = 5.0f;
@@ -21,4 +27,19 @@ private:
 
 	float inputReponse = 8.0f;
 	float cameraFollowSpeed = 6.0f;
+	float cameraOffset = 20.0f;
+
+	glm::vec3 eyeOffset = glm::vec3(-0.08f, 0.38f, 0.1f);
+	float eyeScale = 0.075f;
+	float leftEyeOffset = 0.36f;
+	float rightEyeOffset = 0.51f;
+	float rightEyeFlipped = 0.16f;
+
+	float lastDeltaTime = 0.0f;
+
+	glm::vec3 eyeColor = glm::vec3(1.0f, 0.22f, 0.0f);
+	float minEmission = 3.5f;
+	float maxEmission = 10.0f;
+	float emissionTimer = 0.0f;
+	float emissionSpeed = 1.2f;
 };

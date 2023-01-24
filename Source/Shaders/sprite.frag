@@ -14,6 +14,7 @@ uniform int framesInTexture;
 uniform int currentFrame;
 uniform bool flipX;
 uniform bool flipY;
+uniform vec3 color;
 
 void main()
 {
@@ -44,6 +45,11 @@ void main()
 	if(diffuse.a < 0.5)
 	{
 		discard;
+	}
+
+	if(color != vec3(0.0, 0.0, 0.0))
+	{
+		diffuse.rgb *= color;
 	}
     
 	FragColor = vec4(diffuse.rgb, 1.0);

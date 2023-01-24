@@ -46,6 +46,8 @@ void SpriteRenderer::Draw(Camera* camera)
 	shaderProgram->SetInt("currentFrame", currentFrame);
 	shaderProgram->SetBool("flipX", FlipX);
 	shaderProgram->SetBool("flipY", FlipY);
+	shaderProgram->SetVec3("color", Color);
+	shaderProgram->SetFloat("emission", Emission);
 
 	texture->Bind(shaderProgram);
 

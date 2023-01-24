@@ -21,7 +21,6 @@ class Model
 public:
 	Model(const std::string& filePath, Transform* transform);
 
-	void Update();
 	void Draw(ShaderProgram* shaderProgram, Camera* camera);
 
 	std::string& GetFilePath();

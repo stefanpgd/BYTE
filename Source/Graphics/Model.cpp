@@ -61,10 +61,6 @@ Model::Model(const std::string& path, Transform* transform)
 	ModelArchive.push_back(this);
 }
 
-void Model::Update()
-{
-}
-
 void Model::Draw(ShaderProgram* shaderProgram, Camera* camera)
 {
 	shaderProgram->SetMat4("ModelMatrix", transform->GetModelMatrix());

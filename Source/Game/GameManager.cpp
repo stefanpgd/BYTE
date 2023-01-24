@@ -5,13 +5,19 @@
 #include "../Engine/Input.h"
 
 #include "../Game/Player.h"
+#include "../Graphics/SpriteRenderer.h"
+
+SpriteRenderer* map;
+Transform transform;
 
 GameManager::GameManager()
 {
-	camera = new Camera(glm::vec3(0.0, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f));
-
+	camera = new Camera(glm::vec3(0.0, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	player = new Player(camera);
+	map = new SpriteRenderer("testMap1.png", &transform);
+
+	transform.Position = glm::vec3(0.0f, 0.0f, -0.01f);
+	transform.Scale = glm::vec3(10.0f);
 }
 
 void GameManager::Update(float deltaTime)
@@ -22,6 +28,7 @@ void GameManager::Update(float deltaTime)
 
 void GameManager::Draw()
 {
+	map->Draw(camera);
 	player->Draw(camera);
 }
 
