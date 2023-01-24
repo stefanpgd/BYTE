@@ -1,13 +1,13 @@
 #include "Texture.h"
 #include <cassert>
-#include <glad/glad.h>
 #include <stb_image.h>
 
 #include "ShaderProgram.h"
 
-Texture::Texture(std::string& filePath, TextureType type, bool loadSRGB)
+Texture::Texture(const std::string& path, TextureType type, bool loadSRGB, int wrapMode, int mipmapMode)
 {
 	this->type = type;
+	std::string filePath = "Assets/Textures/" + path;
 
 	buffer = stbi_load(filePath.c_str(), &width, &height, &channels, 0);
 
@@ -21,10 +21,10 @@ Texture::Texture(std::string& filePath, TextureType type, bool loadSRGB)
 	glBindTexture(GL_TEXTURE_2D, ID);
 
 	// Texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, mipmapMode);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mipmapMode);
 
 	unsigned int format = channels == 3 ? GL_RGB : GL_RGBA;
 

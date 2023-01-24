@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <glad/glad.h>
 
 class ShaderProgram;
 
@@ -17,7 +18,7 @@ enum class TextureType
 class Texture
 {
 public:
-	Texture(std::string& filePath, TextureType type, bool loadSRGB = false);
+	Texture(const std::string& filePath, TextureType type, bool loadSRGB = false, int wrapMode = GL_REPEAT, int mipmapMode = GL_LINEAR);
 	void Bind(const ShaderProgram* program);
 
 private:

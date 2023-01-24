@@ -1,6 +1,7 @@
 #pragma once
 
 class Camera;
+class Player;
 
 class GameManager
 {
@@ -13,4 +14,6 @@ public:
 
 private:
 	Camera* camera;
+
+	Player* player;
 };

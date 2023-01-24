@@ -93,6 +93,9 @@
     <ClCompile Include="Source\Engine\Audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h">
@@ -182,6 +185,9 @@
     <ClInclude Include="Source\Engine\Audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Assimp\lib\assimp-vc143-mt.dll" />
@@ -194,5 +200,6 @@
     <None Include="Source\Shaders\screen.vert" />
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\gaussianBlur.frag" />
+    <None Include="Source\Shaders\sprite.frag" />
   </ItemGroup>
 </Project>

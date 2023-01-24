@@ -5,6 +5,7 @@
 class ShaderProgram;
 class Mesh;
 class Transform;
+class Camera;
 
 // Assimp //
 struct aiNode;
@@ -21,7 +22,7 @@ public:
 	Model(const std::string& filePath, Transform* transform);
 
 	void Update();
-	void Draw(ShaderProgram* shaderProgram);
+	void Draw(ShaderProgram* shaderProgram, Camera* camera);
 
 	std::string& GetFilePath();
 

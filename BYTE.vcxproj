@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Engine\Audio.cpp" />
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Dependencies\ImGui\imgui.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Source\Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Engine\Audio.h" />
     <ClInclude Include="Source\Engine\Input.h" />
     <ClInclude Include="Dependencies\ImGui\imconfig.h" />
@@ -227,6 +229,7 @@
     <None Include="Source\Shaders\gaussianBlur.frag" />
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\screen.vert" />
+    <None Include="Source\Shaders\sprite.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

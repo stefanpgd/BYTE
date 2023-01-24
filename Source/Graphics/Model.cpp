@@ -1,7 +1,9 @@
 #include "Model.h"
 #include "Mesh.h"
-#include "../Engine/Transform.h"
 #include "ShaderProgram.h"
+
+#include "../Engine/Transform.h"
+#include "../Engine/Camera.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -63,9 +65,10 @@ void Model::Update()
 {
 }
 
-void Model::Draw(ShaderProgram* shaderProgram)
+void Model::Draw(ShaderProgram* shaderProgram, Camera* camera)
 {
 	shaderProgram->SetMat4("ModelMatrix", transform->GetModelMatrix());
+	shaderProgram->SetMat4("VPMatrix", camera->GetViewProjectionMatrix());
 
 	for(unsigned int i = 0; i < meshes.size(); i++)
 	{
