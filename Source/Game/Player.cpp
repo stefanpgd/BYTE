@@ -7,11 +7,10 @@
 #include "../Engine/Input.h"
 #include "../Engine/Utilities.h"
 
-Player::Player()
+Player::Player(Camera* camera) : camera(camera)
 {
 	model = new Model("Quad/Quad.gltf", &transform);
 	shader = new ShaderProgram("color.vert", "sprite.frag");
-
 	texture = new Texture("Cat.png", TextureType::Albedo, true, GL_REPEAT, GL_NEAREST);
 }
 
@@ -22,6 +21,9 @@ void Player::Update(float deltaTime)
 
 	transform.Position.x += horizontalInput * movementSpeed * deltaTime;
 	transform.Position.y += verticalInput * movementSpeed * deltaTime;
+
+	camera->position.x = Lerp(camera->position.x, transform.Position.x, cameraFollowSpeed * deltaTime);
+	camera->position.y = Lerp(camera->position.y, transform.Position.y, cameraFollowSpeed * deltaTime);
 }
 
 void Player::Draw(Camera* camera)
