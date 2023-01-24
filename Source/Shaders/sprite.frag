@@ -9,9 +9,43 @@ layout (location = 1) out vec4 BrightColor;
 uniform sampler2D texture_albedo;
 uniform float emission;
 
+// sprite variables //
+uniform int framesInTexture;
+uniform int currentFrame;
+uniform bool flipX;
+uniform bool flipY;
+
 void main()
 {
-	vec3 diffuseTex = texture(texture_albedo, UV).rgb;
-    FragColor = vec4(diffuseTex, 1.0);
-	BrightColor = vec4(diffuseTex * emission, 1.0);
+	vec2 UVcoords = UV;
+	if(flipX)
+	{
+		UVcoords.x = 1.0 - UVcoords.x;
+	}
+
+	if(flipY)
+	{
+		UVcoords.y = 1.0 - UVcoords.y;
+	}
+
+	vec4 diffuse;
+	if(framesInTexture == 1)
+	{
+		diffuse = texture(texture_albedo, UVcoords);
+	}
+	else
+	{
+		float frameSize = 1.0 / framesInTexture;
+		float framePosition = frameSize * currentFrame;
+		vec2 uv = vec2(UVcoords.x / framesInTexture + framePosition, UVcoords.y);
+		diffuse = texture(texture_albedo, uv);
+	}
+
+	if(diffuse.a < 0.5)
+	{
+		discard;
+	}
+    
+	FragColor = vec4(diffuse.rgb, 1.0);
+	BrightColor = vec4(diffuse.rgb * emission, 1.0);
 }

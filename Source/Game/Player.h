@@ -1,9 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class Model;
-class ShaderProgram;
-class Texture;
+class SpriteRenderer;
 
 class Player : public GameObject
 {
@@ -14,9 +12,7 @@ public:
 	virtual void Draw(Camera* camera) override;
 
 private:
-	Model* model;
-	ShaderProgram* shader;
-	Texture* texture;
+	SpriteRenderer* spriteRenderer;
 	Camera* camera;
 
 	float movementSpeed = 5.0f;
