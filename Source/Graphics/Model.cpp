@@ -8,10 +8,10 @@
 #include <assimp/postprocess.h>
 #include <cassert>
 
-Model::Model(const std::string& filePath, Transform* transform)
+Model::Model(const std::string& path, Transform* transform)
 {
 	this->transform = transform;
-	this->filePath = filePath;
+	this->filePath = "Assets/Models/" + path;
 
 	for(int i = 0; i < ModelArchive.size(); i++)
 	{
@@ -50,7 +50,7 @@ Model::Model(const std::string& filePath, Transform* transform)
 
 	if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		printf("Assimp Error: %s", (std::string)import.GetErrorString());
+		printf("Assimp Error: %s", import.GetErrorString());
 		assert(false && "Failed to import model");
 	}
 

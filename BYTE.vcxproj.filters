@@ -194,8 +194,5 @@
     <None Include="Source\Shaders\screen.vert" />
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\gaussianBlur.frag" />
-    <None Include="Source\Shaders\sun.frag" />
-    <None Include="Source\Shaders\planet.frag" />
-    <None Include="Source\Shaders\atmosphere.frag" />
   </ItemGroup>
 </Project>

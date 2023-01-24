@@ -222,14 +222,11 @@
     <CopyFileToFolders Include="Dependencies\FMOD\lib\fmodstudioL.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="Source\Shaders\atmosphere.frag" />
     <None Include="Source\Shaders\color.frag" />
     <None Include="Source\Shaders\color.vert" />
     <None Include="Source\Shaders\gaussianBlur.frag" />
-    <None Include="Source\Shaders\planet.frag" />
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\screen.vert" />
-    <None Include="Source\Shaders\sun.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
