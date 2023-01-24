@@ -4,6 +4,9 @@
 #include "../Graphics/ShaderProgram.h"
 #include "../Graphics/Texture.h"
 
+#include "../Engine/Input.h"
+#include "../Engine/Utilities.h"
+
 Player::Player()
 {
 	model = new Model("Quad/Quad.gltf", &transform);
@@ -14,7 +17,11 @@ Player::Player()
 
 void Player::Update(float deltaTime)
 {
+	horizontalInput = Lerp(horizontalInput, Input::GetKey(Keycode::D) - Input::GetKey(Keycode::A), inputReponse * deltaTime);
+	verticalInput = Lerp(verticalInput, Input::GetKey(Keycode::W) - Input::GetKey(Keycode::S), inputReponse * deltaTime);
 
+	transform.Position.x += horizontalInput * movementSpeed * deltaTime;
+	transform.Position.y += verticalInput * movementSpeed * deltaTime;
 }
 
 void Player::Draw(Camera* camera)
