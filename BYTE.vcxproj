@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ffeac601-4424-45de-8f55-15b4c9b5cf2e}</ProjectGuid>
+    <ProjectGuid>{4B4D953F-281F-437F-9692-03E8E31C8FB3}</ProjectGuid>
     <RootNamespace>Luminosity</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>BYTE</ProjectName>
