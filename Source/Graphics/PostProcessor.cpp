@@ -33,10 +33,14 @@ void PostProcessor::PostProcess(Framebuffer* sceneBuffer)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
 
-	// Final post-processing pass (HDR, Gamma Correction) // 
+	// Final post-processing pass (Chromatic Aberration, HDR, Gamma Correction) // 
 	screenShader->Bind();
 	screenShader->SetFloat("exposure", exposure);
-	sceneBuffer->BindTexture(0, 0); 
+	screenShader->SetVec2("rOffset", redOffset);
+	screenShader->SetVec2("gOffset", greenOffset);
+	screenShader->SetVec2("bOffset", blueOffset);
+	sceneBuffer->BindTexture(0, 0);
+
 	glActiveTexture(GL_TEXTURE1); 
 	glBindTexture(GL_TEXTURE_2D, bloomColorBuffer[bloomBufferIndex]); 
 	screenQuad->Render();

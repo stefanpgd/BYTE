@@ -1,4 +1,5 @@
 #pragma once
+#include <glm/glm.hpp>
 
 class Framebuffer;
 class ShaderProgram;
@@ -14,6 +15,7 @@ public:
 
 private:
 	void ApplyBloom(Framebuffer* sceneBuffer);
+
 	void SetupBloom(unsigned int windowWidth, unsigned int windowHeight);
 
 	// Screen, HDR, Exposure //
@@ -26,4 +28,9 @@ private:
 	unsigned int bloomFBO[2];
 	unsigned int bloomColorBuffer[2];
 	unsigned int bloomBufferIndex = 0;
+
+	// Chromatic Aberration // 
+	glm::vec2 redOffset;
+	glm::vec2 greenOffset;
+	glm::vec2 blueOffset;
 };
