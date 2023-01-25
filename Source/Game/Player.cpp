@@ -27,9 +27,9 @@ void Player::Update(float deltaTime)
 	transform.Position.x += horizontalInput * movementSpeed * deltaTime;
 	transform.Position.y += verticalInput * movementSpeed * deltaTime;
 
-	camera->position.x = Lerp(camera->position.x, transform.Position.x, cameraFollowSpeed * deltaTime);
-	camera->position.y = Lerp(camera->position.y, transform.Position.y, cameraFollowSpeed * deltaTime);
-	camera->position.z = cameraOffset;
+	camera->Position.x = Lerp(camera->Position.x, transform.Position.x, cameraFollowSpeed * deltaTime);
+	camera->Position.y = Lerp(camera->Position.y, transform.Position.y, cameraFollowSpeed * deltaTime);
+	camera->Position.z = cameraOffset;
 
 	playerRenderer->Update(deltaTime);
 
@@ -51,6 +51,7 @@ void Player::Update(float deltaTime)
 		{
 			inEssence = !inEssence;
 			switched = true;
+			Camera::ApplyScreenshake(0.25f, 0.1f);
 		}
 	}
 	else
@@ -62,12 +63,14 @@ void Player::Update(float deltaTime)
 
 	if(inEssence)
 	{
+		camera->FOV = Lerp(camera->FOV, inEssenceFOV, FOVLerpSpeed * deltaTime);
 		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, maxEmission, emissionSpeed * deltaTime);
 		eyeRenderer->Color = Lerp(eyeRenderer->Color, essenceColor, colorLerpSpeed * deltaTime);
 		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, maxChromaticAberration, boomEffectSpeed * deltaTime);
 	}
 	else
 	{
+		camera->FOV = Lerp(camera->FOV, normalFOV, FOVLerpSpeed * deltaTime);
 		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, 0.0f, emissionSpeed * deltaTime);
 		eyeRenderer->Color = Lerp(eyeRenderer->Color, glm::vec3(1.0f), colorLerpSpeed * deltaTime);
 		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);

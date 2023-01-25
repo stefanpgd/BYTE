@@ -9,13 +9,17 @@ public:
 
 	void Update(float deltaTime);
 
+	static void ApplyScreenshake(float duration, float magnitude);
+
 	glm::mat4& GetViewProjectionMatrix();
 	float GetNearClip();
 	float GetFarClip();
 
-	glm::vec3 position;
-	glm::vec3 front;
-	glm::vec3 up;
+	glm::vec3 Position;
+	glm::vec3 Front;
+	glm::vec3 Up;
+
+	float FOV = 45.0f;
 
 private:
 	glm::mat4 viewMatrix;
@@ -25,17 +29,10 @@ private:
 	float windowWidth;
 	float windowHeight;
 
-	float cameraMovespeed = 5.0f;
-
-	float FOV = 45.0f;
-	float yaw = -90.0f;
-	float pitch = 0.0f;
-
 	float nearClip = 0.1f;
-	float farClip = 10000.0f;
+	float farClip = 1000.0f;
 
-	float lastMouseX = 0.0f;
-	float lastMouseY = 0.0f;
-	bool firstMouseMovement = true;
-	bool constrainPitch = true;
+	// Screenshake // 
+	static inline float screenshakeTimer = 0.0f;
+	static inline float screenshakeStrength = 0.0f;
 };

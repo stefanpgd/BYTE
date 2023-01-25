@@ -23,13 +23,16 @@ private:
 
 	// Audio //
 	float walkSoundTimer = 0.0f;
-	float walkSoundDelay = 0.2f;
+	float walkSoundDelay = 0.25f;
 
 	// State //
 	bool inEssence = true;
 	float boomEffectSpeed = 4.4f;
 	float maxChromaticAberration = 0.66f;
 	bool switched = false;
+	float normalFOV = 45.0f;
+	float inEssenceFOV = 60.0f;
+	float FOVLerpSpeed = 5.0f;
 
 	// Movement //
 	float movementSpeed = 5.0f;
