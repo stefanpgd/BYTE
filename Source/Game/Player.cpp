@@ -2,6 +2,8 @@
 
 #include "../Engine/Input.h"
 #include "../Engine/Utilities.h"
+#include "../Engine/Audio.h"
+
 #include "../Graphics/SpriteRenderer.h"
 #include "../Graphics/PostProcessor.h"
 
@@ -31,6 +33,18 @@ void Player::Update(float deltaTime)
 
 	playerRenderer->Update(deltaTime);
 
+	glm::vec2 v = glm::vec2(horizontalInput, verticalInput);
+	if(glm::length(v) > 0.2f)
+	{
+		walkSoundTimer += deltaTime;
+
+		if(walkSoundTimer > walkSoundDelay)
+		{
+			walkSoundTimer = 0.0f;
+			Audio::PlaySound("walk.wav");
+		}
+	}
+
 	if(Input::GetKey(Keycode::R))
 	{
 		if(!switched)
@@ -48,15 +62,14 @@ void Player::Update(float deltaTime)
 
 	if(inEssence)
 	{
-		emissionTimer += deltaTime;
-		eyeRenderer->Emission = Lerp(minEmission, maxEmission, (sinf(emissionTimer) + 1.0f) * 0.5f);
-		eyeRenderer->Color = essenceColor;
+		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, maxEmission, emissionSpeed * deltaTime);
+		eyeRenderer->Color = Lerp(eyeRenderer->Color, essenceColor, colorLerpSpeed * deltaTime);
 		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, maxChromaticAberration, boomEffectSpeed * deltaTime);
 	}
 	else
 	{
-		eyeRenderer->Emission = 0.0f;
-		eyeRenderer->Color = glm::vec3(1.0f);
+		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, 0.0f, emissionSpeed * deltaTime);
+		eyeRenderer->Color = Lerp(eyeRenderer->Color, glm::vec3(1.0f), colorLerpSpeed * deltaTime);
 		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
 	}
 }

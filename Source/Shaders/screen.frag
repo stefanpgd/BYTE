@@ -23,7 +23,7 @@ void main()
     {
         vec2 center = vec2(0.5, 0.5);
         vec2 dir = uv - center;
-        float strength = (length(dir) * 2.0) * centeredCAStrength; // max length = 0.5, thus * 2;
+        float strength = (length(dir) * centeredCAStrength);
 
         color.r = texture(sceneTexture, uv + (rOffset * strength)).r;
         color.g = texture(sceneTexture, uv + (gOffset * strength)).g;

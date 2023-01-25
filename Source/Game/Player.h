@@ -21,10 +21,14 @@ private:
 
 	Camera* camera;
 
+	// Audio //
+	float walkSoundTimer = 0.0f;
+	float walkSoundDelay = 0.2f;
+
 	// State //
 	bool inEssence = true;
-	float boomEffectSpeed = 3.4f;
-	float maxChromaticAberration = 0.35f;
+	float boomEffectSpeed = 4.4f;
+	float maxChromaticAberration = 0.66f;
 	bool switched = false;
 
 	// Movement //
@@ -45,10 +49,9 @@ private:
 	float rightEyeFlipped = 0.16f;
 
 	glm::vec3 essenceColor = glm::vec3(1.0f, 0.22f, 0.0f);
-	float minEmission = 3.5f;
+	float colorLerpSpeed = 6.5f;
+	float emissionSpeed = 6.5f;
 	float maxEmission = 10.0f;
-	float emissionTimer = 0.0f;
-	float emissionSpeed = 1.2f;
 
 	// Functionality // 
 	float lastDeltaTime = 0.0f;
