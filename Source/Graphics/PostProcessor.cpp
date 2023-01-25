@@ -36,9 +36,14 @@ void PostProcessor::PostProcess(Framebuffer* sceneBuffer)
 	// Final post-processing pass (Chromatic Aberration, HDR, Gamma Correction) // 
 	screenShader->Bind();
 	screenShader->SetFloat("exposure", exposure);
+
+	// Chromatic Aberration settings //
 	screenShader->SetVec2("rOffset", redOffset);
 	screenShader->SetVec2("gOffset", greenOffset);
 	screenShader->SetVec2("bOffset", blueOffset);
+	screenShader->SetBool("centeredCA", chromaticAberrationFromCenter);
+	screenShader->SetFloat("centeredCAStrength", chromaticAberrationCenterStrength);
+
 	sceneBuffer->BindTexture(0, 0);
 
 	glActiveTexture(GL_TEXTURE1); 

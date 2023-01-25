@@ -13,6 +13,13 @@ public:
 	void PostProcess(Framebuffer* sceneBuffer);
 	void DebugDrawImGui();
 
+	// Chromatic Aberration // 
+	static inline bool chromaticAberrationFromCenter = true;
+	static inline float chromaticAberrationCenterStrength = 0.0f;
+	static inline glm::vec2 redOffset = glm::vec2(0.01, -0.01);
+	static inline glm::vec2 greenOffset;
+	static inline glm::vec2 blueOffset = glm::vec2(-0.01, 0.01);
+
 private:
 	void ApplyBloom(Framebuffer* sceneBuffer);
 
@@ -28,9 +35,4 @@ private:
 	unsigned int bloomFBO[2];
 	unsigned int bloomColorBuffer[2];
 	unsigned int bloomBufferIndex = 0;
-
-	// Chromatic Aberration // 
-	glm::vec2 redOffset;
-	glm::vec2 greenOffset;
-	glm::vec2 blueOffset;
 };

@@ -3,6 +3,7 @@
 #include "../Engine/Input.h"
 #include "../Engine/Utilities.h"
 #include "../Graphics/SpriteRenderer.h"
+#include "../Graphics/PostProcessor.h"
 
 #include <imgui.h>
 
@@ -30,11 +31,34 @@ void Player::Update(float deltaTime)
 
 	playerRenderer->Update(deltaTime);
 
+	if(Input::GetKey(Keycode::R))
+	{
+		if(!switched)
+		{
+			inEssence = !inEssence;
+			switched = true;
+		}
+	}
+	else
+	{
+		switched = false;
+	}
+
 	lastDeltaTime = deltaTime;
 
-	emissionTimer += deltaTime;
-	eyeRenderer->Emission = Lerp(minEmission, maxEmission, (sinf(emissionTimer) + 1.0f) * 0.5f);
-	eyeRenderer->Color = eyeColor;
+	if(inEssence)
+	{
+		emissionTimer += deltaTime;
+		eyeRenderer->Emission = Lerp(minEmission, maxEmission, (sinf(emissionTimer) + 1.0f) * 0.5f);
+		eyeRenderer->Color = essenceColor;
+		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, maxChromaticAberration, boomEffectSpeed * deltaTime);
+	}
+	else
+	{
+		eyeRenderer->Emission = 0.0f;
+		eyeRenderer->Color = glm::vec3(1.0f);
+		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
+	}
 }
 
 void Player::Draw(Camera* camera)
