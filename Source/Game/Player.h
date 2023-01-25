@@ -52,7 +52,7 @@ private:
 	float rightEyeFlipped = 0.16f;
 
 	glm::vec3 essenceColor = glm::vec3(1.0f, 0.22f, 0.0f);
-	float colorLerpSpeed = 6.5f;
+	float colorLerpSpeed = 10.5f;
 	float emissionSpeed = 6.5f;
 	float maxEmission = 10.0f;
 

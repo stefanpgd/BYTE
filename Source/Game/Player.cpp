@@ -52,6 +52,7 @@ void Player::Update(float deltaTime)
 			inEssence = !inEssence;
 			switched = true;
 			Camera::ApplyScreenshake(0.25f, 0.1f);
+			Audio::PlaySound("essenceSwitch.wav");
 		}
 	}
 	else
