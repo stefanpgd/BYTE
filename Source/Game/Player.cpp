@@ -12,9 +12,9 @@
 Player::Player(Camera* camera) : camera(camera)
 {
 	playerRenderer = new SpriteRenderer("player1.png", &transform);
-	eyeRenderer = new SpriteRenderer("blank.png", &eyeTransform);
+	eyeRenderer = new SpriteRenderer("playerEyes.png", &eyeTransform);
 
-	eyeTransform.Scale = glm::vec3(eyeScale);
+	eyeTransform.Scale = glm::vec3(1.0f);
 }
 
 void Player::Update(float deltaTime)
@@ -23,12 +23,13 @@ void Player::Update(float deltaTime)
 	verticalInput = Lerp(verticalInput, Input::GetKey(Keycode::W) - Input::GetKey(Keycode::S), inputReponse * deltaTime);
 
 	playerRenderer->FlipX = horizontalInput < 0;
+	eyeRenderer->FlipX = horizontalInput < 0;
 
 	transform.Position.x += horizontalInput * movementSpeed * deltaTime;
 	transform.Position.y += verticalInput * movementSpeed * deltaTime;
 
 	camera->Position.x = Lerp(camera->Position.x, transform.Position.x, cameraFollowSpeed * deltaTime);
-	camera->Position.y = Lerp(camera->Position.y, transform.Position.y, cameraFollowSpeed * deltaTime);
+	camera->Position.y = Lerp(camera->Position.y, transform.Position.y + cameraBop, cameraFollowSpeed * deltaTime);
 	camera->Position.z = cameraOffset;
 
 	playerRenderer->Update(deltaTime);
@@ -37,12 +38,28 @@ void Player::Update(float deltaTime)
 	if(glm::length(v) > 0.2f)
 	{
 		walkSoundTimer += deltaTime;
+		cameraBopTimer += cameraBopSpeed * deltaTime;
 
 		if(walkSoundTimer > walkSoundDelay)
 		{
 			walkSoundTimer = 0.0f;
 			Audio::PlaySound("walk.wav");
 		}
+
+		transform.Rotation.z = cosf(walkAnimTimer) * walkAnimAngle;
+		cameraBop = cosf(cameraBopTimer) * cameraBopStrength;
+
+		eyeTransform.Rotation.z = transform.Rotation.z;
+		walkAnimTimer += walkAnimSpeed * deltaTime;
+	}
+	else
+	{
+		walkAnimTimer = 0.0f;
+		cameraBopTimer = 0.0f;
+
+		transform.Rotation.z = Lerp(transform.Rotation.z, 0.0f, walkResetSpeed * deltaTime);
+		cameraBop = Lerp(cameraBop, 0.0f, walkResetSpeed * deltaTime);
+		eyeTransform.Rotation.z = transform.Rotation.z;
 	}
 
 	if(Input::GetKey(Keycode::R))
@@ -51,7 +68,7 @@ void Player::Update(float deltaTime)
 		{
 			inEssence = !inEssence;
 			switched = true;
-			Camera::ApplyScreenshake(0.25f, 0.1f);
+			Camera::ApplyScreenshake(0.35f, 0.125f);
 			Audio::PlaySound("essenceSwitch.wav");
 		}
 	}
@@ -64,51 +81,43 @@ void Player::Update(float deltaTime)
 
 	if(inEssence)
 	{
+		timeInEssence += deltaTime;
+
 		camera->FOV = Lerp(camera->FOV, inEssenceFOV, FOVLerpSpeed * deltaTime);
 		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, maxEmission, emissionSpeed * deltaTime);
 		eyeRenderer->Color = Lerp(eyeRenderer->Color, essenceColor, colorLerpSpeed * deltaTime);
-		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, maxChromaticAberration, boomEffectSpeed * deltaTime);
+
+		if(timeInEssence > impactDuration)
+		{
+			PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
+		}
+		else
+		{
+			PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, maxChromaticAberration * impactMultiplier, boomEffectSpeed * impactMultiplier * deltaTime);
+		}
 	}
 	else
 	{
+		timeInEssence = 0.0f;
 		camera->FOV = Lerp(camera->FOV, normalFOV, FOVLerpSpeed * deltaTime);
 		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, 0.0f, emissionSpeed * deltaTime);
 		eyeRenderer->Color = Lerp(eyeRenderer->Color, glm::vec3(1.0f), colorLerpSpeed * deltaTime);
 		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
 	}
+
+	eyeTransform.Position = transform.Position + eyeOffset;
 }
 
 void Player::Draw(Camera* camera)
 {
 	playerRenderer->Draw(camera);
 
-	if(horizontalInput >= 0.0f)
-	{
-		eyeTransform.Position = transform.Position + eyeOffset;
-		eyeRenderer->Draw(camera);
-
-		glm::vec3 offsetRight = eyeOffset;
-		offsetRight.x += rightEyeOffset;
-
-		eyeTransform.Position = transform.Position + offsetRight;
-		eyeRenderer->Draw(camera);
-	}
-	else
-	{
-		glm::vec3 offsetLeft = eyeOffset;
-		offsetLeft.x -= leftEyeOffset;
-		eyeTransform.Position = transform.Position + offsetLeft;
-		eyeRenderer->Draw(camera);
-
-		glm::vec3 offsetRight = eyeOffset;
-		offsetRight.x += rightEyeFlipped;
-		eyeTransform.Position = transform.Position + offsetRight;
-		eyeRenderer->Draw(camera);
-	}
+	eyeRenderer->Draw(camera);
 }
 
 void Player::ImGuiDraw()
 {
 	ImGui::Begin("Player");
+	ImGui::DragFloat3("Eye Offset", &eyeOffset[0]);
 	ImGui::End();
 }
