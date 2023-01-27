@@ -60,7 +60,7 @@ void Player::Update(float deltaTime)
 		float y = sinf(defaultAngle + angle) * swingRadius;
 
 		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
-		armOffset.x = -armOffset.x;
+		armOffset.x = -armOffset.x + armDistance;
 		handOffset = armOffset;
 	}
 	else
@@ -78,8 +78,6 @@ void Player::Update(float deltaTime)
 
 		handOffset = Lerp(handOffset, idleHandOffset, animSwitchSpeed * deltaTime);
 	}
-
-
 
 	if(Input::GetKey(Keycode::R))
 	{
@@ -146,6 +144,7 @@ void Player::Draw(Camera* camera)
 
 		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
 		handOffset = armOffset;
+		handOffset.x -= armDistance;
 
 		handTransform.Position = transform.Position + handOffset;
 		handRenderer->Draw(camera);
@@ -153,9 +152,10 @@ void Player::Draw(Camera* camera)
 	else
 	{
 		handRenderer->Draw(camera);
-		glm::vec3 leftHand = handOffset;
+		leftHand = handOffset;
 		leftHand.x = -leftHand.x;
 		leftHand.y = handYOffset + cosf(handBopTimer + otherHandDelay) * handBopIdle;
+
 		handTransform.Position = transform.Position + leftHand;
 		handRenderer->Draw(camera);
 	}

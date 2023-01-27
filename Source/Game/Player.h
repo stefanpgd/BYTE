@@ -79,6 +79,7 @@ private:
 	glm::vec3 handOffset = glm::vec3(0.0f);
 	glm::vec3 idleHandOffset = glm::vec3(0.85, 0.0f, 0.1);
 	glm::vec3 walkHandOffset = glm::vec3(0.71, 0.17f, 0.1);
+	glm::vec3 leftHand;
 	float handYOffset = -0.15f;
 	float handBopIdle = 0.04f;
 	float handBopTimer = 0.0f;
@@ -90,6 +91,7 @@ private:
 	float swingAngleMax = 1.25f;
 	float swingRadius = 0.5f;
 	float defaultAngle = 5.0f;
-	float animSwitchSpeed = 12.0f;
+	float animSwitchSpeed = 6.0f;
 	float swingDelay = 7.8f;
+	float armDistance = 0.2f;
 };
