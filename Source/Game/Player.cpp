@@ -52,19 +52,34 @@ void Player::Update(float deltaTime)
 
 		eyeTransform.Rotation.z = transform.Rotation.z;
 		walkAnimTimer += walkAnimSpeed * deltaTime;
+
+		swingAngle += swingSpeed * deltaTime;
+
+		float angle = cosf(swingAngle) * swingAngleMax;
+		float x = cosf(defaultAngle + angle) * swingRadius;
+		float y = sinf(defaultAngle + angle) * swingRadius;
+
+		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
+		armOffset.x = -armOffset.x;
+		handOffset = armOffset;
 	}
 	else
 	{
 		walkAnimTimer = 0.0f;
 		cameraBopTimer = 0.0f;
+		swingAngle = 1.5f;
 
 		transform.Rotation.z = Lerp(transform.Rotation.z, 0.0f, walkResetSpeed * deltaTime);
 		cameraBop = Lerp(cameraBop, 0.0f, walkResetSpeed * deltaTime);
 		eyeTransform.Rotation.z = transform.Rotation.z;
 
 		handBopTimer += handBopSpeed * deltaTime;
-		handOffset.y = handYOffset + cosf(handBopTimer) * handBopIdle;
+		idleHandOffset.y = handYOffset + cosf(handBopTimer) * handBopIdle;
+
+		handOffset = Lerp(handOffset, idleHandOffset, animSwitchSpeed * deltaTime);
 	}
+
+
 
 	if(Input::GetKey(Keycode::R))
 	{
@@ -117,20 +132,40 @@ void Player::Draw(Camera* camera)
 {
 	playerRenderer->Draw(camera);
 	eyeRenderer->Draw(camera);
+		
+	handRenderer->Draw(camera);
 
-	handRenderer->Draw(camera);
-	glm::vec3 leftHand = handOffset;
-	leftHand.x = -leftHand.x;
-	leftHand.y = handYOffset + cosf(handBopTimer + otherHandDelay) * handBopIdle;
-	handTransform.Position = transform.Position + leftHand;
-	handRenderer->Draw(camera);
+	glm::vec2 v = glm::vec2(horizontalInput, verticalInput);
+	if(glm::length(v) > 0.2f)
+	{
+		handRenderer->Draw(camera);
+
+		float angle = cosf(swingAngle + swingDelay) * swingAngleMax;
+		float x = cosf(defaultAngle + angle) * swingRadius;
+		float y = sinf(defaultAngle + angle) * swingRadius;
+
+		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
+		handOffset = armOffset;
+
+		handTransform.Position = transform.Position + handOffset;
+		handRenderer->Draw(camera);
+	}
+	else
+	{
+		handRenderer->Draw(camera);
+		glm::vec3 leftHand = handOffset;
+		leftHand.x = -leftHand.x;
+		leftHand.y = handYOffset + cosf(handBopTimer + otherHandDelay) * handBopIdle;
+		handTransform.Position = transform.Position + leftHand;
+		handRenderer->Draw(camera);
+	}
 }
 
 void Player::ImGuiDraw()
 {
 	ImGui::Begin("User Settings");
-	ImGui::Button("Save");
-	ImGui::DragFloat("Speed", &handBopSpeed, 0.01f);
-	ImGui::DragFloat("Offset", &handBopIdle, 0.01f);
+	ImGui::DragFloat("swingSpeed", &swingSpeed, 0.01f);
+	ImGui::DragFloat("defaultAngle", &defaultAngle, 0.01f);
+	ImGui::DragFloat("swingRadius", &swingRadius, 0.01f);
 	ImGui::End();
 }

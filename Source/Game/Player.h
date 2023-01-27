@@ -46,8 +46,8 @@ private:
 	float inputReponse = 8.0f;
 
 	float walkAnimTimer = 0.0f;
-	float walkAnimAngle = 12.5f;
-	float walkAnimSpeed = 15.0f;
+	float walkAnimAngle = 4.0f;
+	float walkAnimSpeed = 25.0f;
 	float walkResetSpeed = 12.0f;
 
 	float cameraBopTimer = 0.0f;
@@ -76,10 +76,20 @@ private:
 	// Hands //
 	Transform handTransform;
 	float handScale = 1.0f / 8.0f;
-	glm::vec3 handOffset = glm::vec3(0.85, 0.0f, 0.1);
+	glm::vec3 handOffset = glm::vec3(0.0f);
+	glm::vec3 idleHandOffset = glm::vec3(0.85, 0.0f, 0.1);
+	glm::vec3 walkHandOffset = glm::vec3(0.71, 0.17f, 0.1);
 	float handYOffset = -0.15f;
 	float handBopIdle = 0.04f;
 	float handBopTimer = 0.0f;
 	float handBopSpeed = 4.4f;
 	float otherHandDelay = 0.65f;
+
+	float swingAngle = 0.0f;
+	float swingSpeed = 12.3f;
+	float swingAngleMax = 1.25f;
+	float swingRadius = 0.5f;
+	float defaultAngle = 5.0f;
+	float animSwitchSpeed = 12.0f;
+	float swingDelay = 7.8f;
 };
