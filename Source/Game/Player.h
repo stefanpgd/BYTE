@@ -16,6 +16,7 @@ public:
 private:
 	SpriteRenderer* playerRenderer;
 	SpriteRenderer* eyeRenderer;
+	SpriteRenderer* handRenderer;
 
 	Transform eyeTransform;
 
@@ -71,4 +72,14 @@ private:
 
 	// Functionality // 
 	float lastDeltaTime = 0.0f;
+
+	// Hands //
+	Transform handTransform;
+	float handScale = 1.0f / 8.0f;
+	glm::vec3 handOffset = glm::vec3(0.85, 0.0f, 0.1);
+	float handYOffset = -0.15f;
+	float handBopIdle = 0.04f;
+	float handBopTimer = 0.0f;
+	float handBopSpeed = 4.4f;
+	float otherHandDelay = 0.65f;
 };

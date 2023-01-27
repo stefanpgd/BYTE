@@ -13,8 +13,9 @@ Player::Player(Camera* camera) : camera(camera)
 {
 	playerRenderer = new SpriteRenderer("player1.png", &transform);
 	eyeRenderer = new SpriteRenderer("playerEyes.png", &eyeTransform);
+	handRenderer = new SpriteRenderer("blank.png", &handTransform);
 
-	eyeTransform.Scale = glm::vec3(1.0f);
+	handTransform.Scale = glm::vec3(handScale);
 }
 
 void Player::Update(float deltaTime)
@@ -60,6 +61,9 @@ void Player::Update(float deltaTime)
 		transform.Rotation.z = Lerp(transform.Rotation.z, 0.0f, walkResetSpeed * deltaTime);
 		cameraBop = Lerp(cameraBop, 0.0f, walkResetSpeed * deltaTime);
 		eyeTransform.Rotation.z = transform.Rotation.z;
+
+		handBopTimer += handBopSpeed * deltaTime;
+		handOffset.y = handYOffset + cosf(handBopTimer) * handBopIdle;
 	}
 
 	if(Input::GetKey(Keycode::R))
@@ -106,18 +110,27 @@ void Player::Update(float deltaTime)
 	}
 
 	eyeTransform.Position = transform.Position + eyeOffset;
+	handTransform.Position = transform.Position + handOffset;
 }
 
 void Player::Draw(Camera* camera)
 {
 	playerRenderer->Draw(camera);
-
 	eyeRenderer->Draw(camera);
+
+	handRenderer->Draw(camera);
+	glm::vec3 leftHand = handOffset;
+	leftHand.x = -leftHand.x;
+	leftHand.y = handYOffset + cosf(handBopTimer + otherHandDelay) * handBopIdle;
+	handTransform.Position = transform.Position + leftHand;
+	handRenderer->Draw(camera);
 }
 
 void Player::ImGuiDraw()
 {
-	ImGui::Begin("Player");
-	ImGui::DragFloat3("Eye Offset", &eyeOffset[0]);
+	ImGui::Begin("User Settings");
+	ImGui::Button("Save");
+	ImGui::DragFloat("Speed", &handBopSpeed, 0.01f);
+	ImGui::DragFloat("Offset", &handBopIdle, 0.01f);
 	ImGui::End();
 }
