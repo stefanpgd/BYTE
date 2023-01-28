@@ -60,7 +60,8 @@ private:
 	float cameraOffset = 20.0f;
 
 	// Eyes //
-	glm::vec3 eyeOffset = glm::vec3(0.0f, 0.0f, 0.01f);
+	glm::vec3 eyeOffset = glm::vec3(-0.06f, -0.06f, 0.01f);
+	float eyeFollowMax = 0.06f;
 	float leftEyeOffset = 0.36f;
 	float rightEyeOffset = 0.51f;
 	float rightEyeFlipped = 0.16f;

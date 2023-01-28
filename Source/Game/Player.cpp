@@ -6,6 +6,7 @@
 
 #include "../Graphics/SpriteRenderer.h"
 #include "../Graphics/PostProcessor.h"
+#include "../Graphics/Renderer.h"
 
 #include <imgui.h>
 
@@ -124,7 +125,28 @@ void Player::Update(float deltaTime)
 		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
 	}
 
-	eyeTransform.Position = transform.Position + eyeOffset;
+	// Eye tracking //
+	float mouseX = Input::GetMousePosition().x;
+	float mouseY = Input::GetMousePosition().y;
+	float screenWidth = Renderer::GetWindowWidth();
+	float screenHeight = Renderer::GetWindowHeight();
+
+	float ndcX = (mouseX / screenWidth) * 2 - 1.0f;
+	float ndcY = (mouseY / screenHeight) * 2 - 1.0f;
+
+	glm::vec2 screenPos = glm::normalize(glm::vec2(ndcX, ndcY));
+	float offsetX = eyeFollowMax * screenPos.x;
+	float offsetY = eyeFollowMax * -screenPos.y;
+
+	glm::vec3 eoffset = eyeOffset;
+	if(horizontalInput < 0.0f)
+	{
+		eoffset.x = -eoffset.x;
+	}
+
+	glm::vec3 eyePos = eoffset + glm::vec3(offsetX, offsetY, 0.0f);
+
+	eyeTransform.Position = transform.Position + eyePos;
 	handTransform.Position = transform.Position + handOffset;
 }
 
@@ -166,12 +188,6 @@ void Player::Draw(Camera* camera)
 void Player::ImGuiDraw()
 {
 	ImGui::Begin("User Settings");
-	ImGui::DragFloat("swingAngleMax", &swingAngleMax, 0.01f);
-	ImGui::DragFloat("Angle Offset", &defaultAngle, 0.01f);
-	ImGui::DragFloat("swingRadius", &swingRadius, 0.01f);
-	ImGui::DragFloat("swingSpeed", &swingSpeed, 0.01f);
-	ImGui::DragFloat("armDistance", &armDistance, 0.01f);
-	ImGui::DragFloat("swingDelay", &armDistance, 0.01f);
-	ImGui::DragFloat3("walkHandOffset", &walkHandOffset[0], 0.01f);
+	ImGui::DragFloat("eyeFollowMax", &eyeFollowMax, 0.01f);
 	ImGui::End();
 }
