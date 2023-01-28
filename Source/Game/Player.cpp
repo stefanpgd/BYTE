@@ -61,6 +61,8 @@ void Player::Update(float deltaTime)
 
 		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
 		armOffset.x = -armOffset.x + armDistance;
+		handOffset.z = -0.1f;
+
 		handOffset = armOffset;
 	}
 	else
@@ -164,8 +166,12 @@ void Player::Draw(Camera* camera)
 void Player::ImGuiDraw()
 {
 	ImGui::Begin("User Settings");
-	ImGui::DragFloat("swingSpeed", &swingSpeed, 0.01f);
-	ImGui::DragFloat("defaultAngle", &defaultAngle, 0.01f);
+	ImGui::DragFloat("swingAngleMax", &swingAngleMax, 0.01f);
+	ImGui::DragFloat("Angle Offset", &defaultAngle, 0.01f);
 	ImGui::DragFloat("swingRadius", &swingRadius, 0.01f);
+	ImGui::DragFloat("swingSpeed", &swingSpeed, 0.01f);
+	ImGui::DragFloat("armDistance", &armDistance, 0.01f);
+	ImGui::DragFloat("swingDelay", &armDistance, 0.01f);
+	ImGui::DragFloat3("walkHandOffset", &walkHandOffset[0], 0.01f);
 	ImGui::End();
 }

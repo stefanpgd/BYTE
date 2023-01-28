@@ -16,7 +16,7 @@ GameManager::GameManager()
 	player = new Player(camera);
 	map = new SpriteRenderer("testMap1.png", &transform);
 
-	transform.Position = glm::vec3(0.0f, 0.0f, -0.01f);
+	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
 }
 
