@@ -14,7 +14,11 @@ Player::Player(Camera* camera) : camera(camera)
 {
 	playerRenderer = new SpriteRenderer("player1.png", &transform);
 	eyeRenderer = new SpriteRenderer("playerEyes.png", &eyeTransform);
-	essence = new ControlEssence(&transform, eyeRenderer);
+
+	controlEssence = new ControlEssence(&transform, eyeRenderer);
+	excitementEssence = new ExcitementEssence(&transform, eyeRenderer);
+
+	activeEssence = controlEssence;
 }
 
 void Player::Update(float deltaTime)
@@ -66,10 +70,20 @@ void Player::Update(float deltaTime)
 	{
 		if(!switched)
 		{
-			inEssence = !inEssence;
 			switched = true;
 			Camera::ApplyScreenshake(0.35f, 0.125f);
 			Audio::PlaySound("essenceSwitch.wav");
+
+			if(activeEssence == controlEssence)
+			{
+				activeEssence = excitementEssence;
+				excitementEssence->Activate();
+			}
+			else
+			{
+				activeEssence = controlEssence;
+				controlEssence->Activate();
+			}
 		}
 	}
 	else
@@ -77,7 +91,7 @@ void Player::Update(float deltaTime)
 		switched = false;
 	}
 
-	camera->FOV = Lerp(camera->FOV, essence->FOV, FOVLerpSpeed * deltaTime);
+	camera->FOV = Lerp(camera->FOV, activeEssence->FOV, FOVLerpSpeed * deltaTime);
 
 	// Eye tracking //
 	float mouseX = Input::GetMousePosition().x;
@@ -102,7 +116,7 @@ void Player::Update(float deltaTime)
 
 	eyeTransform.Position = transform.Position + eyePos;
 
-	essence->Update(deltaTime, v);
+	activeEssence->Update(deltaTime, v);
 }
 
 void Player::Draw(Camera* camera)
@@ -110,7 +124,7 @@ void Player::Draw(Camera* camera)
 	playerRenderer->Draw(camera);
 	eyeRenderer->Draw(camera);
 	
-	essence->Draw(camera);
+	activeEssence->Draw(camera);
 }
 
 void Player::ImGuiDraw()

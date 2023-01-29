@@ -2,8 +2,6 @@
 #include "../../Engine/Utilities.h"
 #include "../../Engine/Camera.h"
 
-#include "../../Graphics/SpriteRenderer.h"
-
 ControlEssence::ControlEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer)
 {
 	this->playerTransform = playerTransform;
