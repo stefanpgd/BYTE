@@ -152,6 +152,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Essences\ControlEssence.cpp" />
+    <ClCompile Include="Source\Game\Essences\Essence.cpp" />
     <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Engine\Audio.cpp" />
     <ClCompile Include="Source\Engine\Input.cpp" />
@@ -182,6 +184,8 @@
     <ClCompile Include="Source\Graphics\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\Essences\ControlEssence.h" />
+    <ClInclude Include="Source\Game\Essences\Essence.h" />
     <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Engine\Audio.h" />
     <ClInclude Include="Source\Engine\Input.h" />

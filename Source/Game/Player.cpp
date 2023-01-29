@@ -14,9 +14,7 @@ Player::Player(Camera* camera) : camera(camera)
 {
 	playerRenderer = new SpriteRenderer("player1.png", &transform);
 	eyeRenderer = new SpriteRenderer("playerEyes.png", &eyeTransform);
-	handRenderer = new SpriteRenderer("blank.png", &handTransform);
-
-	handTransform.Scale = glm::vec3(handScale);
+	essence = new ControlEssence(&transform, eyeRenderer);
 }
 
 void Player::Update(float deltaTime)
@@ -53,33 +51,15 @@ void Player::Update(float deltaTime)
 
 		eyeTransform.Rotation.z = transform.Rotation.z;
 		walkAnimTimer += walkAnimSpeed * deltaTime;
-
-		swingAngle += swingSpeed * deltaTime;
-
-		float angle = cosf(swingAngle) * swingAngleMax;
-		float x = cosf(defaultAngle + angle) * swingRadius;
-		float y = sinf(defaultAngle + angle) * swingRadius;
-
-		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
-		armOffset.x = -armOffset.x + armDistance;
-		handOffset.z = -0.1f;
-
-		handOffset = armOffset;
 	}
 	else
 	{
 		walkAnimTimer = 0.0f;
 		cameraBopTimer = 0.0f;
-		swingAngle = 1.5f;
 
 		transform.Rotation.z = Lerp(transform.Rotation.z, 0.0f, walkResetSpeed * deltaTime);
 		cameraBop = Lerp(cameraBop, 0.0f, walkResetSpeed * deltaTime);
 		eyeTransform.Rotation.z = transform.Rotation.z;
-
-		handBopTimer += handBopSpeed * deltaTime;
-		idleHandOffset.y = handYOffset + cosf(handBopTimer) * handBopIdle;
-
-		handOffset = Lerp(handOffset, idleHandOffset, animSwitchSpeed * deltaTime);
 	}
 
 	if(Input::GetKey(Keycode::R))
@@ -97,33 +77,7 @@ void Player::Update(float deltaTime)
 		switched = false;
 	}
 
-	lastDeltaTime = deltaTime;
-
-	if(inEssence)
-	{
-		timeInEssence += deltaTime;
-
-		camera->FOV = Lerp(camera->FOV, inEssenceFOV, FOVLerpSpeed * deltaTime);
-		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, maxEmission, emissionSpeed * deltaTime);
-		eyeRenderer->Color = Lerp(eyeRenderer->Color, essenceColor, colorLerpSpeed * deltaTime);
-
-		if(timeInEssence > impactDuration)
-		{
-			PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
-		}
-		else
-		{
-			PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, maxChromaticAberration * impactMultiplier, boomEffectSpeed * impactMultiplier * deltaTime);
-		}
-	}
-	else
-	{
-		timeInEssence = 0.0f;
-		camera->FOV = Lerp(camera->FOV, normalFOV, FOVLerpSpeed * deltaTime);
-		eyeRenderer->Emission = Lerp(eyeRenderer->Emission, 0.0f, emissionSpeed * deltaTime);
-		eyeRenderer->Color = Lerp(eyeRenderer->Color, glm::vec3(1.0f), colorLerpSpeed * deltaTime);
-		PostProcessor::chromaticAberrationCenterStrength = Lerp(PostProcessor::chromaticAberrationCenterStrength, 0.0f, boomEffectSpeed * deltaTime);
-	}
+	camera->FOV = Lerp(camera->FOV, essence->FOV, FOVLerpSpeed * deltaTime);
 
 	// Eye tracking //
 	float mouseX = Input::GetMousePosition().x;
@@ -147,42 +101,16 @@ void Player::Update(float deltaTime)
 	glm::vec3 eyePos = eoffset + glm::vec3(offsetX, offsetY, 0.0f);
 
 	eyeTransform.Position = transform.Position + eyePos;
-	handTransform.Position = transform.Position + handOffset;
+
+	essence->Update(deltaTime, v);
 }
 
 void Player::Draw(Camera* camera)
 {
 	playerRenderer->Draw(camera);
 	eyeRenderer->Draw(camera);
-		
-	handRenderer->Draw(camera);
-
-	glm::vec2 v = glm::vec2(horizontalInput, verticalInput);
-	if(glm::length(v) > 0.2f)
-	{
-		handRenderer->Draw(camera);
-
-		float angle = cosf(swingAngle + swingDelay) * swingAngleMax;
-		float x = cosf(defaultAngle + angle) * swingRadius;
-		float y = sinf(defaultAngle + angle) * swingRadius;
-
-		glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
-		handOffset = armOffset;
-		handOffset.x -= armDistance;
-
-		handTransform.Position = transform.Position + handOffset;
-		handRenderer->Draw(camera);
-	}
-	else
-	{
-		handRenderer->Draw(camera);
-		leftHand = handOffset;
-		leftHand.x = -leftHand.x;
-		leftHand.y = handYOffset + cosf(handBopTimer + otherHandDelay) * handBopIdle;
-
-		handTransform.Position = transform.Position + leftHand;
-		handRenderer->Draw(camera);
-	}
+	
+	essence->Draw(camera);
 }
 
 void Player::ImGuiDraw()
