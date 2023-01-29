@@ -20,21 +20,37 @@ GameManager::GameManager()
 	transform.Scale = glm::vec3(10.0f);
 }
 
+void GameManager::AddGameObject(GameObject* gameObject)
+{
+	gameObjects.push_back(gameObject);
+}
+
 void GameManager::Update(float deltaTime)
 {
 	camera->Update(deltaTime);
-	player->Update(deltaTime);
+
+	for(GameObject* obj : gameObjects)
+	{
+		obj->Update(deltaTime);
+	}
 }
 
 void GameManager::Draw()
 {
 	map->Draw(camera);
-	player->Draw(camera);
+
+	for(GameObject* obj : gameObjects)
+	{
+		obj->Draw(camera);
+	}
 }
 
 void GameManager::ImGuiDraw()
 {
 #if _DEBUG
-	player->ImGuiDraw();
+	for(GameObject* obj : gameObjects)
+	{
+		obj->ImGuiDraw();
+	}
 #endif
 }
