@@ -6,7 +6,7 @@ GameObject::GameObject()
 	GameManager::AddGameObject(this);
 }
 
-void GameObject::Delete()
+void GameObject::DeleteGameObject()
 {
 	markedForDelete = true;
 }

@@ -22,13 +22,25 @@ GameManager::GameManager()
 
 void GameManager::AddGameObject(GameObject* gameObject)
 {
-	gameObjects.push_back(gameObject);
+	queuedObjects.push_back(gameObject);
 }
 
 void GameManager::Update(float deltaTime)
 {
-	camera->Update(deltaTime);
+	// Clean up all game objects that have been marked for delete in the last frame // 
+	gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
+		[](GameObject* g) { return g->markedForDelete; }), gameObjects.end());
 
+	// Add new objects that have been added to the queue during the last frame //
+	for(GameObject* obj : queuedObjects)
+	{
+		gameObjects.push_back(obj);
+	}
+
+	queuedObjects.clear();
+
+	// Update Camera & GameObjects // 
+	camera->Update(deltaTime);
 	for(GameObject* obj : gameObjects)
 	{
 		obj->Update(deltaTime);

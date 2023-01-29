@@ -21,4 +21,5 @@ private:
 	Player* player;
 
 	static inline std::vector<GameObject*> gameObjects;
+	static inline std::vector<GameObject*> queuedObjects;
 };

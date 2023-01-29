@@ -7,7 +7,7 @@ class GameObject
 public:
 	GameObject();
 
-	void Delete();
+	void DeleteGameObject();
 
 	virtual void Update(float deltaTime) = 0;
 	virtual void Draw(Camera* camera) = 0;
