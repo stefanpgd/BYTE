@@ -38,6 +38,7 @@ class Input
 public:
 	// Retrieve input values //
 	static bool GetKey(Keycode key);
+	static bool GetMouseButton(int i);
 	static glm::vec2 GetMousePosition();
 
 	// Functionality over controls // 

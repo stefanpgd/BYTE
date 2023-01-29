@@ -23,6 +23,11 @@ bool Input::GetKey(Keycode key)
 	return glfwGetKey(window, (int)key) == GLFW_PRESS;
 }
 
+bool Input::GetMouseButton(int i)
+{
+	return glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1 + i) == GLFW_PRESS;
+}
+
 glm::vec2 Input::GetMousePosition()
 {
 	return lastMousePosition;
