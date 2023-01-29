@@ -23,4 +23,5 @@ private:
 	float speed;
 	float lifeTime;
 	float spread;
+	float zRotationSpeed = 0.0f;
 };

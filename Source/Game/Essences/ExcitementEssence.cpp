@@ -50,7 +50,7 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 			glm::vec3 dir = handTransform.Position - playerTransform->Position;
 
 			delayTimer = delayPerShot;
-			Bullet* bullet = new Bullet(dir, 37.5f, 1.2f, 0.0f);
+			Bullet* bullet = new Bullet(dir, 25.0f, 1.2f, 0.1f);
 			bullet->transform.Position = handTransform.Position;
 			bullet->Color = essenceColor;
 			bullet->Emission = 0.5f;

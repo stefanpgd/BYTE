@@ -17,6 +17,9 @@ Bullet::Bullet(glm::vec3 direction, float speed, float lifeTime, float spread) :
 		this->direction = glm::normalize(direction);
 	}
 	spriteRenderer = new SpriteRenderer("bullet.png", &transform);
+
+	transform.Rotation.z = RandomInRange(0.0f, 360.0f);
+	zRotationSpeed = RandomInRange(1040.0f, 2080.0f);
 }
 
 void Bullet::Update(float deltaTime)
@@ -32,6 +35,7 @@ void Bullet::Update(float deltaTime)
 	spriteRenderer->Color = Color;
 	spriteRenderer->Emission = Emission;
 
+	transform.Rotation.z += zRotationSpeed * deltaTime;
 	transform.Scale = glm::vec3(BulletSize);
 }
 
