@@ -24,5 +24,6 @@ private:
 	float handBopSpeed = 4.4f;
 
 	// Shooting //
-
+	float delayPerShot = 0.08f;
+	float delayTimer = 0.0f;
 };

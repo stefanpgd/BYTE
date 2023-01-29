@@ -1,8 +1,12 @@
 #include "ExcitementEssence.h"
 
 #include "../../Engine/Input.h"
+#include "../../Engine/Audio.h"
 #include "../../Engine/Utilities.h"
 #include "../../Graphics/Renderer.h"
+#include "../Bullet.h"
+
+#include <imgui.h>
 
 ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer)
 {
@@ -36,6 +40,24 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	idleHandOffset.y = handYOffset + cosf(handBopTimer) * handBopIdle;
 
 	handOffsetRight = Lerp(handOffsetRight, idleHandOffset, 6.0f * deltaTime);
+
+	delayTimer -= deltaTime;
+
+	if(Input::GetMouseButton(0))
+	{
+		if(delayTimer <= 0.0f)
+		{
+			glm::vec3 dir = handTransform.Position - playerTransform->Position;
+
+			delayTimer = delayPerShot;
+			Bullet* bullet = new Bullet(dir, 37.5f, 1.2f, 0.0f);
+			bullet->transform.Position = handTransform.Position;
+			bullet->Color = essenceColor;
+			bullet->Emission = 0.5f;
+
+			Audio::PlaySound("shoot.wav");
+		}
+	}
 }
 
 void ExcitementEssence::Draw(Camera* camera)

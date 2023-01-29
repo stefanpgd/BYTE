@@ -25,7 +25,7 @@ void Audio::Initialize()
 	audioSystem->getCoreSystem(&coreSystem);
 
 	coreSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0);
-	audioSystem->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr);
+	audioSystem->initialize(2048, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr);
 }
 
 void Audio::Update()

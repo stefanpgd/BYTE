@@ -108,6 +108,9 @@
     <ClCompile Include="Source\Game\Essences\ExcitementEssence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Essences\ExcitementEssence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
