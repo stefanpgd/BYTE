@@ -4,8 +4,8 @@
 #include "../../Engine/Audio.h"
 #include "../../Engine/Utilities.h"
 #include "../../Graphics/Renderer.h"
-#include "../Bullet.h"
 #include "../../Engine/Camera.h"
+#include "../Bullet.h"
 #include <imgui.h>
 
 ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera)
@@ -14,7 +14,7 @@ ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer*
 	this->playerTransform = playerTransform;
 	this->eyeRenderer = eyeRenderer;
 
-	FOV = 60.0f;
+	FOV = 55.0f;
 	essenceColor = glm::vec3(1.0f, 0.22f, 0.0f);
 	eyeEmissionStrength = 10.0f;
 }
@@ -41,11 +41,11 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	{
 		if(delayTimer <= 0.0f)
 		{
-			delayTimer = delayPerShot;
-			Bullet* bullet = new Bullet(camRay, 25.0f, 1.2f, 0.1f);
+			Bullet* bullet = new Bullet(camRay, 25, 1.2f, 0.20f);
 			bullet->transform.Position = handTransform.Position;
 			bullet->Color = essenceColor;
 			bullet->Emission = 0.5f;
+			delayTimer = delayPerShot;
 
 			Audio::PlaySound("shoot.wav");
 		}
