@@ -1,15 +1,19 @@
 #pragma once
 #include "Essence.h"
 
+class Camera;
+
 class ExcitementEssence : public Essence
 {
 public:
-	ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer);
+	ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera);
 
 	virtual void Update(float deltaTime, glm::vec2 directionalInput) override;
 	virtual void Draw(Camera* camera) override;
 
 private:
+	Camera* camera;
+
 	// Left Hand //
 	glm::vec3 handOffsetLeft;
 	float aimHandDistance = 1.0f;

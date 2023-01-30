@@ -3,6 +3,8 @@
 #include "../Graphics/Renderer.h"
 #include "Utilities.h"
 
+#include "Input.h"
+
 Camera::Camera(const glm::vec3& position, const glm::vec3& front, const glm::vec3& up) :
 	Position(position), Front(front), Up(up)
 {
@@ -18,14 +20,33 @@ void Camera::Update(float deltaTime)
 	{
 		screenshakeTimer -= deltaTime;
 		position += glm::vec3(
-			RandomInRange(-screenshakeStrength, screenshakeStrength), 
-			RandomInRange(-screenshakeStrength, screenshakeStrength), 
+			RandomInRange(-screenshakeStrength, screenshakeStrength),
+			RandomInRange(-screenshakeStrength, screenshakeStrength),
 			RandomInRange(-screenshakeStrength, screenshakeStrength));
 	}
 
 	viewMatrix = glm::lookAt(position, position + Front, Up);
 	projectionMatrix = glm::perspective(glm::radians(FOV), (float)Renderer::GetWindowWidth() / (float)Renderer::GetWindowHeight(), nearClip, farClip);
 	viewProjectionMatrix = projectionMatrix * viewMatrix;
+}
+
+glm::vec3 Camera::ScreenToWorldPoint()
+{
+	glm::vec2 mouse = Input::GetMousePosition();
+
+	float screenWidth = Renderer::GetWindowWidth();
+	float screenHeight = Renderer::GetWindowHeight();
+
+	float ndcX = (mouse.x / screenWidth) * 2 - 1.0f;
+	float ndcY = (mouse.y / screenHeight) * 2 - 1.0f;
+	
+	glm::vec4 rayClip = glm::vec4(ndcX, ndcY, 0.0f, 0.0f);
+	glm::vec4 rayEye = glm::inverse(projectionMatrix) * rayClip;
+
+	rayEye.z = 0.0f;
+	rayEye.w = 0.0f;
+	glm::vec3 rayWorld = glm::vec3(glm::inverse(viewMatrix) * rayEye);
+	return rayWorld;
 }
 
 glm::mat4& Camera::GetViewProjectionMatrix()

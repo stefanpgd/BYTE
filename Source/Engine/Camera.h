@@ -9,6 +9,8 @@ public:
 
 	void Update(float deltaTime);
 
+	glm::vec3 ScreenToWorldPoint();
+
 	static void ApplyScreenshake(float duration, float magnitude);
 
 	glm::mat4& GetViewProjectionMatrix();

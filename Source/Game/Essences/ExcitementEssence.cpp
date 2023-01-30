@@ -5,11 +5,12 @@
 #include "../../Engine/Utilities.h"
 #include "../../Graphics/Renderer.h"
 #include "../Bullet.h"
-
+#include "../../Engine/Camera.h"
 #include <imgui.h>
 
-ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer)
+ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera)
 {
+	this->camera = camera;
 	this->playerTransform = playerTransform;
 	this->eyeRenderer = eyeRenderer;
 
@@ -22,17 +23,10 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 {
 	Essence::Update(deltaTime, directionalInput);
 
-	float mouseX = Input::GetMousePosition().x;
-	float mouseY = Input::GetMousePosition().y;
-	float screenWidth = Renderer::GetWindowWidth();
-	float screenHeight = Renderer::GetWindowHeight();
+	glm::vec3 camRay = glm::normalize(camera->ScreenToWorldPoint());
+	camRay.y = -camRay.y;
 
-	float ndcX = (mouseX / screenWidth) * 2 - 1.0f;
-	float ndcY = (mouseY / screenHeight) * 2 - 1.0f;
-
-	glm::vec3 screenPos = glm::normalize(glm::vec3(ndcX, -ndcY, 0.0f));
-
-	handOffsetLeft = screenPos * aimHandDistance;
+	handOffsetLeft = camRay * aimHandDistance;
 	handTransform.Position = playerTransform->Position + handOffsetLeft;
 
 	handBopTimer += handBopSpeed * deltaTime;
@@ -47,10 +41,8 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	{
 		if(delayTimer <= 0.0f)
 		{
-			glm::vec3 dir = handTransform.Position - playerTransform->Position;
-
 			delayTimer = delayPerShot;
-			Bullet* bullet = new Bullet(dir, 25.0f, 1.2f, 0.1f);
+			Bullet* bullet = new Bullet(camRay, 25.0f, 1.2f, 0.1f);
 			bullet->transform.Position = handTransform.Position;
 			bullet->Color = essenceColor;
 			bullet->Emission = 0.5f;

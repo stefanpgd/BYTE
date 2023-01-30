@@ -16,7 +16,7 @@ Player::Player(Camera* camera) : camera(camera)
 	eyeRenderer = new SpriteRenderer("playerEyes.png", &eyeTransform);
 
 	controlEssence = new ControlEssence(&transform, eyeRenderer);
-	excitementEssence = new ExcitementEssence(&transform, eyeRenderer);
+	excitementEssence = new ExcitementEssence(&transform, eyeRenderer, camera);
 
 	activeEssence = controlEssence;
 }
