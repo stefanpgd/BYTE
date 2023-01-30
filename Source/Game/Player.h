@@ -5,6 +5,7 @@
 #include "Essences/ExcitementEssence.h"
 
 class SpriteRenderer;
+class BoxCollider;
 
 class Player : public GameObject
 {
@@ -13,10 +14,12 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
+	virtual void OnCollision(const std::string& tag) override;
 
 	virtual void ImGuiDraw() override;
 
 private:
+	BoxCollider* collider;
 	SpriteRenderer* playerRenderer;
 	SpriteRenderer* eyeRenderer;
 

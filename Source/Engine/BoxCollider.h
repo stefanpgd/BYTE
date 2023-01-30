@@ -2,21 +2,21 @@
 #include <glm/glm.hpp>
 #include <string>
 
-class Transform;
+class GameObject;
 
 class BoxCollider
 {
 public:
-	BoxCollider(Transform* transform, glm::vec2 size, std::string tag = "default");
-
+	BoxCollider(GameObject* gameObject, glm::vec2 size, std::string tag = "default");
 	BoxCollider(glm::vec3 position, glm::vec2 size, std::string tag = "default");
-
+	
 	std::string Tag;
 	glm::vec2 Size;
-	bool isStatic = false;
+	bool IsStatic = false;
+	bool DrawCollider = false;
 
 private:
-	Transform* transform;
+	GameObject* gameObject;
 	glm::vec3 position;
 
 	friend class CollisionSystem;

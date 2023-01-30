@@ -12,3 +12,4 @@ void GameObject::DeleteGameObject()
 }
 
 void GameObject::ImGuiDraw() { }
+void GameObject::OnCollision(const std::string& tag) {}

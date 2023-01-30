@@ -3,6 +3,7 @@
 #include "../Engine/Input.h"
 #include "../Engine/Utilities.h"
 #include "../Engine/Audio.h"
+#include "../Engine/BoxCollider.h"
 
 #include "../Graphics/SpriteRenderer.h"
 #include "../Graphics/PostProcessor.h"
@@ -19,6 +20,8 @@ Player::Player(Camera* camera) : camera(camera)
 	excitementEssence = new ExcitementEssence(&transform, eyeRenderer, camera);
 
 	activeEssence = controlEssence;
+
+	collider = new BoxCollider((GameObject*)this, glm::vec2(1.0f, 1.0f));
 }
 
 void Player::Update(float deltaTime)
@@ -123,8 +126,10 @@ void Player::Draw(Camera* camera)
 {
 	playerRenderer->Draw(camera);
 	eyeRenderer->Draw(camera);
-	
+
 	activeEssence->Draw(camera);
+
+	playerRenderer->Color = glm::vec3(1.0f, 0.0f, 0.0f);
 }
 
 void Player::ImGuiDraw()
@@ -132,4 +137,9 @@ void Player::ImGuiDraw()
 	ImGui::Begin("User Settings");
 	ImGui::DragFloat("eyeFollowMax", &eyeFollowMax, 0.01f);
 	ImGui::End();
+}
+
+void Player::OnCollision(const std::string& tag)
+{
+	playerRenderer->Color = glm::vec3(0.0f, 1.0f, 0.0f);
 }

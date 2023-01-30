@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "Transform.h"
+#include "CollisionSystem.h"
 
 // STD & External libraries // 
 #include <iostream>
@@ -43,6 +44,7 @@ Engine::Engine()
 	glfwInit();
 
 	renderer = new Renderer("BYTE");
+	collisionSystem = new CollisionSystem();
 
 	Audio::Initialize();
 	Input::Initialize(renderer->GetWindow());
@@ -77,6 +79,7 @@ void Engine::Run()
 
 		// Update //
 		Audio::Update();
+		collisionSystem->Update();
 		gameManager->Update(deltaTime);
 
 		// Drawing //
