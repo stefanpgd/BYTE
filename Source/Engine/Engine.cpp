@@ -84,7 +84,9 @@ void Engine::Run()
 
 		// Drawing //
 		gameManager->Draw();
+		collisionSystem->Draw(gameManager->camera);
 		gameManager->ImGuiDraw();
+
 		renderer->RenderFrame();
 
 		glfwPollEvents();

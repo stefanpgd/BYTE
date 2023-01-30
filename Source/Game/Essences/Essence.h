@@ -19,7 +19,7 @@ public:
 	float FOV;
 
 protected:
-	glm::vec3 essenceColor;
+	glm::vec4 essenceColor;
 	float eyeEmissionStrength = 0.0f;
 
 	float eyeColorLerpSpeed = 10.5f;

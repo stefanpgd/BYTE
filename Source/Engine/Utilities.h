@@ -26,3 +26,8 @@ inline glm::vec3 Lerp(glm::vec3 a, glm::vec3 b, float t)
 {
 	return a * (1.0f - t) + b * t;
 }
+
+inline glm::vec4 Lerp(glm::vec4 a, glm::vec4 b, float t)
+{
+	return a * (1.0f - t) + b * t;
+}

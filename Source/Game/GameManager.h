@@ -16,8 +16,8 @@ public:
 	void Draw();
 	void ImGuiDraw();
 
-private:
 	Camera* camera;
+private:
 	Player* player;
 
 	static inline std::vector<GameObject*> gameObjects;

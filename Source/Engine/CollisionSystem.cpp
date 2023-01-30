@@ -1,7 +1,17 @@
 #include "CollisionSystem.h"
 #include "BoxCollider.h"
-#include "Transform.h"
 #include "../Game/GameObject.h"
+#include "../Graphics/SpriteRenderer.h"
+#include "Camera.h"
+
+#include <glad/glad.h>
+
+CollisionSystem::CollisionSystem()
+{
+	boxRenderer = new SpriteRenderer("blank.png", &transform);
+
+	boxRenderer->Color = glm::vec4(0.1f, 1.0f, 0.1f, 0.1f);
+}
 
 void CollisionSystem::Update()
 {
@@ -44,4 +54,28 @@ void CollisionSystem::CheckCollision(BoxCollider* boxA, BoxCollider* boxB)
 void CollisionSystem::AddBoxCollider(BoxCollider* collider)
 {
 	boxColliders.push_back(collider);
+}
+
+void CollisionSystem::Draw(Camera* camera)
+{
+#if _DEBUG
+	glEnable(GL_BLEND);
+	for(BoxCollider* collider : boxColliders)
+	{
+		transform.Scale = glm::vec3(collider->Size.x, collider->Size.y, 1.0f);
+
+		if(collider->gameObject != nullptr)
+		{
+			transform.Position = collider->gameObject->transform.Position;
+		}
+		else
+		{
+			transform.Position = collider->position;
+		}
+
+		//transform.Position.z += 0.01f;
+		boxRenderer->Draw(camera);
+	}
+	glDisable(GL_BLEND);
+#endif
 }

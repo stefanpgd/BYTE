@@ -15,7 +15,7 @@ ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer*
 	this->eyeRenderer = eyeRenderer;
 
 	FOV = 55.0f;
-	essenceColor = glm::vec3(1.0f, 0.22f, 0.0f);
+	essenceColor = glm::vec4(1.0f, 0.22f, 0.0f, 1.0f);
 	eyeEmissionStrength = 10.0f;
 }
 

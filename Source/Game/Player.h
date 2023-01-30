@@ -52,7 +52,7 @@ private:
 
 	// Camera // 
 	float cameraFollowSpeed = 6.0f;
-	float cameraOffset = 20.0f;
+	float cameraOffset = 10.0f;
 
 	float cameraBopTimer = 0.0f;
 	float cameraBopSpeed = 12.0f;

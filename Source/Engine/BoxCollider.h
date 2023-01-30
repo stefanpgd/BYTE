@@ -13,7 +13,6 @@ public:
 	std::string Tag;
 	glm::vec2 Size;
 	bool IsStatic = false;
-	bool DrawCollider = false;
 
 private:
 	GameObject* gameObject;

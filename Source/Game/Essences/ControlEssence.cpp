@@ -8,7 +8,7 @@ ControlEssence::ControlEssence(Transform* playerTransform, SpriteRenderer* eyeRe
 	this->eyeRenderer = eyeRenderer;
 
 	FOV = 45.0f;
-	essenceColor = glm::vec3(1.0f, 1.0f, 1.0f);
+	essenceColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	eyeEmissionStrength = 0.0f;
 }
 

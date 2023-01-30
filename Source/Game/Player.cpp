@@ -129,7 +129,7 @@ void Player::Draw(Camera* camera)
 
 	activeEssence->Draw(camera);
 
-	playerRenderer->Color = glm::vec3(1.0f, 0.0f, 0.0f);
+	playerRenderer->Color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Player::ImGuiDraw()
@@ -141,5 +141,5 @@ void Player::ImGuiDraw()
 
 void Player::OnCollision(const std::string& tag)
 {
-	playerRenderer->Color = glm::vec3(0.0f, 1.0f, 0.0f);
+	playerRenderer->Color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 }

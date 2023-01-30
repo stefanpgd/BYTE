@@ -12,7 +12,7 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
 
-	glm::vec3 Color;
+	glm::vec4 Color;
 	float Emission;
 	float BulletSize = 0.5f;
 
