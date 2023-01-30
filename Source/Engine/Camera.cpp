@@ -19,10 +19,13 @@ void Camera::Update(float deltaTime)
 	if(screenshakeTimer > 0.0f)
 	{
 		screenshakeTimer -= deltaTime;
-		position += glm::vec3(
+		glm::vec3 shake = glm::vec3(
 			RandomInRange(-screenshakeStrength, screenshakeStrength),
 			RandomInRange(-screenshakeStrength, screenshakeStrength),
 			RandomInRange(-screenshakeStrength, screenshakeStrength));
+
+		shake *= shakeDirection;
+		position += shake;
 	}
 
 	viewMatrix = glm::lookAt(position, position + Front, Up);
@@ -64,8 +67,9 @@ float Camera::GetFarClip()
 	return farClip;
 }
 
-void Camera::ApplyScreenshake(float duration, float magnitude)
+void Camera::ApplyScreenshake(float duration, float magnitude, const glm::vec3& direction)
 {
 	screenshakeTimer = duration;
 	screenshakeStrength = magnitude;
+	shakeDirection = direction;
 }

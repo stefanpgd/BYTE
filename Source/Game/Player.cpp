@@ -71,7 +71,7 @@ void Player::Update(float deltaTime)
 		if(!switched)
 		{
 			switched = true;
-			Camera::ApplyScreenshake(0.35f, 0.125f);
+			Camera::ApplyScreenshake(0.35f, 0.125f, glm::vec3(1.0f, 1.0f, 1.0f));
 			Audio::PlaySound("essenceSwitch.wav");
 
 			if(activeEssence == controlEssence)

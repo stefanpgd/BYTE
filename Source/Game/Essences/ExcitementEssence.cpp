@@ -48,6 +48,7 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 			delayTimer = delayPerShot;
 
 			Audio::PlaySound("shoot.wav");
+			Camera::ApplyScreenshake(0.15f, 0.1f, -camRay);
 		}
 	}
 }

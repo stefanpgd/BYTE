@@ -11,7 +11,7 @@ public:
 
 	glm::vec3 ScreenToWorldPoint();
 
-	static void ApplyScreenshake(float duration, float magnitude);
+	static void ApplyScreenshake(float duration, float magnitude, const glm::vec3& direction = glm::vec3(1.0f));
 
 	glm::mat4& GetViewProjectionMatrix();
 	float GetNearClip();
@@ -37,4 +37,5 @@ private:
 	// Screenshake // 
 	static inline float screenshakeTimer = 0.0f;
 	static inline float screenshakeStrength = 0.0f;
+	static inline glm::vec3 shakeDirection;
 };
