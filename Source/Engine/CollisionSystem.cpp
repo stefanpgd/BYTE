@@ -5,6 +5,7 @@
 #include "Camera.h"
 
 #include <glad/glad.h>
+#include <imgui.h>
 
 CollisionSystem::CollisionSystem()
 {
@@ -16,14 +17,14 @@ CollisionSystem::CollisionSystem()
 void CollisionSystem::Update()
 {
 	boxColliders.erase(std::remove_if(boxColliders.begin(), boxColliders.end(),
-		[](BoxCollider* box) 
-		{ 
+		[](BoxCollider* box)
+		{
 			if(box->markedForDelete)
 			{
 				delete box;
-				return true; 
+				return true;
 			}
-			return false; 
+			return false;
 		}), boxColliders.end());
 
 	for(BoxCollider* boxA : boxColliders)

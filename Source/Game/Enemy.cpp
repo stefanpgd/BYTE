@@ -19,6 +19,11 @@ Enemy::Enemy(Transform* playerTransform) : playerTransform(playerTransform)
 	eyeRenderer->Emission = 1.5f;
 }
 
+Enemy::~Enemy()
+{
+	collider->Remove();
+}
+
 void Enemy::Update(float deltaTime)
 {
 	glm::vec3 eyePos = glm::normalize(playerTransform->Position - transform.Position) * eyeFollowMax;
@@ -36,6 +41,16 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 {
 	if(tag == "bullet")
 	{
-		obj->DeleteGameObject();
+		health--;
+
+		if(obj != nullptr)
+		{
+			obj->DeleteGameObject();
+		}
+
+		if(health <= 0)
+		{
+			DeleteGameObject();
+		}
 	}
 }

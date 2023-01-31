@@ -79,8 +79,8 @@ void Engine::Run()
 
 		// Update //
 		Audio::Update();
-		collisionSystem->Update();
 		gameManager->Update(deltaTime);
+		collisionSystem->Update();
 
 		// Drawing //
 		gameManager->Draw();

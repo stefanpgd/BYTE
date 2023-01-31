@@ -8,6 +8,7 @@ class Enemy : public GameObject
 {
 public:
 	Enemy(Transform* playerTransform);
+	virtual ~Enemy() override;
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
@@ -20,6 +21,8 @@ private:
 
 	Transform* playerTransform;
 	Transform eyeTransform;
+
+	int health = 5;
 
 	// Eyes //
 	glm::vec3 eyeOffset = glm::vec3(-0.03f, -0.03f, 0.01f);
