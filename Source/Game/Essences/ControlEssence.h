@@ -15,21 +15,21 @@ private:
 	glm::vec2 lastInput;
 
 	// Walking Hand Animation // 
-	glm::vec3 walkHandOffset = glm::vec3(0.71, 0.26f, 0.1);
+	glm::vec3 walkHandOffset = glm::vec3(-0.34, 0.41f, 0.1);
 
 	float swingAngle = 0.0f;
 	float swingSpeed = 10.0f;
-	float swingAngleMax = 0.45f;
-	float swingRadius = 0.5f;
-	float defaultAngle = 5.0f;
+	float swingAngleMax = 0.33f;
+	float swingRadius = 0.54f;
+	float defaultAngle = 4.3f;
 	float animSwitchSpeed = 6.0f;
-	float swingDelay = 7.8f;
-	float armDistance = 0.2f;
+	float swingDelay = 3.36f;
+	float armDistance = -0.17f;
 
 	// Idle Hand Animation //
-	glm::vec3 idleHandOffset = glm::vec3(-0.85, 0.0f, 0.1);
-	float handYOffset = -0.15f;
-	float handBopIdle = 0.04f;
+	glm::vec3 idleHandOffset = glm::vec3(-0.425, 0.0f, 0.1);
+	float handYOffset = -0.075f;
+	float handBopIdle = 0.02f;
 	float handBopTimer = 0.0f;
 	float handBopSpeed = 4.4f;
 	float otherHandDelay = 0.65f;

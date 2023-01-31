@@ -81,11 +81,6 @@ void GameManager::Draw()
 void GameManager::ImGuiDraw()
 {
 #if _DEBUG
-
-	ImGui::Begin("Testing");
-	ImGui::DragFloat3("Position", &testCubeTransform2.Position[0], 0.01f);
-	ImGui::End();
-
 	for(GameObject* obj : gameObjects)
 	{
 		obj->ImGuiDraw();

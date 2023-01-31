@@ -1,6 +1,7 @@
 #include "ControlEssence.h"
 #include "../../Engine/Utilities.h"
 #include "../../Engine/Camera.h"
+#include <imgui.h>
 
 ControlEssence::ControlEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer)
 {
@@ -40,6 +41,8 @@ void ControlEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	}
 
 	handTransform.Position = playerTransform->Position + handOffset;
+
+	lastInput = directionalInput;
 }
 
 void ControlEssence::Draw(Camera* camera)

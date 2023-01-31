@@ -36,7 +36,7 @@ void Player::Update(float deltaTime)
 	transform.Position.y += verticalInput * movementSpeed * deltaTime;
 
 	camera->Position.x = Lerp(camera->Position.x, transform.Position.x, cameraFollowSpeed * deltaTime);
-	camera->Position.y = Lerp(camera->Position.y, transform.Position.y + cameraBop, cameraFollowSpeed * deltaTime);
+	camera->Position.y = Lerp(camera->Position.y, transform.Position.y, cameraFollowSpeed * deltaTime);
 	camera->Position.z = cameraOffset;
 
 	playerRenderer->Update(deltaTime);
@@ -45,7 +45,6 @@ void Player::Update(float deltaTime)
 	if(glm::length(v) > 0.2f)
 	{
 		walkSoundTimer += deltaTime;
-		cameraBopTimer += cameraBopSpeed * deltaTime;
 
 		if(walkSoundTimer > walkSoundDelay)
 		{
@@ -54,7 +53,6 @@ void Player::Update(float deltaTime)
 		}
 
 		transform.Rotation.z = cosf(walkAnimTimer) * walkAnimAngle;
-		cameraBop = cosf(cameraBopTimer) * cameraBopStrength;
 
 		eyeTransform.Rotation.z = transform.Rotation.z;
 		walkAnimTimer += walkAnimSpeed * deltaTime;
@@ -62,10 +60,8 @@ void Player::Update(float deltaTime)
 	else
 	{
 		walkAnimTimer = 0.0f;
-		cameraBopTimer = 0.0f;
 
 		transform.Rotation.z = Lerp(transform.Rotation.z, 0.0f, walkResetSpeed * deltaTime);
-		cameraBop = Lerp(cameraBop, 0.0f, walkResetSpeed * deltaTime);
 		eyeTransform.Rotation.z = transform.Rotation.z;
 	}
 
@@ -129,13 +125,14 @@ void Player::Draw(Camera* camera)
 
 	activeEssence->Draw(camera);
 
-	playerRenderer->Color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	//playerRenderer->Color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Player::ImGuiDraw()
 {
 	ImGui::Begin("User Settings");
 	ImGui::DragFloat("eyeFollowMax", &eyeFollowMax, 0.01f);
+	ImGui::DragFloat3("eyeOffset", &eyeOffset[0], 0.01f);
 	ImGui::End();
 }
 

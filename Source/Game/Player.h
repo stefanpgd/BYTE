@@ -40,7 +40,7 @@ private:
 	float FOVLerpSpeed = 5.0f;
 
 	// Movement //
-	float movementSpeed = 7.2f;
+	float movementSpeed = 3.6f;
 	float horizontalInput = 0.0f;
 	float verticalInput = 0.0f;
 	float inputReponse = 6.5f;
@@ -54,12 +54,7 @@ private:
 	float cameraFollowSpeed = 6.0f;
 	float cameraOffset = 10.0f;
 
-	float cameraBopTimer = 0.0f;
-	float cameraBopSpeed = 12.0f;
-	float cameraBop = 0.0f;
-	float cameraBopStrength = 0.075f;
-
 	// Eyes //
-	glm::vec3 eyeOffset = glm::vec3(-0.06f, -0.06f, 0.01f);
-	float eyeFollowMax = 0.06f;
+	glm::vec3 eyeOffset = glm::vec3(-0.03f, -0.03f, 0.01f);
+	float eyeFollowMax = 0.03f;
 };
