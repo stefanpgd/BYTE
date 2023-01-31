@@ -14,3 +14,8 @@ BoxCollider::BoxCollider(glm::vec3 position, glm::vec2 size, std::string tag) :
 	IsStatic = true;
 	CollisionSystem::AddBoxCollider(this);
 }
+
+void BoxCollider::Remove()
+{
+	markedForDelete = true;
+}

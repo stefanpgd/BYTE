@@ -15,6 +15,17 @@ CollisionSystem::CollisionSystem()
 
 void CollisionSystem::Update()
 {
+	boxColliders.erase(std::remove_if(boxColliders.begin(), boxColliders.end(),
+		[](BoxCollider* box) 
+		{ 
+			if(box->markedForDelete)
+			{
+				delete box;
+				return true; 
+			}
+			return false; 
+		}), boxColliders.end());
+
 	for(BoxCollider* boxA : boxColliders)
 	{
 		// Skip static colliders //
@@ -45,7 +56,7 @@ void CollisionSystem::CheckCollision(BoxCollider* boxA, BoxCollider* boxB)
 			{
 				if(posA.y + boxA->Size.y > posB.y - boxB->Size.y)
 				{
-					boxA->gameObject->OnCollision(boxB->Tag);
+					boxA->gameObject->OnCollision(boxB->Tag, boxB->gameObject);
 				}
 			}
 		}

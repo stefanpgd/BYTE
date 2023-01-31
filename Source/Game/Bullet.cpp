@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "../Graphics/SpriteRenderer.h"
 #include "../Engine/Utilities.h"
+#include "../Engine/BoxCollider.h"
 
 Bullet::Bullet(glm::vec3 direction, float speed, float lifeTime, float spread) :
 	speed(speed), lifeTime(lifeTime), spread(spread)
@@ -16,10 +17,18 @@ Bullet::Bullet(glm::vec3 direction, float speed, float lifeTime, float spread) :
 	{
 		this->direction = glm::normalize(direction);
 	}
+
 	spriteRenderer = new SpriteRenderer("bullet.png", &transform);
+	collider = new BoxCollider((GameObject*)this, glm::vec2(0.1f, 0.1f), "bullet");
 
 	transform.Rotation.z = RandomInRange(0.0f, 360.0f);
 	zRotationSpeed = RandomInRange(1040.0f, 2080.0f);
+}
+
+Bullet::~Bullet()
+{
+	collider->Remove();
+	//delete spriteRenderer;
 }
 
 void Bullet::Update(float deltaTime)

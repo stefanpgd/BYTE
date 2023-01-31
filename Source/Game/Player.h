@@ -14,7 +14,7 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
-	virtual void OnCollision(const std::string& tag) override;
+	virtual void OnCollision(const std::string& tag, GameObject* obj) override;
 
 	virtual void ImGuiDraw() override;
 

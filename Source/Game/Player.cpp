@@ -21,7 +21,7 @@ Player::Player(Camera* camera) : camera(camera)
 
 	activeEssence = controlEssence;
 
-	collider = new BoxCollider((GameObject*)this, glm::vec2(0.5, 0.5));
+	collider = new BoxCollider((GameObject*)this, glm::vec2(0.3, 0.3), "player");
 }
 
 void Player::Update(float deltaTime)
@@ -112,7 +112,6 @@ void Player::Update(float deltaTime)
 	}
 
 	glm::vec3 eyePos = eoffset + glm::vec3(offsetX, offsetY, 0.0f);
-
 	eyeTransform.Position = transform.Position + eyePos;
 
 	activeEssence->Update(deltaTime, v);
@@ -125,7 +124,7 @@ void Player::Draw(Camera* camera)
 
 	activeEssence->Draw(camera);
 
-	playerRenderer->Color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	playerRenderer->Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void Player::ImGuiDraw()
@@ -135,7 +134,7 @@ void Player::ImGuiDraw()
 	ImGui::End();
 }
 
-void Player::OnCollision(const std::string& tag)
+void Player::OnCollision(const std::string& tag, GameObject* obj)
 {
-	playerRenderer->Color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	//playerRenderer->Color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 }

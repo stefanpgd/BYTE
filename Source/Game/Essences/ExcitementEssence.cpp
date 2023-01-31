@@ -41,8 +41,9 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	{
 		if(delayTimer <= 0.0f)
 		{
-			Bullet* bullet = new Bullet(camRay, 25, 1.2f, 0.20f);
+			Bullet* bullet = new Bullet(camRay, 25.0f, 10.2f, 0.20f);
 			bullet->transform.Position = handTransform.Position;
+			bullet->transform.Position.z = 0.03f;
 			bullet->Color = essenceColor;
 			bullet->Emission = 0.5f;
 			delayTimer = delayPerShot;

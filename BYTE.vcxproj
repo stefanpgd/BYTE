@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Enemy.cpp" />
     <ClCompile Include="Source\Engine\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\CollisionSystem.cpp" />
     <ClCompile Include="Source\Game\Bullet.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Source\Graphics\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\Enemy.h" />
     <ClInclude Include="Source\Engine\CollisionSystem.h" />
     <ClInclude Include="Source\Engine\BoxCollider.h" />
     <ClInclude Include="Source\Game\Bullet.h" />
