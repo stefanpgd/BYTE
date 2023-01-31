@@ -26,17 +26,13 @@ GameManager::GameManager()
 	player = new Player(camera);
 	map = new SpriteRenderer("testMap1.png", &transform);
 
-
 	testCube = new SpriteRenderer("blank.png", &testCubeTransform);
+	testCube2 = new SpriteRenderer("blank.png", &testCubeTransform2);
 	testCubeTransform.Position = glm::vec3(2.0f, 1.0f, -0.03f);
-	testCubeCollider = new BoxCollider(testCubeTransform.Position, glm::vec2(2.0f, 2.0f), "wall");
+	testCubeCollider = new BoxCollider(testCubeTransform.Position, glm::vec2(0.5f, 0.5f), "wall");
 
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
-
-
-	testCube2 = new SpriteRenderer("blank.png", &testCubeTransform2);
-	testCube2->Color = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)
@@ -69,7 +65,6 @@ void GameManager::Update(float deltaTime)
 void GameManager::Draw()
 {
 	map->Draw(camera);
-	testCube->Draw(camera);
 	testCube2->Draw(camera);
 
 	for(GameObject* obj : gameObjects)
@@ -81,6 +76,10 @@ void GameManager::Draw()
 void GameManager::ImGuiDraw()
 {
 #if _DEBUG
+	ImGui::Begin("Cube");
+	ImGui::DragFloat3("Pos", &testCubeTransform2.Position[0], 0.01f);
+	ImGui::End();
+
 	for(GameObject* obj : gameObjects)
 	{
 		obj->ImGuiDraw();

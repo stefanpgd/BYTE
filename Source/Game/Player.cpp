@@ -21,7 +21,7 @@ Player::Player(Camera* camera) : camera(camera)
 
 	activeEssence = controlEssence;
 
-	collider = new BoxCollider((GameObject*)this, glm::vec2(1.0f, 1.0f));
+	collider = new BoxCollider((GameObject*)this, glm::vec2(0.5, 0.5));
 }
 
 void Player::Update(float deltaTime)
@@ -125,14 +125,13 @@ void Player::Draw(Camera* camera)
 
 	activeEssence->Draw(camera);
 
-	//playerRenderer->Color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	playerRenderer->Color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Player::ImGuiDraw()
 {
 	ImGui::Begin("User Settings");
-	ImGui::DragFloat("eyeFollowMax", &eyeFollowMax, 0.01f);
-	ImGui::DragFloat3("eyeOffset", &eyeOffset[0], 0.01f);
+	ImGui::DragFloat3("Player Pos", &transform.Position[0], 0.01f);
 	ImGui::End();
 }
 

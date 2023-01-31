@@ -33,16 +33,17 @@ void CollisionSystem::Update()
 
 void CollisionSystem::CheckCollision(BoxCollider* boxA, BoxCollider* boxB)
 {
+	// These are the centers of the boxes  //
 	glm::vec2 posA = boxA->gameObject ? boxA->gameObject->transform.Position : boxA->position;
 	glm::vec2 posB = boxB->gameObject ? boxB->gameObject->transform.Position : boxB->position;
 
-	if(posA.x < posB.x + boxB->Size.x)
+	if(posA.x - boxA->Size.x < posB.x + boxB->Size.x)
 	{
-		if(posA.x + boxA->Size.x > posB.x)
+		if(posA.x + boxA->Size.x > posB.x - boxB->Size.x)
 		{
-			if(posA.y < posB.y + boxB->Size.y)
+			if(posA.y - boxA->Size.y < posB.y + boxB->Size.y)
 			{
-				if(posA.y + boxA->Size.y > posB.y)
+				if(posA.y + boxA->Size.y > posB.y - boxB->Size.y)
 				{
 					boxA->gameObject->OnCollision(boxB->Tag);
 				}
@@ -62,7 +63,7 @@ void CollisionSystem::Draw(Camera* camera)
 	glEnable(GL_BLEND);
 	for(BoxCollider* collider : boxColliders)
 	{
-		transform.Scale = glm::vec3(collider->Size.x, collider->Size.y, 1.0f);
+		transform.Scale = glm::vec3(collider->Size.x * 2.0f, collider->Size.y * 2.0f, 1.0f);
 
 		if(collider->gameObject != nullptr)
 		{
