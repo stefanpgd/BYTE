@@ -14,6 +14,15 @@ private:
 	glm::vec3 leftHand;
 	glm::vec2 lastInput;
 
+	// Punching //
+	float punchTimer = 0.0f;
+	float punchCooldown = 0.3f;
+	bool nextHandIsRight = true;
+	bool leftHandPunching;
+	bool rightHandPunching; 
+	glm::vec3 targetRightHand;
+	glm::vec3 targetLeftHand;
+
 	// Walking Hand Animation // 
 	glm::vec3 walkHandOffset = glm::vec3(-0.34, 0.41f, 0.1);
 
