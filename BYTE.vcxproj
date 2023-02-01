@@ -187,6 +187,7 @@
     <ClCompile Include="Source\Engine\Transform.cpp" />
     <ClCompile Include="Source\Graphics\Texture.cpp" />
     <ClCompile Include="Source\Graphics\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\UIRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game\Enemy.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="Source\Graphics\Texture.h" />
     <ClInclude Include="Source\Engine\Utilities.h" />
     <ClInclude Include="Source\Graphics\SpriteRenderer.h" />
+    <ClInclude Include="Source\Graphics\UIRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Assimp\lib\assimp-vc143-mt.dll">

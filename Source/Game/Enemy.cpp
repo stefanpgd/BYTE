@@ -1,6 +1,7 @@
 #include "Enemy.h"
 
 #include "../Engine/Utilities.h"
+#include "../Engine/Audio.h"
 #include "../Graphics/SpriteRenderer.h"
 #include "../Engine/BoxCollider.h"
 
@@ -59,6 +60,10 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 	{
 		health--;
 		hitEffectTimer = 0.0f;
+
+		int randomSprite = RandomInRange(1, 4);
+		std::string path = "enemyHit" + std::to_string(randomSprite) + ".wav";
+		Audio::PlaySound("enemyHit.wav");
 
 		if(obj != nullptr)
 		{
