@@ -47,6 +47,8 @@ void SpriteRenderer::Draw(Camera* camera)
 	shaderProgram->SetBool("flipX", FlipX);
 	shaderProgram->SetBool("flipY", FlipY);
 	shaderProgram->SetVec4("color", Color);
+	shaderProgram->SetVec4("colorOverwrite", ColorOverwrite);
+	shaderProgram->SetBool("colorOverwriteEnabled", ColorOverwriteEnabled);
 	shaderProgram->SetFloat("emission", Emission);
 
 	texture->Bind(shaderProgram);

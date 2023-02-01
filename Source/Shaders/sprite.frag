@@ -15,6 +15,8 @@ uniform int currentFrame;
 uniform bool flipX;
 uniform bool flipY;
 uniform vec4 color;
+uniform vec4 colorOverwrite;
+uniform bool colorOverwriteEnabled;
 
 void main()
 {
@@ -45,6 +47,13 @@ void main()
 	if(diffuse.a < 0.5)
 	{
 		discard;
+	}
+
+	if(colorOverwriteEnabled)
+	{
+		FragColor = vec4(colorOverwrite.rgb, colorOverwrite.a);
+		BrightColor = vec4(colorOverwrite.rgb * emission, 1.0);
+		return;
 	}
 
 	if(color != vec4(0.0, 0.0, 0.0, 0.0))

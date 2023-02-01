@@ -24,6 +24,9 @@ private:
 
 	int health = 5;
 
+	float hitEffectTimer = 1.0f;
+	float hitEffectDuration = 0.03f;
+
 	// Eyes //
 	glm::vec3 eyeOffset = glm::vec3(-0.03f, -0.03f, 0.01f);
 	float eyeFollowMax = 0.03f;

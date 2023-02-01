@@ -29,6 +29,22 @@ void Enemy::Update(float deltaTime)
 	glm::vec3 eyePos = glm::normalize(playerTransform->Position - transform.Position) * eyeFollowMax;
 	eyeTransform.Position = transform.Position + eyePos + eyeOffset;
 	eyeTransform.Position.z = 0.01f;
+
+	hitEffectTimer += deltaTime;
+
+	if (hitEffectTimer < hitEffectDuration)
+	{
+		enemyRenderer->ColorOverwrite = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		enemyRenderer->ColorOverwriteEnabled = true;
+
+		eyeRenderer->ColorOverwrite = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		eyeRenderer->ColorOverwriteEnabled = true;
+	}
+	else
+	{
+		enemyRenderer->ColorOverwriteEnabled = false;
+		eyeRenderer->ColorOverwriteEnabled = false;
+	}
 }
 
 void Enemy::Draw(Camera* camera)
@@ -42,6 +58,7 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 	if(tag == "bullet")
 	{
 		health--;
+		hitEffectTimer = 0.0f;
 
 		if(obj != nullptr)
 		{
