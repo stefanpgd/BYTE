@@ -5,8 +5,11 @@
 
 Essence::Essence()
 {
-	handRenderer = new SpriteRenderer("blank.png", &handTransform);
-	handTransform.Scale = glm::vec3(handScale);
+	leftHandRenderer = new SpriteRenderer("blank.png", &leftHandTransform);
+	rightHandRenderer = new SpriteRenderer("blank.png", &rightHandTransform);
+
+	leftHandTransform.Scale = glm::vec3(handScale);
+	rightHandTransform.Scale = glm::vec3(handScale);
 }
 
 void Essence::Activate()
@@ -28,4 +31,10 @@ void Essence::Update(float deltaTime, glm::vec2 directionalInput)
 
 	eyeRenderer->Emission = Lerp(eyeRenderer->Emission, eyeEmissionStrength, eyeEmissionSpeed * deltaTime);
 	eyeRenderer->Color = Lerp(eyeRenderer->Color, essenceColor, eyeColorLerpSpeed * deltaTime);
+}
+
+void Essence::Draw(Camera* camera)
+{
+	LeftHandDraw(camera);
+	RightHandDraw(camera);
 }

@@ -32,8 +32,9 @@ void Enemy::Update(float deltaTime)
 	eyeTransform.Position.z = 0.01f;
 
 	hitEffectTimer += deltaTime;
+	damageTimer += deltaTime;
 
-	if (hitEffectTimer < hitEffectDuration)
+	if(hitEffectTimer < hitEffectDuration)
 	{
 		enemyRenderer->ColorOverwrite = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		enemyRenderer->ColorOverwriteEnabled = true;
@@ -56,18 +57,33 @@ void Enemy::Draw(Camera* camera)
 
 void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 {
-	if(tag == "bullet")
+	if(damageTimer > damageCooldown)
 	{
-		health--;
-		hitEffectTimer = 0.0f;
+		damageTimer = 0.0f;
 
-		int randomSprite = RandomInRange(1, 4);
-		std::string path = "enemyHit" + std::to_string(randomSprite) + ".wav";
-		Audio::PlaySound("enemyHit.wav");
-
-		if(obj != nullptr)
+		if(tag == "bullet")
 		{
-			obj->DeleteGameObject();
+			health--;
+			hitEffectTimer = 0.0f;
+
+			int randomSprite = RandomInRange(1, 4);
+			std::string path = "enemyHit" + std::to_string(randomSprite) + ".wav";
+			Audio::PlaySound("enemyHit.wav");
+
+			if(obj != nullptr)
+			{
+				obj->DeleteGameObject();
+			}
+		}
+
+		if(tag == "fist")
+		{
+			health--;
+			hitEffectTimer = 0.0f;
+
+			int randomSprite = RandomInRange(1, 4);
+			std::string path = "enemyHit" + std::to_string(randomSprite) + ".wav";
+			Audio::PlaySound("enemyHit.wav");
 		}
 
 		if(health <= 0)

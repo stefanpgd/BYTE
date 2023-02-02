@@ -12,23 +12,29 @@ public:
 	Essence();
 
 	void Activate();
+	void Draw(Camera* camera);
 
 	virtual void Update(float deltaTime, glm::vec2 directionalInput);
-	virtual void Draw(Camera* camera) = 0;
 
 	float FOV;
 
 protected:
+	virtual void LeftHandDraw(Camera* camera) = 0;
+	virtual void RightHandDraw(Camera* camera) = 0;
+
+
 	glm::vec4 essenceColor;
 	float eyeEmissionStrength = 0.0f;
 
 	float eyeColorLerpSpeed = 10.5f;
 	float eyeEmissionSpeed = 6.5f;
 
-	Transform handTransform;
 	Transform* playerTransform;
+	Transform leftHandTransform;
+	Transform rightHandTransform;
 
-	SpriteRenderer* handRenderer;
+	SpriteRenderer* leftHandRenderer;
+	SpriteRenderer* rightHandRenderer;
 	SpriteRenderer* eyeRenderer;
 
 	float handScale = 1.0f / 8.0f;

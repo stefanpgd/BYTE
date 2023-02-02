@@ -1,39 +1,38 @@
 #pragma once
 #include "Essence.h"
 
+class BoxCollider;
+
 class ControlEssence : public Essence
 {
 public:
-	ControlEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer);
+	ControlEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera);
 
 	virtual void Update(float deltaTime, glm::vec2 directionalInput) override;
-	virtual void Draw(Camera* camera) override;
 
 private:
-	glm::vec3 handOffset;
-	glm::vec3 leftHand;
-	glm::vec2 lastInput;
+	virtual void LeftHandDraw(Camera* camera) override;
+	virtual void RightHandDraw(Camera* camera) override;
+
+	Camera* camera;
 
 	// Punching //
+	BoxCollider* leftHandCollider;
+	BoxCollider* rightHandCollider;
+
 	float punchTimer = 0.0f;
-	float punchCooldown = 0.3f;
+	float punchCooldown = 0.15f;
+	float punchDistance = 0.85f;
+	float punchSpeed = 22.0f;
+	float punchLeftTimer = 0.0f;
+	float punchRightTimer = 0.0f;
+	float punchDuration = 0.13f;
+	float punchHandScale = 0.18f;
 	bool nextHandIsRight = true;
 	bool leftHandPunching;
 	bool rightHandPunching; 
 	glm::vec3 targetRightHand;
 	glm::vec3 targetLeftHand;
-
-	// Walking Hand Animation // 
-	glm::vec3 walkHandOffset = glm::vec3(-0.34, 0.41f, 0.1);
-
-	float swingAngle = 0.0f;
-	float swingSpeed = 10.0f;
-	float swingAngleMax = 0.33f;
-	float swingRadius = 0.54f;
-	float defaultAngle = 4.3f;
-	float animSwitchSpeed = 6.0f;
-	float swingDelay = 3.36f;
-	float armDistance = -0.17f;
 
 	// Idle Hand Animation //
 	glm::vec3 idleHandOffset = glm::vec3(-0.425, 0.0f, 0.1);
@@ -42,4 +41,5 @@ private:
 	float handBopTimer = 0.0f;
 	float handBopSpeed = 4.4f;
 	float otherHandDelay = 0.65f;
+	float stateSwitchSpeed = 20.0f;
 };

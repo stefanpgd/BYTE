@@ -17,9 +17,10 @@ public:
 	bool IsStatic = false;
 	bool IsActive = true;
 
+	glm::vec3 Position;
+
 private:
 	GameObject* gameObject;
-	glm::vec3 position;
 
 	bool markedForDelete = false;
 

@@ -9,9 +9,11 @@ public:
 	ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera);
 
 	virtual void Update(float deltaTime, glm::vec2 directionalInput) override;
-	virtual void Draw(Camera* camera) override;
 
 private:
+	virtual void LeftHandDraw(Camera* camera) override;
+	virtual void RightHandDraw(Camera* camera) override;
+
 	Camera* camera;
 
 	// Left Hand //

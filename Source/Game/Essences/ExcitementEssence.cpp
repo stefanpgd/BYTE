@@ -27,7 +27,7 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	camRay.y = -camRay.y;
 
 	handOffsetLeft = camRay * aimHandDistance;
-	handTransform.Position = playerTransform->Position + handOffsetLeft;
+	leftHandTransform.Position = playerTransform->Position + handOffsetLeft;
 
 	handBopTimer += handBopSpeed * deltaTime;
 	idleHandOffset.x = directionalInput.x > 0 ? idleHandX : -idleHandX;
@@ -42,7 +42,7 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 		if(delayTimer <= 0.0f)
 		{
 			Bullet* bullet = new Bullet(camRay, 25.0f, 10.2f, 0.20f);
-			bullet->transform.Position = handTransform.Position;
+			bullet->transform.Position = leftHandTransform.Position;
 			bullet->transform.Position.z = 0.03f;
 			bullet->Color = essenceColor;
 			bullet->Emission = 0.5f;
@@ -54,10 +54,13 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 	}
 }
 
-void ExcitementEssence::Draw(Camera* camera)
+void ExcitementEssence::LeftHandDraw(Camera* camera)
 {
-	handRenderer->Draw(camera);
+	leftHandRenderer->Draw(camera);
+}
 
-	handTransform.Position = playerTransform->Position + handOffsetRight;
-	handRenderer->Draw(camera);
+void ExcitementEssence::RightHandDraw(Camera* camera)
+{
+	rightHandTransform.Position = playerTransform->Position + handOffsetRight;
+	rightHandRenderer->Draw(camera);
 }

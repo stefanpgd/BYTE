@@ -24,6 +24,8 @@ private:
 
 	int health = 5;
 
+	float damageTimer = 0.0f;
+	float damageCooldown = 0.12f;
 	float hitEffectTimer = 1.0f;
 	float hitEffectDuration = 0.03f;
 
