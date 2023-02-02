@@ -6,6 +6,7 @@
 #include "../Engine/BoxCollider.h"
 
 #include "../Graphics/SpriteRenderer.h"
+#include "../Graphics/UIRenderer.h"
 
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
@@ -16,6 +17,7 @@ SpriteRenderer* map;
 Transform transform;
 Enemy* enemy;
 Enemy* enemy2;
+UIRenderer* ui;
 
 GameManager::GameManager()
 {
@@ -29,6 +31,8 @@ GameManager::GameManager()
 	enemy = new Enemy(&player->transform);
 	enemy2 = new Enemy(&player->transform);
 	enemy2->transform.Position = glm::vec3(2.0f, 0.0f, 0.0f);
+
+	ui = new UIRenderer("cat.png");
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)
@@ -69,6 +73,9 @@ void GameManager::Update(float deltaTime)
 void GameManager::Draw()
 {
 	map->Draw(camera);
+
+	// Make some system that automatically draws UI above everything...
+	ui->ImGuiDraw();
 
 	for(GameObject* obj : gameObjects)
 	{

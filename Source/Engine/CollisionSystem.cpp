@@ -30,11 +30,11 @@ void CollisionSystem::Update()
 	for(BoxCollider* boxA : boxColliders)
 	{
 		// Skip static colliders //
-		if(!boxA->IsStatic)
+		if(!boxA->IsStatic && boxA->IsActive)
 		{
 			for(BoxCollider* boxB : boxColliders)
 			{
-				if(boxA != boxB)
+				if(boxA != boxB && boxB->IsActive)
 				{
 					CheckCollision(boxA, boxB);
 				}
@@ -75,19 +75,21 @@ void CollisionSystem::Draw(Camera* camera)
 	glEnable(GL_BLEND);
 	for(BoxCollider* collider : boxColliders)
 	{
-		transform.Scale = glm::vec3(collider->Size.x * 2.0f, collider->Size.y * 2.0f, 1.0f);
-
-		if(collider->gameObject != nullptr)
+		if(collider->IsActive)
 		{
-			transform.Position = collider->gameObject->transform.Position;
-		}
-		else
-		{
-			transform.Position = collider->position;
-		}
+			transform.Scale = glm::vec3(collider->Size.x * 2.0f, collider->Size.y * 2.0f, 1.0f);
 
-		//transform.Position.z += 0.01f;
-		boxRenderer->Draw(camera);
+			if(collider->gameObject != nullptr)
+			{
+				transform.Position = collider->gameObject->transform.Position;
+			}
+			else
+			{
+				transform.Position = collider->position;
+			}
+
+			boxRenderer->Draw(camera);
+		}
 	}
 	glDisable(GL_BLEND);
 #endif

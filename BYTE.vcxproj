@@ -188,6 +188,7 @@
     <ClCompile Include="Source\Graphics\Texture.cpp" />
     <ClCompile Include="Source\Graphics\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Graphics\UIRenderer.cpp" />
+    <ClCompile Include="Source\Graphics\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game\Enemy.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Source\Engine\Utilities.h" />
     <ClInclude Include="Source\Graphics\SpriteRenderer.h" />
     <ClInclude Include="Source\Graphics\UIRenderer.h" />
+    <ClInclude Include="Source\Graphics\UISystem.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Assimp\lib\assimp-vc143-mt.dll">
@@ -248,6 +250,8 @@
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\screen.vert" />
     <None Include="Source\Shaders\sprite.frag" />
+    <None Include="Source\Shaders\ui.frag" />
+    <None Include="Source\Shaders\ui.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

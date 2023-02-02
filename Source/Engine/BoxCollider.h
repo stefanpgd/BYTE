@@ -15,6 +15,7 @@ public:
 	std::string Tag;
 	glm::vec2 Size;
 	bool IsStatic = false;
+	bool IsActive = true;
 
 private:
 	GameObject* gameObject;

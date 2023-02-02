@@ -3,6 +3,7 @@
 class Renderer;
 class GameManager;
 class CollisionSystem;
+class UISystem;
 
 class Engine
 {
@@ -15,4 +16,5 @@ private:
 	Renderer* renderer;
 	GameManager* gameManager;
 	CollisionSystem* collisionSystem;
+	UISystem* uiSystem;
 };

@@ -19,7 +19,11 @@ class Texture
 {
 public:
 	Texture(const std::string& filePath, TextureType type, bool loadSRGB = false, int wrapMode = GL_REPEAT, int mipmapMode = GL_LINEAR);
+	
 	void Bind(const ShaderProgram* program);
+
+	int GetWidth();
+	int GetHeight();
 
 private:
 	TextureType type;

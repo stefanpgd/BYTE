@@ -61,6 +61,16 @@ Model::Model(const std::string& path, Transform* transform)
 	ModelArchive.push_back(this);
 }
 
+void Model::Draw(ShaderProgram* shaderProgram)
+{
+	shaderProgram->SetMat4("ModelMatrix", transform->GetModelMatrix());
+
+	for(unsigned int i = 0; i < meshes.size(); i++)
+	{
+		meshes[i]->Draw();
+	}
+}
+
 void Model::Draw(ShaderProgram* shaderProgram, Camera* camera)
 {
 	shaderProgram->SetMat4("ModelMatrix", transform->GetModelMatrix());

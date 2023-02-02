@@ -6,6 +6,7 @@
 #include "../Graphics/Renderer.h"
 #include "../Graphics/Model.h"
 #include "../Graphics/ShaderProgram.h"
+#include "../Graphics/UISystem.h"
 
 // Engine // 
 #include "Camera.h"
@@ -45,11 +46,11 @@ Engine::Engine()
 
 	renderer = new Renderer("BYTE");
 	collisionSystem = new CollisionSystem();
+	uiSystem = new UISystem();
+	gameManager = new GameManager();
 
 	Audio::Initialize();
 	Input::Initialize(renderer->GetWindow());
-
-	gameManager = new GameManager();
 
 	// Initialize ImGui // 
 	IMGUI_CHECKVERSION();
@@ -85,6 +86,7 @@ void Engine::Run()
 		// Drawing //
 		gameManager->Draw();
 		collisionSystem->Draw(gameManager->camera);
+		uiSystem->Draw();
 		gameManager->ImGuiDraw();
 
 		renderer->RenderFrame();

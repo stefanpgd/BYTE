@@ -123,6 +123,9 @@
     <ClCompile Include="Source\Graphics\UIRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\UISystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h">
@@ -242,6 +245,9 @@
     <ClInclude Include="Source\Graphics\UIRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\UISystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Assimp\lib\assimp-vc143-mt.dll" />
@@ -255,5 +261,7 @@
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\gaussianBlur.frag" />
     <None Include="Source\Shaders\sprite.frag" />
+    <None Include="Source\Shaders\ui.vert" />
+    <None Include="Source\Shaders\ui.frag" />
   </ItemGroup>
 </Project>

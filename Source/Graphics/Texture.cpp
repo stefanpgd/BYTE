@@ -50,3 +50,13 @@ void Texture::Bind(const ShaderProgram* program)
 	glBindTexture(GL_TEXTURE_2D, ID);
 	program->SetInt(bindNames[int(typeValue)], typeValue);
 }
+
+int Texture::GetWidth()
+{
+	return width;
+}
+
+int Texture::GetHeight()
+{
+	return height;
+}
