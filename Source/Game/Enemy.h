@@ -23,6 +23,7 @@ private:
 	Transform eyeTransform;
 
 	int health = 5;
+	int maxHealth = health;
 
 	float damageTimer = 0.0f;
 	float damageCooldown = 0.12f;

@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\EnemyDeathEffect.cpp" />
     <ClCompile Include="Source\Game\Enemy.cpp" />
     <ClCompile Include="Source\Engine\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\CollisionSystem.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Source\Graphics\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\EnemyDeathEffect.h" />
     <ClInclude Include="Source\Game\Enemy.h" />
     <ClInclude Include="Source\Engine\CollisionSystem.h" />
     <ClInclude Include="Source\Engine\BoxCollider.h" />

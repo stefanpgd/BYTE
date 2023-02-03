@@ -14,8 +14,6 @@
 
 SpriteRenderer* map;
 Transform transform;
-Enemy* enemy;
-Enemy* enemy2;
 
 GameManager::GameManager()
 {
@@ -26,9 +24,12 @@ GameManager::GameManager()
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
 
-	enemy = new Enemy(&player->transform);
-	enemy2 = new Enemy(&player->transform);
-	enemy2->transform.Position = glm::vec3(2.0f, 0.0f, 0.0f);
+	for(int i = 0; i < 8; i++)
+	{
+		Enemy* enemy = new Enemy(&player->transform);
+		enemy->transform.Position.x = RandomInRange(-4.0f, 4.0f);
+		enemy->transform.Position.y = RandomInRange(-4.0f, 4.0f);
+	}
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)

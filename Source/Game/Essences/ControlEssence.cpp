@@ -124,34 +124,3 @@ void ControlEssence::RightHandDraw(Camera* camera)
 {
 	rightHandRenderer->Draw(camera);
 }
-
-//handTransform.Position = targetLeftHand;
-
-//handTransform.Position = targetRightHand;
-//handRenderer->Draw(camera);
-
-//if(glm::length(lastInput) > 0.2f)
-//{
-//	handRenderer->Draw(camera);
-
-//	float angle = cosf(swingAngle + swingDelay) * swingAngleMax;
-//	float x = cosf(defaultAngle + angle) * swingRadius;
-//	float y = sinf(defaultAngle + angle) * swingRadius;
-
-//	glm::vec3 armOffset = walkHandOffset + glm::vec3(x, y, 0.0f);
-//	handOffset = armOffset;
-//	handOffset.x -= armDistance;
-
-//	handTransform.Position = playerTransform->Position + handOffset;
-//	handRenderer->Draw(camera);
-//}
-//else
-//{
-//	handRenderer->Draw(camera);
-//	leftHand = handOffset;
-//	leftHand.x = -leftHand.x;
-//	leftHand.y = handYOffset + cosf(handBopTimer + otherHandDelay) * handBopIdle;
-
-//	handTransform.Position = playerTransform->Position + leftHand;
-//	handRenderer->Draw(camera);
-//}
