@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Graphics\ParticleSystem.cpp" />
     <ClCompile Include="Source\Game\EnemyDeathEffect.cpp" />
     <ClCompile Include="Source\Game\Enemy.cpp" />
     <ClCompile Include="Source\Engine\BoxCollider.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Source\Graphics\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Graphics\ParticleSystem.h" />
     <ClInclude Include="Source\Game\EnemyDeathEffect.h" />
     <ClInclude Include="Source\Game\Enemy.h" />
     <ClInclude Include="Source\Engine\CollisionSystem.h" />
@@ -249,6 +251,8 @@
     <None Include="Source\Shaders\color.frag" />
     <None Include="Source\Shaders\color.vert" />
     <None Include="Source\Shaders\gaussianBlur.frag" />
+    <None Include="Source\Shaders\particle.frag" />
+    <None Include="Source\Shaders\particle.vert" />
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\screen.vert" />
     <None Include="Source\Shaders\sprite.frag" />

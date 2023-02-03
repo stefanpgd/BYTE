@@ -39,6 +39,7 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 
 	if(Input::GetMouseButton(0))
 	{
+		isActive = true;
 		if(delayTimer <= 0.0f)
 		{
 			Bullet* bullet = new Bullet(camRay, 25.0f, 10.2f, 0.20f);
@@ -51,6 +52,10 @@ void ExcitementEssence::Update(float deltaTime, glm::vec2 directionalInput)
 			Audio::PlaySound("shoot.wav");
 			Camera::ApplyScreenshake(0.15f, 0.05f, -camRay);
 		}
+	}
+	else
+	{
+		isActive = false;
 	}
 }
 

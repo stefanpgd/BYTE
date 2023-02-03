@@ -1,5 +1,6 @@
 #include "EnemyDeathEffect.h"
 #include "../Graphics/SpriteRenderer.h"
+#include "../Graphics/ParticleSystem.h"
 #include "../Engine/Utilities.h"
 
 EnemyDeathEffect::EnemyDeathEffect(glm::vec3 position, glm::vec3 playerPosition, int enemySpriteIndex)
@@ -33,6 +34,35 @@ EnemyDeathEffect::EnemyDeathEffect(glm::vec3 position, glm::vec3 playerPosition,
 
 	headRotationZ = RandomInRange(-headRotationMax, headRotationMax);
 	legRotationZ = RandomInRange(-legRotationMax, legRotationMax);
+
+	// Particle System //
+	Particle minParticle;
+	minParticle.LifeTime = 100.2f;
+	minParticle.Color = glm::vec3(1.0f, 0.0f, 0.0f);
+	minParticle.Emission = 0.0f;
+	minParticle.Z = -0.01f;
+	minParticle.Size = 1.0f / 18.0f;
+	minParticle.MoveSpeed = 0.5f;
+	minParticle.Drag = 10.0f;
+
+	Particle maxParticle = minParticle;
+	maxParticle.Color = glm::vec3(0.4f, 0.0f, 0.0f);
+	maxParticle.Size = 1.0f / 12.0f;
+	maxParticle.MoveSpeed = 2.5f;
+	maxParticle.Drag = 25.0f;
+
+	ParticleSystemSettings system;
+	system.UseMinMax = true;
+	system.MinParticle = minParticle;
+	system.MaxParticle = maxParticle;
+	system.particlesPerSeconds = 75;
+	system.duration = 3.5f;
+
+	headParticleEffect = new ParticleSystem(system, headTransform.Position);
+	headParticleEffect->Activate();
+
+	legParticleEffect = new ParticleSystem(system, legTransform.Position);
+	legParticleEffect->Activate();
 }
 
 void EnemyDeathEffect::Update(float deltaTime)
@@ -45,10 +75,15 @@ void EnemyDeathEffect::Update(float deltaTime)
 
 	headTransform.Position = Lerp(headTransform.Position, headTarget, headEffectSpeed * deltaTime);
 	legTransform.Position = Lerp(legTransform.Position, legTarget, legEffectSpeed * deltaTime);
+
+	headParticleEffect->Update(deltaTime);
+	legParticleEffect->Update(deltaTime);
 }
 
 void EnemyDeathEffect::Draw(Camera* camera)
 {
+	headParticleEffect->Draw(camera);
+	legParticleEffect->Draw(camera);
 	headRenderer->Draw(camera);
 	legRenderer->Draw(camera);
 }

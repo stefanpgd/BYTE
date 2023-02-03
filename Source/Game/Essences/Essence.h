@@ -17,6 +17,7 @@ public:
 	virtual void Update(float deltaTime, glm::vec2 directionalInput);
 
 	float FOV;
+	bool isActive = false;
 
 protected:
 	virtual void LeftHandDraw(Camera* camera) = 0;

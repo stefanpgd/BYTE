@@ -129,6 +129,9 @@
     <ClCompile Include="Source\Game\EnemyDeathEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\ParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h">
@@ -254,6 +257,9 @@
     <ClInclude Include="Source\Game\EnemyDeathEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Assimp\lib\assimp-vc143-mt.dll" />
@@ -269,5 +275,7 @@
     <None Include="Source\Shaders\sprite.frag" />
     <None Include="Source\Shaders\ui.vert" />
     <None Include="Source\Shaders\ui.frag" />
+    <None Include="Source\Shaders\particle.vert" />
+    <None Include="Source\Shaders\particle.frag" />
   </ItemGroup>
 </Project>

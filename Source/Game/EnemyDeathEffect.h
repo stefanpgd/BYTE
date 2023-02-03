@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 class SpriteRenderer;
+class ParticleSystem;
 
 class EnemyDeathEffect : public GameObject
 {
@@ -14,6 +15,9 @@ public:
 private:
 	SpriteRenderer* headRenderer;
 	SpriteRenderer* legRenderer;
+
+	ParticleSystem* headParticleEffect;
+	ParticleSystem* legParticleEffect;
 
 	Transform headTransform;
 	Transform legTransform;

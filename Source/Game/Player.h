@@ -40,7 +40,8 @@ private:
 	float FOVLerpSpeed = 5.0f;
 
 	// Movement //
-	float movementSpeed = 3.6f;
+	float baseMovementSpeed = 3.6f;
+	float movementSpeed;
 	float horizontalInput = 0.0f;
 	float verticalInput = 0.0f;
 	float inputReponse = 6.5f;

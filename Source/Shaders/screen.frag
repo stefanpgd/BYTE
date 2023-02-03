@@ -19,6 +19,7 @@ void main()
     const float gamma = 2.2;
     vec3 color;
 
+    // Weaker Chromatic Aberration around the center, stronger around the edges //
     if(centeredCA)
     {
         vec2 center = vec2(0.5, 0.5);

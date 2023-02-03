@@ -35,6 +35,8 @@ void ControlEssence::Update(float deltaTime, glm::vec2 directionalInput)
 
 	if(Input::GetMouseButton(0))
 	{
+		isActive = true;
+
 		if(punchTimer > punchCooldown)
 		{
 			punchTimer = 0.0f;
@@ -61,6 +63,10 @@ void ControlEssence::Update(float deltaTime, glm::vec2 directionalInput)
 
 			nextHandIsRight = !nextHandIsRight;
 		}
+	}
+	else
+	{
+		isActive = false;
 	}
 
 	if(leftHandPunching)

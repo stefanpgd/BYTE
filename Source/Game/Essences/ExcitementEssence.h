@@ -10,6 +10,7 @@ public:
 
 	virtual void Update(float deltaTime, glm::vec2 directionalInput) override;
 
+
 private:
 	virtual void LeftHandDraw(Camera* camera) override;
 	virtual void RightHandDraw(Camera* camera) override;

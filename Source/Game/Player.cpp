@@ -115,6 +115,15 @@ void Player::Update(float deltaTime)
 	eyeTransform.Position = transform.Position + eyePos;
 
 	activeEssence->Update(deltaTime, v);
+
+	if(activeEssence->isActive)
+	{
+		movementSpeed = baseMovementSpeed * 0.5f;
+	}
+	else
+	{
+		movementSpeed = baseMovementSpeed;
+	}
 }
 
 void Player::Draw(Camera* camera)
