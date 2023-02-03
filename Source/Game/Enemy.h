@@ -25,6 +25,10 @@ private:
 	int health = 5;
 	int maxHealth = health;
 
+	float movementSpeed = 1.f;
+	float avoidance = 0.7f;
+	float lastDeltaTime = 0.0f;
+
 	float damageTimer = 0.0f;
 	float damageCooldown = 0.12f;
 	float hitEffectTimer = 1.0f;

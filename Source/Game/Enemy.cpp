@@ -30,7 +30,7 @@ Enemy::~Enemy()
 
 void Enemy::Update(float deltaTime)
 {
-	glm::vec3 dir = playerTransform->Position - transform.Position;
+	glm::vec3 dir = glm::normalize(playerTransform->Position - transform.Position);
 	glm::vec3 eyePos = glm::normalize(playerTransform->Position - transform.Position) * eyeFollowMax;
 
 	enemyRenderer->FlipX = dir.x < 0;
@@ -61,8 +61,8 @@ void Enemy::Update(float deltaTime)
 		eyeRenderer->ColorOverwriteEnabled = false;
 	}
 
-
-
+	transform.Position += dir * movementSpeed * deltaTime;
+	lastDeltaTime = deltaTime;
 }
 
 void Enemy::Draw(Camera* camera)
@@ -116,5 +116,14 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 		enemyRenderer->SetAnimationStride(frame, frame, 100.0f);
 		eyeRenderer->Color = Lerp(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), p * 1.5f);
 		eyeRenderer->Emission = Lerp(0.0f, 5.0f, p);
+	}
+
+	if(tag == "enemy")
+	{
+		if(obj != nullptr)
+		{
+			glm::vec3 dir = glm::normalize(transform.Position - obj->transform.Position);
+			transform.Position += dir * avoidance * lastDeltaTime;
+		}
 	}
 }
