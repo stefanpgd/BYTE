@@ -30,7 +30,7 @@ Enemy::~Enemy()
 
 void Enemy::Update(float deltaTime)
 {
-	glm::vec3 dir = glm::normalize(playerTransform->Position - transform.Position);
+	glm::vec3 dir = playerTransform->Position - transform.Position;
 	glm::vec3 eyePos = glm::normalize(playerTransform->Position - transform.Position) * eyeFollowMax;
 
 	enemyRenderer->FlipX = dir.x < 0;
@@ -61,7 +61,19 @@ void Enemy::Update(float deltaTime)
 		eyeRenderer->ColorOverwriteEnabled = false;
 	}
 
-	transform.Position += dir * movementSpeed * deltaTime;
+	walkAnimTimer += walkAnimSpeed * deltaTime;
+	if(glm::length(dir) > meleeRange)
+	{
+		transform.Position += glm::normalize(dir) * movementSpeed * deltaTime;
+		transform.Rotation.z = cosf(walkAnimTimer) * walkAnimAngle;
+	}
+	else
+	{
+		walkAnimTimer = 0.0f;
+		transform.Rotation.z = Lerp(transform.Rotation.z, 0.0f, walkResetSpeed * deltaTime);
+	}
+
+	eyeTransform.Rotation.z = transform.Rotation.z;
 	lastDeltaTime = deltaTime;
 }
 
