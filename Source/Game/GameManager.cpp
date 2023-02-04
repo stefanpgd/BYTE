@@ -7,7 +7,6 @@
 #include "Engine/Utilities.h"
 #include "Engine/Input.h"
 #include "Engine/BoxCollider.h"
-
 #include "Graphics/SpriteRenderer.h"
 
 #include <imgui.h>
@@ -24,7 +23,7 @@ GameManager::GameManager()
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
 
-	for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 12; i++)
 	{
 		Enemy* enemy = new Enemy(&player->transform);
 		enemy->transform.Position.x = RandomInRange(-4.0f, 4.0f);

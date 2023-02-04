@@ -1,5 +1,6 @@
 #include "Game/Enemy.h"
 #include "Game/EnemyDeathEffect.h"
+#include "Game/DamageTextEffect.h"
 
 #include "Engine/Utilities.h"
 #include "Engine/Audio.h"
@@ -90,6 +91,10 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 		if(tag == "bullet")
 		{
 			health--;
+
+			int randomDamageTemp = RandomInRange(3, 8);
+			DamageTextEffect* effect = new DamageTextEffect(randomDamageTemp, transform.Position);
+
 			hitEffectTimer = 0.0f;
 
 			int randomSprite = RandomInRange(1, 4);
@@ -107,6 +112,9 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 			health--;
 			damageTimer = 0.0f;
 			hitEffectTimer = 0.0f;
+
+			int randomDamageTemp = RandomInRange(7, 21);
+			DamageTextEffect* effect = new DamageTextEffect(randomDamageTemp, transform.Position);
 
 			int randomSprite = RandomInRange(1, 4);
 			std::string path = "enemyHit" + std::to_string(randomSprite) + ".wav";

@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\DamageTextEffect.cpp" />
     <ClCompile Include="Source\Graphics\ParticleSystem.cpp" />
     <ClCompile Include="Source\Game\EnemyDeathEffect.cpp" />
     <ClCompile Include="Source\Game\Enemy.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Source\Graphics\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\DamageTextEffect.h" />
     <ClInclude Include="Source\Graphics\ParticleSystem.h" />
     <ClInclude Include="Source\Game\EnemyDeathEffect.h" />
     <ClInclude Include="Source\Game\Enemy.h" />
