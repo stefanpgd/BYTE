@@ -191,6 +191,7 @@
     <ClCompile Include="Source\Graphics\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Graphics\UIRenderer.cpp" />
     <ClCompile Include="Source\Graphics\UISystem.cpp" />
+    <ClCompile Include="Source\Graphics\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Graphics\ParticleSystem.h" />
@@ -235,6 +236,7 @@
     <ClInclude Include="Source\Graphics\SpriteRenderer.h" />
     <ClInclude Include="Source\Graphics\UIRenderer.h" />
     <ClInclude Include="Source\Graphics\UISystem.h" />
+    <ClInclude Include="Source\Graphics\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Assimp\lib\assimp-vc143-mt.dll">
@@ -256,6 +258,8 @@
     <None Include="Source\Shaders\screen.frag" />
     <None Include="Source\Shaders\screen.vert" />
     <None Include="Source\Shaders\sprite.frag" />
+    <None Include="Source\Shaders\text.frag" />
+    <None Include="Source\Shaders\text.vert" />
     <None Include="Source\Shaders\ui.frag" />
     <None Include="Source\Shaders\ui.vert" />
   </ItemGroup>

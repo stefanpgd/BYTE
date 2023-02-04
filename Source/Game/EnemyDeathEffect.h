@@ -27,7 +27,7 @@ private:
 
 	float angleOffset = 30.0f;
 	float minTravelDistance = 0.65f;
-	float maxTravelDistance = 1.8f;
+	float maxTravelDistance = 3.5f;
 
 	float headEffectSpeed = 0.0f;
 	float legEffectSpeed = 0.0f;

@@ -48,7 +48,7 @@ EnemyDeathEffect::EnemyDeathEffect(glm::vec3 position, glm::vec3 playerPosition,
 	Particle maxParticle = minParticle;
 	maxParticle.Color = glm::vec3(0.4f, 0.0f, 0.0f);
 	maxParticle.Size = 1.0f / 12.0f;
-	maxParticle.MoveSpeed = 2.5f;
+	maxParticle.MoveSpeed = 4.5f;
 	maxParticle.Drag = 25.0f;
 
 	ParticleSystemSettings system;
