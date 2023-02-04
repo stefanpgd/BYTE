@@ -1,7 +1,8 @@
-#include "Essence.h"
-#include "../../Graphics/SpriteRenderer.h"
-#include "../../Engine/Utilities.h"
-#include "../../Graphics/PostProcessor.h"
+#include "Game/Essences/Essence.h"
+
+#include "Engine/Utilities.h"
+#include "Graphics/SpriteRenderer.h"
+#include "Graphics/PostProcessor.h"
 
 Essence::Essence()
 {

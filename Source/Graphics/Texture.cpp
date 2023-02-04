@@ -1,8 +1,9 @@
-#include "Texture.h"
+#include "Graphics/Texture.h"
+
+#include "Graphics/ShaderProgram.h"
+
 #include <cassert>
 #include <stb_image.h>
-
-#include "ShaderProgram.h"
 
 Texture::Texture(const std::string& path, TextureType type, bool loadSRGB, int wrapMode, int mipmapMode)
 {

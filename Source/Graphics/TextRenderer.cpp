@@ -1,8 +1,9 @@
-#include "TextRenderer.h"
-#include "Texture.h"
-#include "ShaderProgram.h"
-#include "Model.h"
-#include "../Engine/Camera.h"
+#include "Graphics/TextRenderer.h"
+
+#include "Engine/Camera.h"
+#include "Graphics/Texture.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/Model.h"
 
 TextRenderer::TextRenderer(const std::string& text, Transform* transform)
 {

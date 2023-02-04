@@ -1,7 +1,8 @@
-#include "EnemyDeathEffect.h"
-#include "../Graphics/SpriteRenderer.h"
-#include "../Graphics/ParticleSystem.h"
-#include "../Engine/Utilities.h"
+#include "Game/EnemyDeathEffect.h"
+
+#include "Engine/Utilities.h"
+#include "Graphics/SpriteRenderer.h"
+#include "Graphics/ParticleSystem.h"
 
 EnemyDeathEffect::EnemyDeathEffect(glm::vec3 position, glm::vec3 playerPosition, int enemySpriteIndex)
 {
@@ -37,7 +38,7 @@ EnemyDeathEffect::EnemyDeathEffect(glm::vec3 position, glm::vec3 playerPosition,
 
 	// Particle System //
 	Particle minParticle;
-	minParticle.LifeTime = 100.2f;
+	minParticle.LifeTime = 10.0f;
 	minParticle.Color = glm::vec3(1.0f, 0.0f, 0.0f);
 	minParticle.Emission = 0.0f;
 	minParticle.Z = -0.01f;

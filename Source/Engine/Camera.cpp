@@ -1,9 +1,9 @@
-#include "Camera.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include "../Graphics/Renderer.h"
-#include "Utilities.h"
+#include "Engine/Camera.h"
+#include "Engine/Utilities.h"
+#include "Engine/Input.h"
+#include "Graphics/Renderer.h"
 
-#include "Input.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 Camera::Camera(const glm::vec3& position, const glm::vec3& front, const glm::vec3& up) :
 	Position(position), Front(front), Up(up)

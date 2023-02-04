@@ -1,15 +1,13 @@
-#include "Renderer.h"
+#include "Graphics/Renderer.h"
+
 #include <iostream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include "Framebuffer.h"
-#include "ShaderProgram.h"
-#include "PostProcessor.h"
-
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+
+#include "Graphics/Framebuffer.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/PostProcessor.h"
 
 Renderer::Renderer(const std::string& windowName)
 {

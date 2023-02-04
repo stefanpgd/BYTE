@@ -1,8 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "Game/GameObject.h"
 
-#include "Essences/ControlEssence.h"
-#include "Essences/ExcitementEssence.h"
+#include "Game/Essences/ControlEssence.h"
+#include "Game/Essences/ExcitementEssence.h"
 
 class SpriteRenderer;
 class BoxCollider;

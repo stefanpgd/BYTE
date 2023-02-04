@@ -1,9 +1,9 @@
-#include "SpriteRenderer.h"
+#include "Graphics/SpriteRenderer.h"
 
-#include "../Engine/Transform.h"
-#include "../Graphics/Model.h"
-#include "../Graphics/ShaderProgram.h"
-#include "../Graphics/Texture.h"
+#include "Engine/Transform.h"
+#include "Graphics/Model.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/Texture.h"
 
 SpriteRenderer::SpriteRenderer(const std::string& fileName, Transform* transform, unsigned int framesInTexture, float framesPerSecond) : 
 	framesInTexture(framesInTexture), FramesPerSecond(framesPerSecond)

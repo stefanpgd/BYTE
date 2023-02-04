@@ -1,13 +1,13 @@
 #include "Player.h"
 
-#include "../Engine/Input.h"
-#include "../Engine/Utilities.h"
-#include "../Engine/Audio.h"
-#include "../Engine/BoxCollider.h"
+#include "Engine/Input.h"
+#include "Engine/Utilities.h"
+#include "Engine/Audio.h"
+#include "Engine/BoxCollider.h"
 
-#include "../Graphics/SpriteRenderer.h"
-#include "../Graphics/PostProcessor.h"
-#include "../Graphics/Renderer.h"
+#include "Graphics/SpriteRenderer.h"
+#include "Graphics/PostProcessor.h"
+#include "Graphics/Renderer.h"
 
 #include <imgui.h>
 

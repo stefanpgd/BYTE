@@ -1,4 +1,4 @@
-#include "ScreenQuad.h"
+#include "Graphics/ScreenQuad.h"
 #include <glad/glad.h>
 
 ScreenQuad::ScreenQuad()

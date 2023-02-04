@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "Game/GameObject.h"
 #include <glm/glm.hpp>
 
 class SpriteRenderer;

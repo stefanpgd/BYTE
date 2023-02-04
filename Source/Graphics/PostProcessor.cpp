@@ -1,7 +1,7 @@
-#include "PostProcessor.h"
-#include "ShaderProgram.h"
-#include "ScreenQuad.h"
-#include "Framebuffer.h"
+#include "Graphics/PostProcessor.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/ScreenQuad.h"
+#include "Graphics/Framebuffer.h"
 
 #include <glad/glad.h>
 #include <imgui.h>

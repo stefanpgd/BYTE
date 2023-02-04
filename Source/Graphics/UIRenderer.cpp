@@ -1,9 +1,10 @@
-#include "UIRenderer.h"
-#include "Model.h"
-#include "ShaderProgram.h"
-#include "Texture.h"
-#include "Renderer.h"
-#include "UISystem.h"
+#include "Graphics/UIRenderer.h"
+
+#include "Graphics/Model.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/Texture.h"
+#include "Graphics/Renderer.h"
+#include "Graphics/UISystem.h"
 
 #include <imgui.h>
 

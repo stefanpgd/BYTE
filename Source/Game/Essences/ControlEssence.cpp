@@ -1,9 +1,10 @@
-#include "ControlEssence.h"
-#include "../../Engine/Utilities.h"
-#include "../../Engine/Camera.h"
-#include "../../Engine/Input.h"
-#include "../../Engine/Audio.h"
-#include "../../Engine/BoxCollider.h"
+#include "Game/Essences/ControlEssence.h"
+
+#include "Engine/Utilities.h"
+#include "Engine/Camera.h"
+#include "Engine/Input.h"
+#include "Engine/Audio.h"
+#include "Engine/BoxCollider.h"
 
 #include <imgui.h>
 

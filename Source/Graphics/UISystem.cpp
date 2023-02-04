@@ -1,5 +1,6 @@
-#include "UISystem.h"
-#include "../Graphics/UIRenderer.h"
+#include "Graphics/UISystem.h"
+
+#include "Graphics/UIRenderer.h"
 
 void UISystem::Draw()
 {

@@ -1,9 +1,9 @@
-#include "Model.h"
-#include "Mesh.h"
-#include "ShaderProgram.h"
+#include "Graphics/Model.h"
+#include "Graphics/Mesh.h"
+#include "Graphics/ShaderProgram.h"
 
-#include "../Engine/Transform.h"
-#include "../Engine/Camera.h"
+#include "Engine/Transform.h"
+#include "Engine/Camera.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

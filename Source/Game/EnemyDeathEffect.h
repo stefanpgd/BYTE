@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "Game/GameObject.h"
 
 class SpriteRenderer;
 class ParticleSystem;

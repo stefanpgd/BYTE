@@ -1,5 +1,5 @@
-#include "BoxCollider.h"
-#include "CollisionSystem.h"
+#include "Engine/BoxCollider.h"
+#include "Engine/CollisionSystem.h"
 
 BoxCollider::BoxCollider(GameObject* obj, glm::vec2 size, std::string tag) :
 	gameObject(obj), Size(size), Tag(tag)

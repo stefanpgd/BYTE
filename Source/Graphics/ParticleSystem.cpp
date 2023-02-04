@@ -1,8 +1,9 @@
-#include "ParticleSystem.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Utilities.h"
-#include "Model.h"
-#include "ShaderProgram.h"
+#include "Graphics/ParticleSystem.h"
+
+#include "Engine/Camera.h"
+#include "Engine/Utilities.h"
+#include "Graphics/Model.h"
+#include "Graphics/ShaderProgram.h"
 
 ParticleSystem::ParticleSystem(const ParticleSystemSettings& systemSettings, glm::vec3& spawnPosition) : spawnPosition(spawnPosition)
 {

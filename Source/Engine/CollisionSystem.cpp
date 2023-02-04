@@ -1,8 +1,9 @@
-#include "CollisionSystem.h"
-#include "BoxCollider.h"
-#include "../Game/GameObject.h"
-#include "../Graphics/SpriteRenderer.h"
-#include "Camera.h"
+#include "Engine/CollisionSystem.h"
+#include "Engine/BoxCollider.h"
+#include "Engine/Camera.h"
+
+#include "Graphics/SpriteRenderer.h"
+#include "Game/GameObject.h"
 
 #include <glad/glad.h>
 #include <imgui.h>

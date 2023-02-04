@@ -1,8 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
-#include "../../Engine/Transform.h"
-#include "../../Engine/Camera.h"
-#include "../../Graphics/SpriteRenderer.h"
+#include "Engine/Transform.h"
+#include "Engine/Camera.h"
+#include "Graphics/SpriteRenderer.h"
 
 class SpriteRenderer;
 

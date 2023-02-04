@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
-#include "../Engine/Transform.h"
+#include "Engine/Transform.h"
 
 class Texture;
 class ShaderProgram;

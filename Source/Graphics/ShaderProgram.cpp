@@ -1,4 +1,4 @@
-#include "ShaderProgram.h"
+#include "Graphics/ShaderProgram.h"
 #include <fstream>
 #include <sstream>
 #include <glad/glad.h>
@@ -118,7 +118,6 @@ void ShaderProgram::SetFloat(const std::string& name, float value) const
 {
 	glUniform1f(glGetUniformLocation(shaderProgramID, name.c_str()), value);
 }
-
 
 void ShaderProgram::SetVec2(const std::string& name, float x, float y) const
 {

@@ -1,11 +1,12 @@
-#include "ExcitementEssence.h"
+#include "Game/Essences/ExcitementEssence.h"
+#include "Game/Bullet.h"
 
-#include "../../Engine/Input.h"
-#include "../../Engine/Audio.h"
-#include "../../Engine/Utilities.h"
-#include "../../Graphics/Renderer.h"
-#include "../../Engine/Camera.h"
-#include "../Bullet.h"
+#include "Engine/Input.h"
+#include "Engine/Audio.h"
+#include "Engine/Camera.h"
+#include "Engine/Utilities.h"
+#include "Graphics/Renderer.h"
+
 #include <imgui.h>
 
 ExcitementEssence::ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera)

@@ -1,14 +1,14 @@
-#include "GameManager.h"
-#include "GameObject.h"
-#include "../Engine/Camera.h"
-#include "../Engine/Utilities.h"
-#include "../Engine/Input.h"
-#include "../Engine/BoxCollider.h"
+#include "Game/GameManager.h"
+#include "Game/GameObject.h"
+#include "Game/Player.h"
+#include "Game/Enemy.h"
 
-#include "../Graphics/SpriteRenderer.h"
+#include "Engine/Camera.h"
+#include "Engine/Utilities.h"
+#include "Engine/Input.h"
+#include "Engine/BoxCollider.h"
 
-#include "../Game/Player.h"
-#include "../Game/Enemy.h"
+#include "Graphics/SpriteRenderer.h"
 
 #include <imgui.h>
 
@@ -70,7 +70,6 @@ void GameManager::Update(float deltaTime)
 void GameManager::Draw()
 {
 	map->Draw(camera);
-	textRenderer->Draw(camera);
 
 	for(GameObject* obj : gameObjects)
 	{

@@ -1,7 +1,8 @@
-#include "Bullet.h"
-#include "../Graphics/SpriteRenderer.h"
-#include "../Engine/Utilities.h"
-#include "../Engine/BoxCollider.h"
+#include "Game/Bullet.h"
+
+#include "Engine/Utilities.h"
+#include "Engine/BoxCollider.h"
+#include "Graphics/SpriteRenderer.h"
 
 Bullet::Bullet(glm::vec3 direction, float speed, float lifeTime, float spread) :
 	speed(speed), lifeTime(lifeTime), spread(spread)

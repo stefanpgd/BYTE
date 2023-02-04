@@ -4,7 +4,6 @@
 
 // Credits to Joey de Vries
 // Source: https://learnopengl.com/Getting-started/Shaders
-
 class ShaderProgram
 {
 public:

@@ -1,4 +1,5 @@
-#include "Framebuffer.h"
+#include "Graphics/Framebuffer.h"
+
 #include <glad/glad.h>
 #include <iostream>
 

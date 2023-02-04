@@ -1,5 +1,5 @@
 #pragma once
-#include "Essence.h"
+#include "Game/Essences/Essence.h"
 
 class Camera;
 
@@ -9,7 +9,6 @@ public:
 	ExcitementEssence(Transform* playerTransform, SpriteRenderer* eyeRenderer, Camera* camera);
 
 	virtual void Update(float deltaTime, glm::vec2 directionalInput) override;
-
 
 private:
 	virtual void LeftHandDraw(Camera* camera) override;

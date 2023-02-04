@@ -1,11 +1,11 @@
-#include "Enemy.h"
-#include "EnemyDeathEffect.h"
+#include "Game/Enemy.h"
+#include "Game/EnemyDeathEffect.h"
 
-#include "../Graphics/SpriteRenderer.h"
-#include "../Engine/Utilities.h"
-#include "../Engine/Audio.h"
-#include "../Engine/BoxCollider.h"
-#include "../Engine/Camera.h"
+#include "Engine/Utilities.h"
+#include "Engine/Audio.h"
+#include "Engine/BoxCollider.h"
+#include "Engine/Camera.h"
+#include "Graphics/SpriteRenderer.h"
 
 #include <string>
 

@@ -1,19 +1,19 @@
-#include "Engine.h"
+#include "Engine/Engine.h"
 
 // Graphics //
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "../Graphics/Renderer.h"
-#include "../Graphics/Model.h"
-#include "../Graphics/ShaderProgram.h"
-#include "../Graphics/UISystem.h"
+#include "Graphics/Renderer.h"
+#include "Graphics/Model.h"
+#include "Graphics/ShaderProgram.h"
+#include "Graphics/UISystem.h"
 
 // Engine // 
-#include "Camera.h"
-#include "Input.h"
-#include "Audio.h"
-#include "Transform.h"
-#include "CollisionSystem.h"
+#include "Engine/Camera.h"
+#include "Engine/Input.h"
+#include "Engine/Audio.h"
+#include "Engine/Transform.h"
+#include "Engine/CollisionSystem.h"
 
 // STD & External libraries // 
 #include <iostream>
@@ -27,7 +27,7 @@
 #include <imgui_impl_opengl3.h>
 
 // Game // 
-#include "../Game/GameManager.h"
+#include "Game/GameManager.h"
 
 static void GLFWErrorCallback(int error, const char* description)
 {

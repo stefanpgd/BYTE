@@ -1,5 +1,5 @@
 #pragma once
-#include "Essence.h"
+#include "Game/Essences/Essence.h"
 
 class BoxCollider;
 
