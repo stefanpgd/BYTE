@@ -6,7 +6,6 @@
 #include "../Engine/BoxCollider.h"
 
 #include "../Graphics/SpriteRenderer.h"
-#include "../Graphics/TextRenderer.h"
 
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
@@ -15,9 +14,6 @@
 
 SpriteRenderer* map;
 Transform transform;
-
-TextRenderer* textRenderer;
-Transform textTransform;
 
 GameManager::GameManager()
 {
@@ -34,9 +30,6 @@ GameManager::GameManager()
 		enemy->transform.Position.x = RandomInRange(-4.0f, 4.0f);
 		enemy->transform.Position.y = RandomInRange(-4.0f, 4.0f);
 	}
-
-	textRenderer = new TextRenderer("pixelNumbers.png", &textTransform);
-	textTransform.Position = glm::vec3(0.0f, 0.0f, 1.0f);
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)

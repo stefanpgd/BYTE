@@ -18,9 +18,13 @@ public:
 private:
 	unsigned int GetFontPosition(char c);
 
+	float letterOffset = 1.0f;
+	std::string text;
+
 	Texture* font;
 	ShaderProgram* textPipeline;
 	Model* quad;
 
 	Transform* transform;
+	Transform letterTransform;
 };
