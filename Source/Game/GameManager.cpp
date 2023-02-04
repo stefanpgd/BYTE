@@ -35,7 +35,7 @@ GameManager::GameManager()
 		enemy->transform.Position.y = RandomInRange(-4.0f, 4.0f);
 	}
 
-	textRenderer = new TextRenderer("numberFont.png", &textTransform);
+	textRenderer = new TextRenderer("pixelNumbers.png", &textTransform);
 	textTransform.Position = glm::vec3(0.0f, 0.0f, 1.0f);
 }
 

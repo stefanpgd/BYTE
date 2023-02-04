@@ -11,7 +11,7 @@ TextRenderer::TextRenderer(const std::string& fontName, Transform* transform)
 	quad = new Model("Quad/Quad.gltf", this->transform);
 	textPipeline = new ShaderProgram("text.vert", "text.frag");
 
-	std::string fontPath = "Assets/Fonts/" + fontName;
+	std::string fontPath = "Fonts/" + fontName;
 	font = new Texture(fontPath, TextureType::Albedo, true, GL_REPEAT, GL_NEAREST);
 }
 
