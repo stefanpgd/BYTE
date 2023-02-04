@@ -1,4 +1,5 @@
 #include "Game/EnemyDeathEffect.h"
+#include "Game/GameTime.h"
 
 #include "Engine/Utilities.h"
 #include "Graphics/SpriteRenderer.h"
@@ -64,6 +65,8 @@ EnemyDeathEffect::EnemyDeathEffect(glm::vec3 position, glm::vec3 playerPosition,
 
 	legParticleEffect = new ParticleSystem(system, legTransform.Position);
 	legParticleEffect->Activate();
+
+	GameTime::QueuePauseTicks(pauseTicks);
 }
 
 void EnemyDeathEffect::Update(float deltaTime)

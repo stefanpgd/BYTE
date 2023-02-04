@@ -2,6 +2,7 @@
 #include "Game/GameObject.h"
 #include "Game/Player.h"
 #include "Game/Enemy.h"
+#include "Game/GameTime.h"
 
 #include "Engine/Camera.h"
 #include "Engine/Utilities.h"
@@ -38,6 +39,8 @@ void GameManager::AddGameObject(GameObject* gameObject)
 
 void GameManager::Update(float deltaTime)
 {
+	GameTime::Update();
+
 	// Clean up all game objects that have been marked for delete in the last frame // 
 	gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
 		[](GameObject* g) 
@@ -58,11 +61,13 @@ void GameManager::Update(float deltaTime)
 
 	queuedObjects.clear();
 
+	float gameTime = deltaTime * GameTime::GetTimeScale();
+
 	// Update Camera & GameObjects // 
-	camera->Update(deltaTime);
+	camera->Update(gameTime);
 	for(GameObject* obj : gameObjects)
 	{
-		obj->Update(deltaTime);
+		obj->Update(gameTime);
 	}
 }
 

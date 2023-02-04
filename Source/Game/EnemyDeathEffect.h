@@ -25,6 +25,8 @@ private:
 	glm::vec3 headTarget;
 	glm::vec3 legTarget;
 
+	int pauseTicks = 24;
+
 	float angleOffset = 30.0f;
 	float minTravelDistance = 0.65f;
 	float maxTravelDistance = 3.5f;
