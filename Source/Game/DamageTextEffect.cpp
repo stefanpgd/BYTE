@@ -6,7 +6,7 @@
 DamageTextEffect::DamageTextEffect(unsigned int damage, glm::vec3 position)
 {
 	transform.Position = position;
-	transform.Position.y += 0.5f;
+	transform.Position.y += 0.6f;
 	transform.Position.z += 0.2f;
 	transform.Scale = glm::vec3((damage * bigNumDecrease) * baseScale);
 	
@@ -16,7 +16,7 @@ DamageTextEffect::DamageTextEffect(unsigned int damage, glm::vec3 position)
 	float rad = glm::radians(90.0f + randomAngle);
 	textMoveDir.x = cosf(rad);
 	textMoveDir.y = sinf(rad);
-	textMoveDir.z = 3.0f;
+	textMoveDir.z = 2.2f * RandomInRange(0.5f, 1.5f);
 
 	textRenderer = new TextRenderer(std::to_string(damage), &transform);
 }
