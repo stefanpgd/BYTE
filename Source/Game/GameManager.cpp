@@ -3,6 +3,7 @@
 #include "Game/Player.h"
 #include "Game/Enemy.h"
 #include "Game/GameTime.h"
+#include "Game/DungeonGeneration.h"
 
 #include "Engine/Camera.h"
 #include "Engine/Utilities.h"
@@ -14,12 +15,15 @@
 
 SpriteRenderer* map;
 Transform transform;
+DungeonGeneration* dungeonGen;
 
 GameManager::GameManager()
 {
 	camera = new Camera(glm::vec3(0.0, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	player = new Player(camera);
-	map = new SpriteRenderer("testMap1.png", &transform);
+	//map = new SpriteRenderer("testMap1.png", &transform);
+
+	dungeonGen = new DungeonGeneration(10, 10);
 
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
@@ -73,7 +77,8 @@ void GameManager::Update(float deltaTime)
 
 void GameManager::Draw()
 {
-	map->Draw(camera);
+	//map->Draw(camera);
+	dungeonGen->Draw(camera);
 
 	for(GameObject* obj : gameObjects)
 	{

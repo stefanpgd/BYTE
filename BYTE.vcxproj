@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\DungeonGeneration.cpp" />
     <ClCompile Include="Source\Game\DamageTextEffect.cpp" />
     <ClCompile Include="Source\Game\GameTime.cpp" />
     <ClCompile Include="Source\Graphics\ParticleSystem.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Source\Graphics\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\DungeonGeneration.h" />
     <ClInclude Include="Source\Game\GameTime.h" />
     <ClInclude Include="Source\Game\DamageTextEffect.h" />
     <ClInclude Include="Source\Graphics\ParticleSystem.h" />
