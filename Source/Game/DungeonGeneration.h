@@ -40,8 +40,9 @@ public:
 
 private:
 	int lifeTime = 3;
-	unsigned int directionIndex = 1;
+	int directionIndex = 1;
 	glm::ivec2 position = glm::ivec2(4,4);
+	float turnProbability = 0.83f;
 
 	// Directions:
 	// 0 : Up

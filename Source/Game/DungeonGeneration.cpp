@@ -1,4 +1,6 @@
 #include "DungeonGeneration.h"
+
+#include "Engine/Utilities.h"
 #include "Graphics/SpriteRenderer.h"
 
 DungeonGeneration::DungeonGeneration(unsigned int width, unsigned int height)
@@ -60,7 +62,17 @@ void DungeonGeneration::Draw(Camera* camera)
 void Walker::Walk()
 {
 	position += directions[directionIndex];
+
 	// get new direction //
+	float roll = Random01();
+	if(roll < turnProbability)
+	{
+		// 50/50 chance to go either up or down
+		directionIndex = Random01() > 0.5 ? directionIndex - 1 : directionIndex + 1;
+
+		// Modulo to ensure it's within the 0-3 range
+		directionIndex = directionIndex % 4;
+	}
 
 	lifeTime--;
 }
