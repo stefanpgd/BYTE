@@ -15,11 +15,31 @@ DungeonGeneration::DungeonGeneration(unsigned int width, unsigned int height)
 	}
 
 	spriteRenderer = new SpriteRenderer("wall.png", &dungeonTransform);
+
+	GenerateDungeon();
 }
 
 void DungeonGeneration::GenerateDungeon()
 {
+	std::vector<Walker> walkers;
+	int walkerCount = 1;
 
+	for(int i = 0; i < walkerCount; i++)
+	{
+		Walker w;
+		walkers.push_back(w);
+	}
+
+	for(Walker& walker : walkers)
+	{
+		while(walker.IsAlive())
+		{
+			walker.Walk();
+
+			glm::ivec2 pos = walker.GetPosition();
+			mapIDs[pos.x + pos.y * mapWidth] = MapElements::Floor;
+		}
+	}
 }
 
 void DungeonGeneration::Draw(Camera* camera)
@@ -35,4 +55,22 @@ void DungeonGeneration::Draw(Camera* camera)
 			}
 		}
 	}
+}
+
+void Walker::Walk()
+{
+	position += directions[directionIndex];
+	// get new direction //
+
+	lifeTime--;
+}
+
+bool Walker::IsAlive()
+{
+	return lifeTime >= 0;
+}
+
+glm::ivec2 Walker::GetPosition()
+{
+	return position;
 }
