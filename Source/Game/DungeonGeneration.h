@@ -10,18 +10,22 @@ class Camera;
 enum class MapElements
 {
 	Wall,
-	Floor
+	Floor,
+	Empty
 };
 
 class DungeonGeneration
 {
 public:
-	DungeonGeneration(unsigned int width, unsigned int height);
+	DungeonGeneration(unsigned int width, unsigned int height, float dungeonScale);
 
 	void Draw(Camera* camera);
 
 private:
 	void GenerateDungeon();
+	void PostProcess();
+
+	bool OutOfBounds(unsigned int x, unsigned int y);
 
 	std::vector<MapElements> mapIDs;
 
@@ -29,20 +33,25 @@ private:
 	SpriteRenderer* spriteRenderer;
 	unsigned int mapWidth;
 	unsigned int mapHeight;
+	float dungeonScale;
 };
 
 class Walker
 {
 public:
+	Walker(unsigned int levelWidth, unsigned int levelHeight);
+
 	void Walk();
 	bool IsAlive();
 	glm::ivec2 GetPosition();
+	bool IsOutOfBounds();
 
 private:
-	int lifeTime = 3;
-	int directionIndex = 1;
-	glm::ivec2 position = glm::ivec2(4,4);
-	float turnProbability = 0.83f;
+	int lifeTime = 5;
+	glm::ivec2 position;
+
+	unsigned int levelWidth;
+	unsigned int levelHeight;
 
 	// Directions:
 	// 0 : Up
@@ -56,4 +65,7 @@ private:
 		glm::ivec2(0, -1),
 		glm::ivec2(-1, 0)
 	};
+
+	int directionIndex;
+	float turnProbability = 0.4f;
 };

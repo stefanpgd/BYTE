@@ -23,7 +23,7 @@ GameManager::GameManager()
 	player = new Player(camera);
 	//map = new SpriteRenderer("testMap1.png", &transform);
 
-	dungeonGen = new DungeonGeneration(10, 10);
+	dungeonGen = new DungeonGeneration(50, 50, 0.2f);
 
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
