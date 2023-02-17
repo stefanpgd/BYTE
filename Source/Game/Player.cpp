@@ -133,7 +133,12 @@ void Player::Draw(Camera* camera)
 
 	activeEssence->Draw(camera);
 
-	playerRenderer->Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	ImGui::Begin("test");
+	ImGui::ColorEdit3("Player Color", &playerRenderer->Color[0]);
+	ImGui::DragFloat("Emission", &playerRenderer->Emission);
+	ImGui::End();
+
+	playerRenderer->Color.w = 1.0f;
 }
 
 void Player::ImGuiDraw()
@@ -145,5 +150,5 @@ void Player::ImGuiDraw()
 
 void Player::OnCollision(const std::string& tag, GameObject* obj)
 {
-	//playerRenderer->Color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+
 }

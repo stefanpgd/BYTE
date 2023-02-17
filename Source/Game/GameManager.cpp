@@ -21,7 +21,6 @@ GameManager::GameManager()
 {
 	camera = new Camera(glm::vec3(0.0, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	player = new Player(camera);
-	//map = new SpriteRenderer("testMap1.png", &transform);
 
 	dungeonGen = new DungeonGeneration(50, 50, 0.2f);
 
@@ -34,6 +33,13 @@ GameManager::GameManager()
 		enemy->transform.Position.x = RandomInRange(-4.0f, 4.0f);
 		enemy->transform.Position.y = RandomInRange(-4.0f, 4.0f);
 	}
+
+	glm::vec3 a = glm::vec3(1, 0, 0);
+	glm::vec2 b = glm::normalize(glm::vec2(0.5, 0.5));
+
+	float dot = glm::dot(a, a);
+
+	printf("%f, %f, %f", b.x, b.y, 0.0f);
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)

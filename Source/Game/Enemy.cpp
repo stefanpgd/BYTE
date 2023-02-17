@@ -91,6 +91,7 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 		if(tag == "bullet")
 		{
 			health--;
+			enemyRenderer->Emission -= 0.15f;
 
 			int randomDamageTemp = RandomInRange(3, 8);
 			DamageTextEffect* effect = new DamageTextEffect(randomDamageTemp, transform.Position);
@@ -110,6 +111,8 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 		if(tag == "fist")
 		{
 			health--;
+			enemyRenderer->Emission -= 0.15f;
+
 			damageTimer = 0.0f;
 			hitEffectTimer = 0.0f;
 
