@@ -15,6 +15,17 @@ BoxCollider::BoxCollider(glm::vec3 position, glm::vec2 size, std::string tag) :
 	CollisionSystem::AddBoxCollider(this);
 }
 
+GameObject* BoxCollider::GetOwner()
+{
+	if (gameObject == nullptr)
+	{
+		printf("Error: Box Collider you are trying to retrieve the gameobject has NO gameobject attached to it\n");
+		return nullptr;
+	}
+
+	return gameObject;
+}
+
 void BoxCollider::Remove()
 {
 	markedForDelete = true;

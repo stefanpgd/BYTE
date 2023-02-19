@@ -60,7 +60,7 @@ void CollisionSystem::CheckCollision(BoxCollider* boxA, BoxCollider* boxB)
 				{
 					if(boxA->gameObject != nullptr)
 					{
-						boxA->gameObject->OnCollision(boxB->Tag, boxB->gameObject);
+						boxA->gameObject->OnCollision(boxB);
 					}
 				}
 			}

@@ -10,6 +10,8 @@ public:
 	BoxCollider(GameObject* gameObject, glm::vec2 size, std::string tag = "default");
 	BoxCollider(glm::vec3 position, glm::vec2 size, std::string tag = "default");
 	
+	GameObject* GetOwner();
+
 	void Remove();
 
 	std::string Tag;

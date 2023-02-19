@@ -16,18 +16,29 @@
 SpriteRenderer* map;
 Transform transform;
 DungeonGeneration* dungeonGen;
+DungeonGenerationInfo dungeonInfo;
 
 GameManager::GameManager()
 {
 	camera = new Camera(glm::vec3(0.0, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	player = new Player(camera);
 
-	dungeonGen = new DungeonGeneration(50, 50, 0.2f);
+	dungeonInfo.width = 17;
+	dungeonInfo.height = 60;
+	dungeonInfo.dungeonScale = 1.5f;
+	dungeonInfo.minWalkers = 40;
+	dungeonInfo.maxWalkers = 50;
+	dungeonInfo.minWalkerLifeTime = 15;
+	dungeonInfo.maxWalkerLifeTime = 30;
+	dungeonInfo.turnProbability = 0.4f;
+
+	dungeonGen = new DungeonGeneration(dungeonInfo);
+	player->transform.Position = glm::vec3(dungeonGen->GetPlayerSpawnPosition(), 0.0f);
 
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
 
-	for(int i = 0; i < 12; i++)
+	for(int i = 0; i < 0.0f; i++)
 	{
 		Enemy* enemy = new Enemy(&player->transform);
 		enemy->transform.Position.x = RandomInRange(-4.0f, 4.0f);
@@ -50,6 +61,25 @@ void GameManager::AddGameObject(GameObject* gameObject)
 void GameManager::Update(float deltaTime)
 {
 	GameTime::Update();
+
+#if _DEBUG
+	dungeonInfo.dungeonScale = 0.1f;
+
+	ImGui::Begin("Dungeon Settings");
+	ImGui::DragInt("width", (int*) & dungeonInfo.width, 0.2f, 0, 100);
+	ImGui::DragInt("height", (int*)&dungeonInfo.height, 0.2f, 0, 100);
+	ImGui::DragInt("min walkers", &dungeonInfo.minWalkers, 0.2f, 0, 100);
+	ImGui::DragInt("max walkers", &dungeonInfo.maxWalkers, 0.2f, 0, 100);
+	ImGui::DragInt("min lifetime", &dungeonInfo.minWalkerLifeTime, 0.2f, 0, 100);
+	ImGui::DragInt("max lifetime", &dungeonInfo.maxWalkerLifeTime, 0.2f, 0, 100);
+	ImGui::DragFloat("turn", &dungeonInfo.turnProbability, 0.01f, 0.0f, 1.0f);
+#endif
+
+	if (ImGui::Button("Generate"))
+	{
+		dungeonGen = new DungeonGeneration(dungeonInfo);
+	}
+	ImGui::End();
 
 	// Clean up all game objects that have been marked for delete in the last frame // 
 	gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),

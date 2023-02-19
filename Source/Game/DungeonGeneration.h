@@ -6,6 +6,7 @@
 class GameObject;
 class SpriteRenderer;
 class Camera;
+class BoxCollider;
 
 enum class MapElements
 {
@@ -14,32 +15,51 @@ enum class MapElements
 	Empty
 };
 
+struct DungeonGenerationInfo
+{
+	unsigned int width;
+	unsigned int height;
+	float dungeonScale;
+
+	int minWalkers;
+	int maxWalkers;
+
+	int minWalkerLifeTime;
+	int maxWalkerLifeTime;
+
+	float turnProbability;
+};
+
 class DungeonGeneration
 {
 public:
-	DungeonGeneration(unsigned int width, unsigned int height, float dungeonScale);
+	DungeonGeneration(DungeonGenerationInfo dungeonInfo);
 
 	void Draw(Camera* camera);
+
+	glm::vec2 GetPlayerSpawnPosition();
 
 private:
 	void GenerateDungeon();
 	void PostProcess();
+	void AddGameElements();
 
 	bool OutOfBounds(unsigned int x, unsigned int y);
 
 	std::vector<MapElements> mapIDs;
+	std::vector<BoxCollider*> mapColliders;
+
+	DungeonGenerationInfo dungeonInfo;
 
 	Transform dungeonTransform;
 	SpriteRenderer* spriteRenderer;
-	unsigned int mapWidth;
-	unsigned int mapHeight;
-	float dungeonScale;
+	glm::vec2 playerSpawnTile;
 };
 
 class Walker
 {
 public:
-	Walker(unsigned int levelWidth, unsigned int levelHeight);
+	Walker(unsigned int levelWidth, unsigned int levelHeight, int lifeTime, float turn);
 
 	void Walk();
 	bool IsAlive();
@@ -47,7 +67,7 @@ public:
 	bool IsOutOfBounds();
 
 private:
-	int lifeTime = 5;
+	int lifeTime;
 	glm::ivec2 position;
 
 	unsigned int levelWidth;
@@ -67,5 +87,5 @@ private:
 	};
 
 	int directionIndex;
-	float turnProbability = 0.4f;
+	float turnProbability;
 };

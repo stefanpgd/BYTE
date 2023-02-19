@@ -26,6 +26,8 @@ Player::Player(Camera* camera) : camera(camera)
 
 void Player::Update(float deltaTime)
 {
+	lastFramesPosition = transform.Position;
+
 	horizontalInput = Lerp(horizontalInput, Input::GetKey(Keycode::D) - Input::GetKey(Keycode::A), inputReponse * deltaTime);
 	verticalInput = Lerp(verticalInput, Input::GetKey(Keycode::W) - Input::GetKey(Keycode::S), inputReponse * deltaTime);
 
@@ -124,6 +126,8 @@ void Player::Update(float deltaTime)
 	{
 		movementSpeed = baseMovementSpeed;
 	}
+
+	lastDeltaTime = deltaTime;
 }
 
 void Player::Draw(Camera* camera)
@@ -132,13 +136,6 @@ void Player::Draw(Camera* camera)
 	eyeRenderer->Draw(camera);
 
 	activeEssence->Draw(camera);
-
-	ImGui::Begin("test");
-	ImGui::ColorEdit3("Player Color", &playerRenderer->Color[0]);
-	ImGui::DragFloat("Emission", &playerRenderer->Emission);
-	ImGui::End();
-
-	playerRenderer->Color.w = 1.0f;
 }
 
 void Player::ImGuiDraw()
@@ -148,7 +145,12 @@ void Player::ImGuiDraw()
 	ImGui::End();
 }
 
-void Player::OnCollision(const std::string& tag, GameObject* obj)
+void Player::OnCollision(BoxCollider* collider)
 {
-
+	if (collider->Tag == "wall")
+	{
+		transform.Position = lastFramesPosition;
+		horizontalInput = 0.0f;
+		verticalInput = 0.0f;
+	}
 }

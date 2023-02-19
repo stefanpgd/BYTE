@@ -2,16 +2,15 @@
 
 #include "Engine/Utilities.h"
 #include "Graphics/SpriteRenderer.h"
+#include "Engine/BoxCollider.h"
 
-DungeonGeneration::DungeonGeneration(unsigned int width, unsigned int height, float dungeonScale)
+DungeonGeneration::DungeonGeneration(DungeonGenerationInfo info)
 {
-	mapWidth = width;
-	mapHeight = height;
-	this->dungeonScale = dungeonScale;
+	dungeonInfo = info;
 
-	for(int y = 0; y < mapHeight; y++)
+	for(int y = 0; y < dungeonInfo.height; y++)
 	{
-		for(int x = 0; x < mapWidth; x++)
+		for(int x = 0; x < dungeonInfo.width; x++)
 		{
 			mapIDs.push_back(MapElements::Wall);
 		}
@@ -19,20 +18,23 @@ DungeonGeneration::DungeonGeneration(unsigned int width, unsigned int height, fl
 
 	spriteRenderer = new SpriteRenderer("wall.png", &dungeonTransform);
 
-	dungeonTransform.Scale = glm::vec3(dungeonScale);
+	dungeonTransform.Scale = glm::vec3(dungeonInfo.dungeonScale);
 
 	GenerateDungeon();
 	PostProcess();
+	AddGameElements();
 }
 
 void DungeonGeneration::GenerateDungeon()
 {
 	std::vector<Walker> walkers;
-	int walkerCount = mapWidth * 3;
+	int walkerCount = RandomInRange(dungeonInfo.minWalkers, dungeonInfo.maxWalkers);
 
 	for(int i = 0; i < walkerCount; i++)
 	{
-		Walker w(mapWidth, mapHeight);
+		int lifeTime = RandomInRange(dungeonInfo.minWalkerLifeTime, dungeonInfo.maxWalkerLifeTime);
+
+		Walker w(dungeonInfo.width, dungeonInfo.height, lifeTime, dungeonInfo.turnProbability);
 		walkers.push_back(w);
 	}
 
@@ -48,7 +50,7 @@ void DungeonGeneration::GenerateDungeon()
 			}
 
 			glm::ivec2 pos = walker.GetPosition();
-			mapIDs[pos.x + pos.y * mapWidth] = MapElements::Floor;
+			mapIDs[pos.x + pos.y * dungeonInfo.width] = MapElements::Floor;
 		}
 	}
 }
@@ -56,9 +58,9 @@ void DungeonGeneration::GenerateDungeon()
 void DungeonGeneration::PostProcess()
 {
 	// Clean up 3x3 walls //
-	for(unsigned int y = 0; y < mapHeight; y++)
+	for(unsigned int y = 0; y < dungeonInfo.height; y++)
 	{
-		for(unsigned int x = 0; x < mapWidth; x++)
+		for(unsigned int x = 0; x < dungeonInfo.width; x++)
 		{
 			bool foundFloor = false;
 
@@ -68,7 +70,7 @@ void DungeonGeneration::PostProcess()
 				{
 					if(!OutOfBounds(x + nx, y + ny))
 					{
-						if(mapIDs[(x + nx) + (y + ny) * mapWidth] == MapElements::Floor)
+						if(mapIDs[(x + nx) + (y + ny) * dungeonInfo.width] == MapElements::Floor)
 						{
 							foundFloor = true;
 						}
@@ -78,7 +80,39 @@ void DungeonGeneration::PostProcess()
 
 			if(!foundFloor)
 			{
-				mapIDs[x + y * mapWidth] = MapElements::Empty;
+				mapIDs[x + y * dungeonInfo.width] = MapElements::Empty;
+			}
+		}
+	}
+}
+
+void DungeonGeneration::AddGameElements()
+{
+	// Determine spawn Position Player //
+	for (unsigned int y = 0; y < dungeonInfo.height; y++)
+	{
+		for (unsigned int x = 0; x < dungeonInfo.width; x++)
+		{
+			if (mapIDs[x + y * dungeonInfo.width] == MapElements::Floor)
+			{
+				playerSpawnTile.x = x;
+				playerSpawnTile.y = y;
+			}
+		}
+	}
+
+	// Determine spawn Position Player //
+	for (unsigned int y = 0; y < dungeonInfo.height; y++)
+	{
+		for (unsigned int x = 0; x < dungeonInfo.width; x++)
+		{
+			if (mapIDs[x + y * dungeonInfo.width] == MapElements::Wall)
+			{
+				glm::vec3 position = glm::vec3(x * dungeonInfo.dungeonScale, y * dungeonInfo.dungeonScale, 0.0f);
+				glm::vec2 size = glm::vec2(dungeonInfo.dungeonScale / 2.0f);
+
+				BoxCollider* collider = new BoxCollider(position, size, "wall");
+				mapColliders.push_back(collider);
 			}
 		}
 	}
@@ -86,31 +120,40 @@ void DungeonGeneration::PostProcess()
 
 bool DungeonGeneration::OutOfBounds(unsigned int x, unsigned int y)
 {
-	return x < 0 || x > mapWidth - 1 || y < 0 || y > mapHeight - 1;
+	return x < 0 || x > dungeonInfo.width - 1 || y < 0 || y > dungeonInfo.height - 1;
 }
 
 void DungeonGeneration::Draw(Camera* camera)
 {
-	for(unsigned int y = 0; y < mapHeight; y++)
+	for(unsigned int y = 0; y < dungeonInfo.height; y++)
 	{
-		for(unsigned int x = 0; x < mapWidth; x++)
+		for(unsigned int x = 0; x < dungeonInfo.width; x++)
 		{
-			if(mapIDs[x + y * mapWidth] == MapElements::Wall)
+			if(mapIDs[x + y * dungeonInfo.width] == MapElements::Wall)
 			{
-				dungeonTransform.Position = glm::vec3(x * dungeonScale, y * dungeonScale, -0.03f);
+				dungeonTransform.Position = glm::vec3(x * dungeonInfo.dungeonScale, y * dungeonInfo.dungeonScale, -0.03f);
 				spriteRenderer->Draw(camera);
 			}
 		}
 	}
 }
 
-Walker::Walker(unsigned int levelWidth, unsigned int levelHeight) : levelWidth(levelWidth), levelHeight(levelHeight)
+glm::vec2 DungeonGeneration::GetPlayerSpawnPosition()
+{
+	glm::vec2 transformedPosition;
+	transformedPosition.x = playerSpawnTile.x * dungeonInfo.dungeonScale;
+	transformedPosition.y = playerSpawnTile.y * dungeonInfo.dungeonScale;
+
+	return transformedPosition;
+}
+
+Walker::Walker(unsigned int levelWidth, unsigned int levelHeight, int lifeTime, float turn) : 
+	levelWidth(levelWidth), levelHeight(levelHeight), lifeTime(lifeTime), turnProbability(turn)
 {
 	position.x = levelWidth / 2;
 	position.y = levelHeight / 2;
 
 	directionIndex = RandomInRange(0, 4);
-	lifeTime = RandomInRange(levelWidth, int(levelWidth * 4));
 }
 
 void Walker::Walk()

@@ -1,5 +1,6 @@
 #include "Game/GameObject.h"
 #include "Game/GameManager.h"
+#include "Engine/BoxCollider.h"
 
 GameObject::GameObject()
 {
@@ -14,4 +15,4 @@ void GameObject::DeleteGameObject()
 }
 
 void GameObject::ImGuiDraw() { }
-void GameObject::OnCollision(const std::string& tag, GameObject* obj) {}
+void GameObject::OnCollision(BoxCollider* collider) {}

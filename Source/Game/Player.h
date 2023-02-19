@@ -14,7 +14,7 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
-	virtual void OnCollision(const std::string& tag, GameObject* obj) override;
+	virtual void OnCollision(BoxCollider* collider) override;
 
 	virtual void ImGuiDraw() override;
 
@@ -30,6 +30,9 @@ private:
 	Essence* activeEssence;
 	ControlEssence* controlEssence;
 	ExcitementEssence* excitementEssence;
+
+	glm::vec3 lastFramesPosition;
+	float lastDeltaTime = 0.0f;
 
 	// Audio //
 	float walkSoundTimer = 0.0f;
