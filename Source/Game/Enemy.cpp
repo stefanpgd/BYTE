@@ -84,11 +84,11 @@ void Enemy::Draw(Camera* camera)
 	eyeRenderer->Draw(camera);
 }
 
-void Enemy::OnCollision(const std::string& tag, GameObject* obj)
+void Enemy::OnCollision(BoxCollider* collider)
 {
 	if(damageTimer > damageCooldown)
 	{
-		if(tag == "bullet")
+		if(collider->Tag == "bullet")
 		{
 			health--;
 			enemyRenderer->Emission -= 0.15f;
@@ -102,13 +102,13 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 			std::string path = "enemyHit" + std::to_string(randomSprite) + ".wav";
 			Audio::PlaySound("enemyHit.wav");
 
-			if(obj != nullptr)
+			if(collider->GetOwner() != nullptr)
 			{
-				obj->DeleteGameObject();
+				collider->GetOwner()->DeleteGameObject();
 			}
 		}
 
-		if(tag == "fist")
+		if(collider->Tag == "fist")
 		{
 			health--;
 			enemyRenderer->Emission -= 0.15f;
@@ -141,12 +141,20 @@ void Enemy::OnCollision(const std::string& tag, GameObject* obj)
 		eyeRenderer->Emission = Lerp(0.0f, 5.0f, p);
 	}
 
-	if(tag == "enemy")
+
+	if (collider->Tag == "wall")
 	{
-		if(obj != nullptr)
+		glm::vec3 dir = glm::normalize(transform.Position - collider->Position);
+		transform.Position += dir * wallAvoidance * lastDeltaTime;
+		return;
+	}
+
+	if(collider->Tag == "enemy")
+	{
+		if(collider->GetOwner() != nullptr)
 		{
-			glm::vec3 dir = glm::normalize(transform.Position - obj->transform.Position);
-			transform.Position += dir * avoidance * lastDeltaTime;
+			glm::vec3 dir = glm::normalize(transform.Position - collider->GetOwner()->transform.Position);
+			transform.Position += dir * enemyAvoidance * lastDeltaTime;
 		}
 	}
 }

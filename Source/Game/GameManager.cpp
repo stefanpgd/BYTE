@@ -38,11 +38,13 @@ GameManager::GameManager()
 	transform.Position = glm::vec3(0.0f, 0.0f, -0.05f);
 	transform.Scale = glm::vec3(10.0f);
 
-	for(int i = 0; i < 0.0f; i++)
+	std::vector<glm::vec2> enemyPositions = dungeonGen->GetEnemySpawnPositions();
+
+	for(int i = 0; i < 5; i++)
 	{
 		Enemy* enemy = new Enemy(&player->transform);
-		enemy->transform.Position.x = RandomInRange(-4.0f, 4.0f);
-		enemy->transform.Position.y = RandomInRange(-4.0f, 4.0f);
+		enemy->transform.Position.x = enemyPositions[i].x;
+		enemy->transform.Position.y = enemyPositions[i].y;
 	}
 
 	glm::vec3 a = glm::vec3(1, 0, 0);

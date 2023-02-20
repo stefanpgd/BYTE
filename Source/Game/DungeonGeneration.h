@@ -38,6 +38,7 @@ public:
 	void Draw(Camera* camera);
 
 	glm::vec2 GetPlayerSpawnPosition();
+	const std::vector<glm::vec2>& GetEnemySpawnPositions();
 
 private:
 	void GenerateDungeon();
@@ -53,7 +54,9 @@ private:
 
 	Transform dungeonTransform;
 	SpriteRenderer* spriteRenderer;
+
 	glm::vec2 playerSpawnTile;
+	std::vector<glm::vec2> enemySpawnPoints;
 };
 
 class Walker

@@ -95,8 +95,8 @@ void DungeonGeneration::AddGameElements()
 		{
 			if (mapIDs[x + y * dungeonInfo.width] == MapElements::Floor)
 			{
-				playerSpawnTile.x = x;
-				playerSpawnTile.y = y;
+				playerSpawnTile.x = x * dungeonInfo.dungeonScale;
+				playerSpawnTile.y = y * dungeonInfo.dungeonScale;
 			}
 		}
 	}
@@ -113,6 +113,23 @@ void DungeonGeneration::AddGameElements()
 
 				BoxCollider* collider = new BoxCollider(position, size, "wall");
 				mapColliders.push_back(collider);
+			}
+		}
+	}
+
+	while (enemySpawnPoints.size() < 5)
+	{
+		int randomX = RandomInRange(0, dungeonInfo.width);
+		int randomY = RandomInRange(0, dungeonInfo.height);
+
+		if (mapIDs[randomX + randomY * dungeonInfo.width] == MapElements::Floor)
+		{
+			glm::vec2 pos = glm::vec2(randomX, randomY);
+			pos *= dungeonInfo.dungeonScale;
+
+			if (pos != playerSpawnTile)
+			{
+				enemySpawnPoints.push_back(pos);
 			}
 		}
 	}
@@ -140,11 +157,12 @@ void DungeonGeneration::Draw(Camera* camera)
 
 glm::vec2 DungeonGeneration::GetPlayerSpawnPosition()
 {
-	glm::vec2 transformedPosition;
-	transformedPosition.x = playerSpawnTile.x * dungeonInfo.dungeonScale;
-	transformedPosition.y = playerSpawnTile.y * dungeonInfo.dungeonScale;
+	return playerSpawnTile;
+}
 
-	return transformedPosition;
+const std::vector<glm::vec2>& DungeonGeneration::GetEnemySpawnPositions()
+{
+	return enemySpawnPoints;
 }
 
 Walker::Walker(unsigned int levelWidth, unsigned int levelHeight, int lifeTime, float turn) : 

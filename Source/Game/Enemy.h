@@ -12,7 +12,7 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
-	virtual void OnCollision(const std::string& tag, GameObject* obj);
+	virtual void OnCollision(BoxCollider* collider);
 
 private:
 	BoxCollider* collider;
@@ -26,7 +26,10 @@ private:
 	int maxHealth = health;
 
 	float movementSpeed = 1.f;
-	float avoidance = 0.7f;
+	float enemyAvoidance = 1.0f;
+	float wallAvoidance = 1.0f;
+	float wallAvoidanceTicks;
+
 	float lastDeltaTime = 0.0f;
 	float meleeRange = 1.0f;
 
