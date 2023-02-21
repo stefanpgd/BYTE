@@ -12,6 +12,7 @@ enum class MapElements
 {
 	Wall,
 	Floor,
+	Exit,
 	Empty
 };
 
@@ -28,6 +29,8 @@ struct DungeonGenerationInfo
 	int maxWalkerLifeTime;
 
 	float turnProbability;
+
+	int enemySpawns;
 };
 
 class DungeonGeneration
@@ -36,9 +39,11 @@ public:
 	DungeonGeneration(DungeonGenerationInfo dungeonInfo);
 
 	void Draw(Camera* camera);
+	void Delete();
 
 	glm::vec2 GetPlayerSpawnPosition();
 	const std::vector<glm::vec2>& GetEnemySpawnPositions();
+	glm::vec2 GetExitPosition();
 
 private:
 	void GenerateDungeon();
@@ -56,6 +61,7 @@ private:
 	SpriteRenderer* spriteRenderer;
 
 	glm::vec2 playerSpawnTile;
+	glm::vec2 exitTile;
 	std::vector<glm::vec2> enemySpawnPoints;
 };
 

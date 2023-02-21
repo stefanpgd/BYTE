@@ -27,7 +27,7 @@ private:
 
 	float movementSpeed = 1.f;
 	float enemyAvoidance = 1.0f;
-	float wallAvoidance = 1.0f;
+	float wallAvoidance = 1.4f;
 	float wallAvoidanceTicks;
 
 	float lastDeltaTime = 0.0f;

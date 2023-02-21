@@ -24,13 +24,14 @@ GameManager::GameManager()
 	player = new Player(camera);
 
 	dungeonInfo.width = 17;
-	dungeonInfo.height = 60;
+	dungeonInfo.height = 40;
 	dungeonInfo.dungeonScale = 1.5f;
 	dungeonInfo.minWalkers = 40;
 	dungeonInfo.maxWalkers = 50;
 	dungeonInfo.minWalkerLifeTime = 15;
 	dungeonInfo.maxWalkerLifeTime = 30;
 	dungeonInfo.turnProbability = 0.4f;
+	dungeonInfo.enemySpawns = 10;
 
 	dungeonGen = new DungeonGeneration(dungeonInfo);
 	player->transform.Position = glm::vec3(dungeonGen->GetPlayerSpawnPosition(), 0.0f);
@@ -40,19 +41,12 @@ GameManager::GameManager()
 
 	std::vector<glm::vec2> enemyPositions = dungeonGen->GetEnemySpawnPositions();
 
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < dungeonInfo.enemySpawns; i++)
 	{
 		Enemy* enemy = new Enemy(&player->transform);
 		enemy->transform.Position.x = enemyPositions[i].x;
 		enemy->transform.Position.y = enemyPositions[i].y;
 	}
-
-	glm::vec3 a = glm::vec3(1, 0, 0);
-	glm::vec2 b = glm::normalize(glm::vec2(0.5, 0.5));
-
-	float dot = glm::dot(a, a);
-
-	printf("%f, %f, %f", b.x, b.y, 0.0f);
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)
@@ -65,16 +59,16 @@ void GameManager::Update(float deltaTime)
 	GameTime::Update();
 
 #if _DEBUG
-	dungeonInfo.dungeonScale = 0.1f;
+	//dungeonInfo.dungeonScale = 0.1f;
 
 	ImGui::Begin("Dungeon Settings");
-	ImGui::DragInt("width", (int*) & dungeonInfo.width, 0.2f, 0, 100);
-	ImGui::DragInt("height", (int*)&dungeonInfo.height, 0.2f, 0, 100);
-	ImGui::DragInt("min walkers", &dungeonInfo.minWalkers, 0.2f, 0, 100);
-	ImGui::DragInt("max walkers", &dungeonInfo.maxWalkers, 0.2f, 0, 100);
-	ImGui::DragInt("min lifetime", &dungeonInfo.minWalkerLifeTime, 0.2f, 0, 100);
-	ImGui::DragInt("max lifetime", &dungeonInfo.maxWalkerLifeTime, 0.2f, 0, 100);
-	ImGui::DragFloat("turn", &dungeonInfo.turnProbability, 0.01f, 0.0f, 1.0f);
+	//ImGui::DragInt("width", (int*) & dungeonInfo.width, 0.2f, 0, 100);
+	//ImGui::DragInt("height", (int*)&dungeonInfo.height, 0.2f, 0, 100);
+	//ImGui::DragInt("min walkers", &dungeonInfo.minWalkers, 0.2f, 0, 100);
+	//ImGui::DragInt("max walkers", &dungeonInfo.maxWalkers, 0.2f, 0, 100);
+	//ImGui::DragInt("min lifetime", &dungeonInfo.minWalkerLifeTime, 0.2f, 0, 100);
+	//ImGui::DragInt("max lifetime", &dungeonInfo.maxWalkerLifeTime, 0.2f, 0, 100);
+	//ImGui::DragFloat("turn", &dungeonInfo.turnProbability, 0.01f, 0.0f, 1.0f);
 #endif
 
 	if (ImGui::Button("Generate"))
@@ -110,6 +104,37 @@ void GameManager::Update(float deltaTime)
 	for(GameObject* obj : gameObjects)
 	{
 		obj->Update(gameTime);
+	}
+
+	float dist = glm::length(player->transform.Position - glm::vec3(dungeonGen->GetExitPosition(), 0.0f));
+	printf("Dist: %f \n", dist);
+
+	if (dist < 0.5)
+	{
+		GameObject* base = dynamic_cast<GameObject*>(player);
+
+		for (GameObject* gameObject : gameObjects)
+		{
+			if (gameObject != base)
+			{
+				gameObject->markedForDelete = true;
+				
+			}
+		}
+
+		dungeonGen->Delete();
+		dungeonGen = new DungeonGeneration(dungeonInfo);
+
+		player->transform.Position = glm::vec3(dungeonGen->GetPlayerSpawnPosition(), 0.0f);
+
+		std::vector<glm::vec2> enemyPositions = dungeonGen->GetEnemySpawnPositions();
+
+		for (int i = 0; i < dungeonInfo.enemySpawns; i++)
+		{
+			Enemy* enemy = new Enemy(&player->transform);
+			enemy->transform.Position.x = enemyPositions[i].x;
+			enemy->transform.Position.y = enemyPositions[i].y;
+		}
 	}
 }
 

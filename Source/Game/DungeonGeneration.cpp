@@ -101,7 +101,25 @@ void DungeonGeneration::AddGameElements()
 		}
 	}
 
+	glm::vec2 exit;
+
 	// Determine spawn Position Player //
+	for (int y = dungeonInfo.height - 1; y > -1; y--)
+	{
+		for (int x = dungeonInfo.width - 1; x > -1; x--)
+		{
+			if (mapIDs[x + y * dungeonInfo.width] == MapElements::Floor)
+			{
+				exitTile.x = x * dungeonInfo.dungeonScale;
+				exitTile.y = y * dungeonInfo.dungeonScale;
+				exit = glm::vec2(x, y);
+			}
+		}
+	}
+
+	mapIDs[exit.x + exit.y * dungeonInfo.width] = MapElements::Exit;
+
+	// Determine positions for colliders //
 	for (unsigned int y = 0; y < dungeonInfo.height; y++)
 	{
 		for (unsigned int x = 0; x < dungeonInfo.width; x++)
@@ -117,7 +135,7 @@ void DungeonGeneration::AddGameElements()
 		}
 	}
 
-	while (enemySpawnPoints.size() < 5)
+	while (enemySpawnPoints.size() < dungeonInfo.enemySpawns)
 	{
 		int randomX = RandomInRange(0, dungeonInfo.width);
 		int randomY = RandomInRange(0, dungeonInfo.height);
@@ -146,12 +164,32 @@ void DungeonGeneration::Draw(Camera* camera)
 	{
 		for(unsigned int x = 0; x < dungeonInfo.width; x++)
 		{
+			dungeonTransform.Position = glm::vec3(x * dungeonInfo.dungeonScale, y * dungeonInfo.dungeonScale, -0.03f);
+
 			if(mapIDs[x + y * dungeonInfo.width] == MapElements::Wall)
 			{
-				dungeonTransform.Position = glm::vec3(x * dungeonInfo.dungeonScale, y * dungeonInfo.dungeonScale, -0.03f);
+				spriteRenderer->Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+				spriteRenderer->Draw(camera);
+			}
+			else if(mapIDs[x + y * dungeonInfo.width] == MapElements::Floor)
+			{
+				spriteRenderer->Color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+				spriteRenderer->Draw(camera);
+			}
+			else if (mapIDs[x + y * dungeonInfo.width] == MapElements::Exit)
+			{
+				spriteRenderer->Color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 				spriteRenderer->Draw(camera);
 			}
 		}
+	}
+}
+
+void DungeonGeneration::Delete()
+{
+	for (BoxCollider* collider : mapColliders)
+	{
+		collider->Remove();
 	}
 }
 
@@ -163,6 +201,11 @@ glm::vec2 DungeonGeneration::GetPlayerSpawnPosition()
 const std::vector<glm::vec2>& DungeonGeneration::GetEnemySpawnPositions()
 {
 	return enemySpawnPoints;
+}
+
+glm::vec2 DungeonGeneration::GetExitPosition()
+{
+	return exitTile;
 }
 
 Walker::Walker(unsigned int levelWidth, unsigned int levelHeight, int lifeTime, float turn) : 
