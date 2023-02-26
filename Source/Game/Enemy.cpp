@@ -1,6 +1,7 @@
 #include "Game/Enemy.h"
 #include "Game/EnemyDeathEffect.h"
 #include "Game/DamageTextEffect.h"
+#include "Game/GameManager.h"
 
 #include "Engine/Utilities.h"
 #include "Engine/Audio.h"
@@ -10,7 +11,7 @@
 
 #include <string>
 
-Enemy::Enemy(Transform* playerTransform) : playerTransform(playerTransform)
+Enemy::Enemy(Transform* playerTransform, GameManager* gm) : playerTransform(playerTransform), gameManager(gm)
 {
 	std::string path = "enemy1.png";
 
@@ -129,6 +130,7 @@ void Enemy::OnCollision(BoxCollider* collider)
 			Audio::PlaySound("death.wav");
 			Camera::ApplyScreenshake(0.1f, 0.12f);
 			EnemyDeathEffect* effect = new EnemyDeathEffect(transform.Position, playerTransform->Position, 1);
+			gameManager->RemoveEnemy(this);
 			DeleteGameObject();
 		}
 

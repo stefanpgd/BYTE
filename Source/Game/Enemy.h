@@ -3,11 +3,12 @@
 
 class SpriteRenderer;
 class BoxCollider;
+class GameManager;
 
 class Enemy : public GameObject
 {
 public:
-	Enemy(Transform* playerTransform);
+	Enemy(Transform* playerTransform, GameManager* gm);
 	virtual ~Enemy() override;
 
 	virtual void Update(float deltaTime) override;
@@ -15,6 +16,9 @@ public:
 	virtual void OnCollision(BoxCollider* collider);
 
 private:
+	// Temp //
+	GameManager* gameManager;
+
 	BoxCollider* collider;
 	SpriteRenderer* enemyRenderer;
 	SpriteRenderer* eyeRenderer;

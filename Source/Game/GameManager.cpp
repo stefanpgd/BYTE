@@ -17,6 +17,7 @@ SpriteRenderer* map;
 Transform transform;
 DungeonGeneration* dungeonGen;
 DungeonGenerationInfo dungeonInfo;
+std::vector<Enemy*> enemyRefs;
 
 GameManager::GameManager()
 {
@@ -43,9 +44,11 @@ GameManager::GameManager()
 
 	for(int i = 0; i < dungeonInfo.enemySpawns; i++)
 	{
-		Enemy* enemy = new Enemy(&player->transform);
+		Enemy* enemy = new Enemy(&player->transform, this);
 		enemy->transform.Position.x = enemyPositions[i].x;
 		enemy->transform.Position.y = enemyPositions[i].y;
+
+		enemyRefs.push_back(enemy);
 	}
 }
 
@@ -57,25 +60,6 @@ void GameManager::AddGameObject(GameObject* gameObject)
 void GameManager::Update(float deltaTime)
 {
 	GameTime::Update();
-
-#if _DEBUG
-	//dungeonInfo.dungeonScale = 0.1f;
-
-	ImGui::Begin("Dungeon Settings");
-	//ImGui::DragInt("width", (int*) & dungeonInfo.width, 0.2f, 0, 100);
-	//ImGui::DragInt("height", (int*)&dungeonInfo.height, 0.2f, 0, 100);
-	//ImGui::DragInt("min walkers", &dungeonInfo.minWalkers, 0.2f, 0, 100);
-	//ImGui::DragInt("max walkers", &dungeonInfo.maxWalkers, 0.2f, 0, 100);
-	//ImGui::DragInt("min lifetime", &dungeonInfo.minWalkerLifeTime, 0.2f, 0, 100);
-	//ImGui::DragInt("max lifetime", &dungeonInfo.maxWalkerLifeTime, 0.2f, 0, 100);
-	//ImGui::DragFloat("turn", &dungeonInfo.turnProbability, 0.01f, 0.0f, 1.0f);
-#endif
-
-	if (ImGui::Button("Generate"))
-	{
-		dungeonGen = new DungeonGeneration(dungeonInfo);
-	}
-	ImGui::End();
 
 	// Clean up all game objects that have been marked for delete in the last frame // 
 	gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
@@ -107,9 +91,8 @@ void GameManager::Update(float deltaTime)
 	}
 
 	float dist = glm::length(player->transform.Position - glm::vec3(dungeonGen->GetExitPosition(), 0.0f));
-	printf("Dist: %f \n", dist);
 
-	if (dist < 0.5)
+	if (dist < 0.5 && enemyRefs.size() == 0)
 	{
 		GameObject* base = dynamic_cast<GameObject*>(player);
 
@@ -118,7 +101,6 @@ void GameManager::Update(float deltaTime)
 			if (gameObject != base)
 			{
 				gameObject->markedForDelete = true;
-				
 			}
 		}
 
@@ -131,9 +113,10 @@ void GameManager::Update(float deltaTime)
 
 		for (int i = 0; i < dungeonInfo.enemySpawns; i++)
 		{
-			Enemy* enemy = new Enemy(&player->transform);
+			Enemy* enemy = new Enemy(&player->transform, this);
 			enemy->transform.Position.x = enemyPositions[i].x;
 			enemy->transform.Position.y = enemyPositions[i].y;
+			enemyRefs.push_back(enemy);
 		}
 	}
 }
@@ -157,4 +140,9 @@ void GameManager::ImGuiDraw()
 		obj->ImGuiDraw();
 	}
 #endif
+}
+
+void GameManager::RemoveEnemy(Enemy* enemy)
+{
+	enemyRefs.erase(std::remove(enemyRefs.begin(), enemyRefs.end(), enemy), enemyRefs.end());
 }

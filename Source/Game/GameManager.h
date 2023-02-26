@@ -4,6 +4,7 @@
 class Camera;
 class Player;
 class GameObject;
+class Enemy;
 
 class GameManager
 {
@@ -15,6 +16,9 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 	void ImGuiDraw();
+
+	// Very placeholder //
+	void RemoveEnemy(Enemy* enemy);
 
 	Camera* camera;
 private:
