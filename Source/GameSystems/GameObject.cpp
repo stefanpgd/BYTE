@@ -1,5 +1,5 @@
-#include "Game/GameObject.h"
-#include "Game/GameManager.h"
+#include "GameSystems/GameObject.h"
+#include "GameSystems/GameManager.h"
 #include "Engine/BoxCollider.h"
 
 GameObject::GameObject()

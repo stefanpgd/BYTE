@@ -10,22 +10,26 @@
 
 // Game Elements //
 #include "Game/PlayerPaddle.h"
+#include "Game/Ball.h"
 
 #include <imgui.h>
 
 PlayerPaddle* player;
+Ball* ball;
+
 SpriteRenderer* background;
 Transform backgroundTransform;
 
 GameManager::GameManager()
 {
-	camera = new Camera(glm::vec3(0.0, 0.0f, 25.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	camera = new Camera(glm::vec3(0.0, 0.0f, 45.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	background = new SpriteRenderer("background.png", &backgroundTransform);
-	backgroundTransform.Scale = glm::vec3(21.0f);
+	backgroundTransform.Scale = glm::vec3(38.0f);
 	backgroundTransform.Position.z = -0.01f;
 
 	player = new PlayerPaddle();
+	ball = new Ball();
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)
@@ -87,7 +91,6 @@ void GameManager::ImGuiDraw()
 
 	ImGui::Begin("Camera");
 	ImGui::DragFloat3("Camera Position", &camera->Position[0]);
-	ImGui::DragFloat3("Background Scale", &backgroundTransform.Scale[0]);
 	ImGui::End();
 #endif
 }

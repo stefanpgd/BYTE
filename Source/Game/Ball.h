@@ -4,10 +4,10 @@
 class SpriteRenderer;
 class BoxCollider;
 
-class PlayerPaddle : public GameObject
+class Ball : public GameObject
 {
 public:
-	PlayerPaddle();
+	Ball();
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
@@ -16,11 +16,19 @@ public:
 	virtual void ImGuiDraw();
 
 private:
-	SpriteRenderer* sprite;
+	SpriteRenderer* ballSprite;
 	BoxCollider* collider;
 
-	float horizontalInput;
-	float inputResponse = 6.0f;
-	float paddleSpeed = 15.0f;
-	float boundary = 13.45f;
+	glm::vec3 moveDirection;
+	float moveSpeed = 48.0f;
+
+	float rotationSpeed = 420.0f;
+
+	// Map Boundaries //
+	float mapX = 15.5f;
+	float mapTop = 15.5f;
+	float mapBottom = -19.5f;
+
+	float hitTimer = 0.0f;
+	float hitCooldown = 0.02f;
 };
