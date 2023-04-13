@@ -45,12 +45,13 @@ Engine::Engine()
 	glfwInit();
 
 	renderer = new Renderer("Breakout - Chaotic Evil");
-	collisionSystem = new CollisionSystem();
-	uiSystem = new UISystem();
-	gameManager = new GameManager();
 
 	Audio::Initialize();
 	Input::Initialize(renderer->GetWindow());
+
+	collisionSystem = new CollisionSystem();
+	uiSystem = new UISystem();
+	gameManager = new GameManager();
 
 	// Initialize ImGui // 
 	IMGUI_CHECKVERSION();

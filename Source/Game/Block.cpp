@@ -12,7 +12,7 @@ Block::Block()
 
 	sprite = new SpriteRenderer("block.png", &transform);
 	sprite->Color = glm::vec4(Random01(), Random01(), Random01(), 1.0f);
-	emission = RandomInRange(0.8f, 2.2f);
+	emission = RandomInRange(0.8f, 5.2f);
 	speed = RandomInRange(0.8f, 1.2f);
 
 	glowTimer += RandomInRange(0.0f, 25.0f);
