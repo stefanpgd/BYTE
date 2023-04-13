@@ -17,10 +17,11 @@ public:
 
 private:
 	SpriteRenderer* ballSprite;
+	SpriteRenderer* ballHitSprite;
 	BoxCollider* collider;
 
 	glm::vec3 moveDirection;
-	float moveSpeed = 48.0f;
+	float moveSpeed = 12.0f;
 
 	float rotationSpeed = 420.0f;
 
@@ -31,4 +32,7 @@ private:
 
 	float hitTimer = 0.0f;
 	float hitCooldown = 0.02f;
+
+	float hitSpriteTimer = 0.0f;
+	float hitSpriteDelay = 0.4f;
 };
