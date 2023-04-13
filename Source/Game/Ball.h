@@ -21,9 +21,15 @@ private:
 	BoxCollider* collider;
 
 	glm::vec3 moveDirection;
+	bool firstBounce = true;
+
 	float moveSpeed = 12.0f;
+	float speedIncreasePerBlock = 0.55f;
 
 	float rotationSpeed = 420.0f;
+
+	float bounceShakeDuration = 0.08f;
+	float bounceShakeStrength = 0.07f;
 
 	// Map Boundaries //
 	float mapX = 15.5f;

@@ -7,21 +7,29 @@
 #include "Engine/Input.h"
 #include "Engine/BoxCollider.h"
 #include "Graphics/SpriteRenderer.h"
+#include "Engine/Audio.h"
 
 // Game Elements //
 #include "Game/PlayerPaddle.h"
 #include "Game/Ball.h"
+#include "Game/Block.h"
 
 #include <imgui.h>
 
 PlayerPaddle* player;
 Ball* ball;
+Block* block;
 
 SpriteRenderer* background;
 Transform backgroundTransform;
 
+float startX = -14.2;
+float startY = 0.0f;
+
 GameManager::GameManager()
 {
+	Audio::PlaySound("music.wav");
+
 	camera = new Camera(glm::vec3(0.0, 0.0f, 45.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	background = new SpriteRenderer("background.png", &backgroundTransform);
@@ -30,6 +38,15 @@ GameManager::GameManager()
 
 	player = new PlayerPaddle();
 	ball = new Ball();
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			Block* b = new Block();
+			b->transform.Position = glm::vec3(startX + 4.05f * i, startY + 2.0f * j, 0.0f);
+		}
+	}
 }
 
 void GameManager::AddGameObject(GameObject* gameObject)
@@ -90,7 +107,6 @@ void GameManager::ImGuiDraw()
 	}
 
 	ImGui::Begin("Camera");
-	ImGui::DragFloat3("Camera Position", &camera->Position[0]);
 	ImGui::End();
 #endif
 }

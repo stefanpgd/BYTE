@@ -21,6 +21,6 @@ private:
 
 	float horizontalInput;
 	float inputResponse = 6.0f;
-	float paddleSpeed = 20.0f;
+	float paddleSpeed = 25.0f;
 	float boundary = 13.45f;
 };

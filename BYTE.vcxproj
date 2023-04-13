@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Block.cpp" />
     <ClCompile Include="Source\Game\Ball.cpp" />
     <ClCompile Include="Source\Game\PlayerPaddle.cpp" />
     <ClCompile Include="Source\GameSystems\GameTime.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Source\Graphics\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\Block.h" />
     <ClInclude Include="Source\Game\Ball.h" />
     <ClInclude Include="Source\Game\PlayerPaddle.h" />
     <ClInclude Include="Source\GameSystems\GameTime.h" />
