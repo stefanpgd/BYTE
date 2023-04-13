@@ -3,7 +3,7 @@
 #include "Engine/Camera.h"
 
 #include "Graphics/SpriteRenderer.h"
-#include "Game/GameObject.h"
+#include "GameSystems/GameObject.h"
 
 #include <glad/glad.h>
 #include <imgui.h>

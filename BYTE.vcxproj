@@ -152,19 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Game\DungeonGeneration.cpp" />
-    <ClCompile Include="Source\Game\DamageTextEffect.cpp" />
-    <ClCompile Include="Source\Game\GameTime.cpp" />
+    <ClCompile Include="Source\GameSystems\GameTime.cpp" />
     <ClCompile Include="Source\Graphics\ParticleSystem.cpp" />
-    <ClCompile Include="Source\Game\EnemyDeathEffect.cpp" />
-    <ClCompile Include="Source\Game\Enemy.cpp" />
     <ClCompile Include="Source\Engine\BoxCollider.cpp" />
     <ClCompile Include="Source\Engine\CollisionSystem.cpp" />
-    <ClCompile Include="Source\Game\Bullet.cpp" />
-    <ClCompile Include="Source\Game\Essences\ExcitementEssence.cpp" />
-    <ClCompile Include="Source\Game\Essences\ControlEssence.cpp" />
-    <ClCompile Include="Source\Game\Essences\Essence.cpp" />
-    <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Engine\Audio.cpp" />
     <ClCompile Include="Source\Engine\Input.cpp" />
     <ClCompile Include="Dependencies\ImGui\imgui.cpp" />
@@ -176,11 +167,11 @@
     <ClCompile Include="Dependencies\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Dependencies\STB\stb_image.cpp" />
     <ClCompile Include="Dependencies\STB\stb_image_write.cpp" />
-    <ClCompile Include="Source\Game\GameObject.cpp" />
+    <ClCompile Include="Source\GameSystems\GameObject.cpp" />
     <ClCompile Include="Source\Graphics\PostProcessor.cpp" />
     <ClCompile Include="Source\Graphics\ScreenQuad.cpp" />
     <ClCompile Include="Source\Graphics\Framebuffer.cpp" />
-    <ClCompile Include="Source\Game\GameManager.cpp" />
+    <ClCompile Include="Source\GameSystems\GameManager.cpp" />
     <ClCompile Include="Source\Engine\Camera.cpp" />
     <ClCompile Include="Dependencies\GLAD\include\glad\glad.c" />
     <ClCompile Include="Source\Graphics\Mesh.cpp" />
@@ -197,19 +188,10 @@
     <ClCompile Include="Source\Graphics\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Game\DungeonGeneration.h" />
-    <ClInclude Include="Source\Game\GameTime.h" />
-    <ClInclude Include="Source\Game\DamageTextEffect.h" />
+    <ClInclude Include="Source\GameSystems\GameTime.h" />
     <ClInclude Include="Source\Graphics\ParticleSystem.h" />
-    <ClInclude Include="Source\Game\EnemyDeathEffect.h" />
-    <ClInclude Include="Source\Game\Enemy.h" />
     <ClInclude Include="Source\Engine\CollisionSystem.h" />
     <ClInclude Include="Source\Engine\BoxCollider.h" />
-    <ClInclude Include="Source\Game\Bullet.h" />
-    <ClInclude Include="Source\Game\Essences\ExcitementEssence.h" />
-    <ClInclude Include="Source\Game\Essences\ControlEssence.h" />
-    <ClInclude Include="Source\Game\Essences\Essence.h" />
-    <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Engine\Audio.h" />
     <ClInclude Include="Source\Engine\Input.h" />
     <ClInclude Include="Dependencies\ImGui\imconfig.h" />
@@ -223,11 +205,11 @@
     <ClInclude Include="Dependencies\ImGui\imstb_truetype.h" />
     <ClInclude Include="Dependencies\STB\stb_image.h" />
     <ClInclude Include="Dependencies\STB\stb_image_write.h" />
-    <ClInclude Include="Source\Game\GameObject.h" />
+    <ClInclude Include="Source\GameSystems\GameObject.h" />
     <ClInclude Include="Source\Graphics\PostProcessor.h" />
     <ClInclude Include="Source\Graphics\ScreenQuad.h" />
     <ClInclude Include="Source\Graphics\Framebuffer.h" />
-    <ClInclude Include="Source\Game\GameManager.h" />
+    <ClInclude Include="Source\GameSystems\GameManager.h" />
     <ClInclude Include="Source\Engine\Camera.h" />
     <ClInclude Include="Dependencies\GLAD\include\glad\glad.h" />
     <ClInclude Include="Dependencies\GLAD\include\KHR\khrplatform.h" />

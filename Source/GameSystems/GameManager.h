@@ -17,13 +17,9 @@ public:
 	void Draw();
 	void ImGuiDraw();
 
-	// Very placeholder //
-	void RemoveEnemy(Enemy* enemy);
-
 	Camera* camera;
-private:
-	Player* player;
 
+private:
 	static inline std::vector<GameObject*> gameObjects;
 	static inline std::vector<GameObject*> queuedObjects;
 };

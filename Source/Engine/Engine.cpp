@@ -27,7 +27,7 @@
 #include <imgui_impl_opengl3.h>
 
 // Game // 
-#include "Game/GameManager.h"
+#include "GameSystems/GameManager.h"
 
 static void GLFWErrorCallback(int error, const char* description)
 {
