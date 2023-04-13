@@ -44,7 +44,7 @@ Engine::Engine()
 
 	glfwInit();
 
-	renderer = new Renderer("BYTE");
+	renderer = new Renderer("Breakout - Chaotic Evil");
 	collisionSystem = new CollisionSystem();
 	uiSystem = new UISystem();
 	gameManager = new GameManager();

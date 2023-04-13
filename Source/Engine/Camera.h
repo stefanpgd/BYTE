@@ -34,6 +34,8 @@ private:
 	float nearClip = 0.1f;
 	float farClip = 1000.0f;
 
+	bool usePerspective = true;
+
 	// Screenshake // 
 	static inline float screenshakeTimer = 0.0f;
 	static inline float screenshakeStrength = 0.0f;

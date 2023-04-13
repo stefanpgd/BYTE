@@ -23,6 +23,6 @@ private:
 	Framebuffer* sceneBuffer;
 	PostProcessor* postProcessor;
 
-	static inline int windowWidth = 1080;
-	static inline int windowHeight = 720;
+	static inline int windowWidth = 800;
+	static inline int windowHeight = 800;
 };

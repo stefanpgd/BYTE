@@ -6,17 +6,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Camera::Camera(const glm::vec3& position, const glm::vec3& front, const glm::vec3& up) :
-	Position(position), Front(front), Up(up)
+	Position(position), Front(front), Up(up), usePerspective(usePerspective)
 {
 	viewMatrix = glm::lookAt(position, position + front, up);
 	projectionMatrix = glm::perspective(glm::radians(FOV), (float)Renderer::GetWindowWidth() / (float)Renderer::GetWindowHeight(), nearClip, farClip);
 }
 
+
 void Camera::Update(float deltaTime)
 {
 	glm::vec3 position = Position;
 
-	if(screenshakeTimer > 0.0f)
+	if (screenshakeTimer > 0.0f)
 	{
 		screenshakeTimer -= deltaTime;
 		glm::vec3 shake = glm::vec3(
@@ -30,6 +31,7 @@ void Camera::Update(float deltaTime)
 
 	viewMatrix = glm::lookAt(position, position + Front, Up);
 	projectionMatrix = glm::perspective(glm::radians(FOV), (float)Renderer::GetWindowWidth() / (float)Renderer::GetWindowHeight(), nearClip, farClip);
+
 	viewProjectionMatrix = projectionMatrix * viewMatrix;
 }
 
@@ -42,7 +44,7 @@ glm::vec3 Camera::ScreenToWorldPoint()
 
 	float ndcX = (mouse.x / screenWidth) * 2 - 1.0f;
 	float ndcY = (mouse.y / screenHeight) * 2 - 1.0f;
-	
+
 	glm::vec4 rayClip = glm::vec4(ndcX, ndcY, 0.0f, 0.0f);
 	glm::vec4 rayEye = glm::inverse(projectionMatrix) * rayClip;
 
