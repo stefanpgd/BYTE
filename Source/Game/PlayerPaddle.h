@@ -11,7 +11,6 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
-	virtual void OnCollision(BoxCollider* collider);
 
 	virtual void ImGuiDraw();
 

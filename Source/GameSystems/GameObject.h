@@ -20,9 +20,9 @@ public:
 
 	Transform transform;
 
-private:
-
+	// Temp //
 	bool markedForDelete = false;
 
+private:
 	friend class GameManager;
 };

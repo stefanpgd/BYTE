@@ -23,6 +23,9 @@ Ball::Ball()
 
 void Ball::Update(float deltaTime)
 {
+	moveDirection = glm::normalize(moveDirection);
+	moveSpeed = glm::clamp(moveSpeed, 0.0f, maxSpeed);
+
 	if (firstBounce)
 	{
 		transform.Position += moveDirection * 8.0f * deltaTime;
@@ -42,41 +45,26 @@ void Ball::Update(float deltaTime)
 		// Left Wall //
 		if (transform.Position.x < -mapX)
 		{
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(1.0f, 0.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
+			Bounce(glm::vec3(1.0f, 0.0f, 0.0f));
 		}
 
 		// Right Wall //
 		if (transform.Position.x > mapX)
 		{
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(-1.0f, 0.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
+			Bounce(glm::vec3(-1.0f, 0.0f, 0.0f));
 		}
 
 		// Top Wall //
 		if (transform.Position.y > mapTop)
 		{
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
+			Bounce(glm::vec3(0.0f, -1.0f, 0.0f));
 
-			moveDirection = glm::reflect(moveDirection, glm::vec3(0.0f, -1.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
 		}
 
 		// Void // 
 		if (transform.Position.y < mapBottom)
 		{
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(0.0f, 1.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
+			Bounce(glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 	}
 }
@@ -95,85 +83,62 @@ void Ball::Draw(Camera* camera)
 
 void Ball::OnCollision(BoxCollider* collider)
 {
+
 	if (collider->Tag == "player")
 	{
-		Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength, moveDirection);
-		moveDirection.y *= -1;
-		hitTimer = 0.0f;
-		hitSpriteTimer = 0.0f;
-
 		glm::vec3 playerPos = collider->GetOwner()->transform.Position;
-		playerPos.y -= 0.5f;
 
-		glm::vec3 dir = transform.Position - playerPos;
-		dir.y = 0.3f;
-		dir = glm::normalize(dir);
+		if (transform.Position.y > playerPos.y + 0.15f)
+		{
+			glm::vec3 playerScale = collider->GetOwner()->transform.Scale;
+			glm::vec3 moveDir = glm::vec3(0.0f, 1.0f, 0.0f);
 
-		printf("dir: %f %f\n", dir.x, dir.y);
+			float x = transform.Position.x - playerPos.x;
+			float weight = x / (playerScale.x / 2);
+			weight = glm::clamp(weight, -1.0f, 1.0f);
 
-		moveDirection.x = dir.x;
-		firstBounce = false;
+			moveDir.x = weight * paddleSteerStrength;
+			moveDirection = moveDir;
+
+			firstBounce = false;
+			hitTimer = 0.0f;
+			hitSpriteTimer = 0.0f;
+			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength, moveDirection);
+		}
 	}
 
 	if (collider->Tag == "block")
 	{
+		if (hitTimer < hitCooldown)
+		{
+			return;
+		}
+
 		glm::vec3 blockPosition = collider->GetOwner()->transform.Position;
 
 		// Hit Bottom //
 		if (transform.Position.y < blockPosition.y - 1.0f)
 		{
-			collider->GetOwner()->DeleteGameObject();
-
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(0.0f, -1.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
-
-			moveSpeed += speedIncreasePerBlock;
+			BlockBounce(collider, glm::vec3(0.0f, -1.0f, 0.0f));
 			return;
 		}
 
 		// Hit Top // 
 		if (transform.Position.y > blockPosition.y + 1.0f)
 		{
-			collider->GetOwner()->DeleteGameObject();
-
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(0.0f, 1.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
-			moveSpeed += speedIncreasePerBlock;
-
+			BlockBounce(collider, glm::vec3(0.0f, 1.0f, 0.0f));
 			return;
 		}
 
 		if (transform.Position.x > blockPosition.x + 2.0f)
 		{
-			collider->GetOwner()->DeleteGameObject();
-
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(1.0f, 0.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
-			moveSpeed += speedIncreasePerBlock;
-
+			BlockBounce(collider, glm::vec3(1.0f, 0.0f, 0.0f));
 			return;
 		}
 
 		if (transform.Position.x < blockPosition.x - 2.0f)
 		{
-			collider->GetOwner()->DeleteGameObject();
-
-			hitTimer = 0.0f;
-			hitSpriteTimer = 0.0f;
-
-			moveDirection = glm::reflect(moveDirection, glm::vec3(-1.0f, 0.0f, 0.0f));
-			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
-			moveSpeed += speedIncreasePerBlock;
-
+			BlockBounce(collider, glm::vec3(-1.0f, 0.0f, 0.0f));
 			return;
 		}
 	}
@@ -184,4 +149,20 @@ void Ball::ImGuiDraw()
 	ImGui::Begin("Ball");
 	ImGui::DragFloat3("Position", &transform.Position[0]);
 	ImGui::End();
+}
+
+void Ball::Bounce(glm::vec3 normal)
+{
+	hitTimer = 0.0f;
+	hitSpriteTimer = 0.0f;
+
+	moveDirection = glm::reflect(moveDirection, glm::vec3(normal));
+	Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength);
+}
+
+void Ball::BlockBounce(BoxCollider* collider, glm::vec3 normal)
+{
+	collider->GetOwner()->DeleteGameObject();
+	Bounce(normal);
+	moveSpeed += speedIncreasePerBlock;
 }

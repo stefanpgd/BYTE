@@ -9,6 +9,7 @@ Block::Block()
 	transform.Scale = glm::vec3(4.05f, 2.0f, 1.0f);
 
 	collider = new BoxCollider(this, glm::vec2(2.0f, 1.0f), "block");
+	collider->IsStatic = true;
 
 	sprite = new SpriteRenderer("block.png", &transform);
 	sprite->Color = glm::vec4(Random01(), Random01(), Random01(), 1.0f);

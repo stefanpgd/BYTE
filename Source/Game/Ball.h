@@ -16,6 +16,9 @@ public:
 	virtual void ImGuiDraw();
 
 private:
+	void Bounce(glm::vec3 normal);
+	void BlockBounce(BoxCollider* collider, glm::vec3 normal);
+
 	SpriteRenderer* ballSprite;
 	SpriteRenderer* ballHitSprite;
 	BoxCollider* collider;
@@ -24,12 +27,15 @@ private:
 	bool firstBounce = true;
 
 	float moveSpeed = 12.0f;
-	float speedIncreasePerBlock = 0.55f;
+	float speedIncreasePerBlock = 0.4f;
+	float maxSpeed = 25.0f;
+	float paddleSteerStrength = 1.2f;
 
 	float rotationSpeed = 420.0f;
 
 	float bounceShakeDuration = 0.08f;
 	float bounceShakeStrength = 0.07f;
+
 
 	// Map Boundaries //
 	float mapX = 15.5f;

@@ -29,10 +29,6 @@ void PlayerPaddle::Draw(Camera* camera)
 	sprite->Draw(camera);
 }
 
-void PlayerPaddle::OnCollision(BoxCollider* collider)
-{
-}
-
 void PlayerPaddle::ImGuiDraw()
 {
 	ImGui::Begin("Paddle");

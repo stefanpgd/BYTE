@@ -50,6 +50,11 @@ void CollisionSystem::CheckCollision(BoxCollider* boxA, BoxCollider* boxB)
 	glm::vec2 posA = boxA->gameObject ? boxA->gameObject->transform.Position : boxA->Position;
 	glm::vec2 posB = boxB->gameObject ? boxB->gameObject->transform.Position : boxB->Position;
 
+	if (boxA->gameObject->markedForDelete || boxB->gameObject->markedForDelete)
+	{
+		return;
+	}
+
 	if(posA.x - boxA->Size.x < posB.x + boxB->Size.x)
 	{
 		if(posA.x + boxA->Size.x > posB.x - boxB->Size.x)
