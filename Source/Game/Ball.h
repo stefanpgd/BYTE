@@ -36,7 +36,6 @@ private:
 	float bounceShakeDuration = 0.08f;
 	float bounceShakeStrength = 0.07f;
 
-
 	// Map Boundaries //
 	float mapX = 15.5f;
 	float mapTop = 15.5f;
@@ -47,4 +46,6 @@ private:
 
 	float hitSpriteTimer = 0.0f;
 	float hitSpriteDelay = 0.4f;
+
+	float time = 0.0f;
 };

@@ -2,6 +2,8 @@
 #include "Graphics/SpriteRenderer.h"
 #include "Engine/Utilities.h"
 #include "Engine/BoxCollider.h"
+#include "Engine/Audio.h"
+#include "GameSystems/GameTime.h"
 
 #include <imgui.h>
 
@@ -23,6 +25,13 @@ Ball::Ball()
 
 void Ball::Update(float deltaTime)
 {
+	time += deltaTime;
+
+	glm::vec3 discoColor = glm::cos(time + glm::vec3(0.0f, 2.0f, 4.0f)) * 0.5f + 0.5f;
+	glm::vec3 col = glm::mix(glm::vec3(1.0f), discoColor, glm::clamp(ballSprite->Emission, 0.0f, 1.0f));
+	ballSprite->Color = glm::vec4(col, 1.0f);
+	ballHitSprite->Color = glm::vec4(col, 1.0f);
+
 	moveDirection = glm::normalize(moveDirection);
 	moveSpeed = glm::clamp(moveSpeed, 0.0f, maxSpeed);
 
@@ -83,7 +92,6 @@ void Ball::Draw(Camera* camera)
 
 void Ball::OnCollision(BoxCollider* collider)
 {
-
 	if (collider->Tag == "player")
 	{
 		glm::vec3 playerPos = collider->GetOwner()->transform.Position;
@@ -103,6 +111,7 @@ void Ball::OnCollision(BoxCollider* collider)
 			firstBounce = false;
 			hitTimer = 0.0f;
 			hitSpriteTimer = 0.0f;
+			Audio::PlaySound("ballHit.wav");
 			Camera::ApplyScreenshake(bounceShakeDuration, bounceShakeStrength, moveDirection);
 		}
 	}
@@ -153,6 +162,8 @@ void Ball::ImGuiDraw()
 
 void Ball::Bounce(glm::vec3 normal)
 {
+	Audio::PlaySound("ballHit.wav");
+
 	hitTimer = 0.0f;
 	hitSpriteTimer = 0.0f;
 
@@ -165,4 +176,12 @@ void Ball::BlockBounce(BoxCollider* collider, glm::vec3 normal)
 	collider->GetOwner()->DeleteGameObject();
 	Bounce(normal);
 	moveSpeed += speedIncreasePerBlock;
+	ballSprite->Emission += 0.03f;
+	ballHitSprite->Emission += 0.03f;
+
+	GameTime::QueuePauseTicks(3);
+
+	Camera::ApplyScreenshake(bounceShakeDuration * 1.5f, bounceShakeStrength * 2.0f);
+
+	Audio::PlaySound("blockWave1.wav");
 }
