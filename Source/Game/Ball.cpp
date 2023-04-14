@@ -179,7 +179,7 @@ void Ball::BlockBounce(BoxCollider* collider, glm::vec3 normal)
 	ballSprite->Emission += 0.03f;
 	ballHitSprite->Emission += 0.03f;
 
-	GameTime::QueuePauseTicks(3);
+	GameTime::QueuePauseTicks(4);
 
 	Camera::ApplyScreenshake(bounceShakeDuration * 1.5f, bounceShakeStrength * 2.0f);
 

@@ -28,7 +28,7 @@ float startY = 0.0f;
 
 GameManager::GameManager()
 {
-	//Audio::PlaySound("music.wav");
+	Audio::PlaySound("music.wav");
 
 	camera = new Camera(glm::vec3(0.0, 0.0f, 45.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 

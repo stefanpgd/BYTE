@@ -28,7 +28,7 @@ private:
 
 	float moveSpeed = 12.0f;
 	float speedIncreasePerBlock = 0.4f;
-	float maxSpeed = 25.0f;
+	float maxSpeed = 27.5f;
 	float paddleSteerStrength = 1.2f;
 
 	float rotationSpeed = 420.0f;
