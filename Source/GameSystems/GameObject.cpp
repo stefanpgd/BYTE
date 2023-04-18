@@ -16,3 +16,4 @@ void GameObject::DeleteGameObject()
 
 void GameObject::ImGuiDraw() { }
 void GameObject::OnCollision(BoxCollider* collider) {}
+void GameObject::OnDestroy() { } 

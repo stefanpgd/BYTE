@@ -13,22 +13,27 @@
 #include "Game/PlayerPaddle.h"
 #include "Game/Ball.h"
 #include "Game/Block.h"
+#include "Game/PanicButton.h"
 
 #include <imgui.h>
 
 PlayerPaddle* player;
 Ball* ball;
-Block* block;
+PanicButton* panicButton;
+
+bool panicMode = false;
 
 SpriteRenderer* background;
 Transform backgroundTransform;
+
+FMOD::Channel* mainMusicTrack;
 
 float startX = -14.2;
 float startY = 0.0f;
 
 GameManager::GameManager()
 {
-	Audio::PlaySound("music.wav");
+	mainMusicTrack = Audio::PlaySound("music.wav");
 
 	camera = new Camera(glm::vec3(0.0, 0.0f, 45.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -38,6 +43,7 @@ GameManager::GameManager()
 
 	player = new PlayerPaddle();
 	ball = new Ball();
+	panicButton = new PanicButton();
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -64,6 +70,7 @@ void GameManager::Update(float deltaTime)
 		{ 
 			if(g->markedForDelete)
 			{
+				g->OnDestroy();
 				delete g;
 				return true;
 			}
@@ -86,6 +93,14 @@ void GameManager::Update(float deltaTime)
 	{
 		obj->Update(gameTime);
 	}
+
+	if (panicButton->pressed && !panicMode)
+	{
+		panicMode = true;
+
+		ball->PanicMode();
+		mainMusicTrack->setVolume(0.0f);
+	}
 }
 
 void GameManager::Draw()
@@ -107,6 +122,8 @@ void GameManager::ImGuiDraw()
 	}
 
 	ImGui::Begin("Camera");
+	ImGui::DragFloat3("Button Scale", &panicButton->transform.Scale[0]);
+	ImGui::DragFloat3("Button Pos", &panicButton->transform.Position[0]);
 	ImGui::End();
 #endif
 }

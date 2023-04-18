@@ -30,3 +30,8 @@ void Block::Draw(Camera* camera)
 {
 	sprite->Draw(camera);
 }
+
+void Block::OnDestroy()
+{
+	collider->Remove();
+}

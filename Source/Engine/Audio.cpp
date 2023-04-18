@@ -1,13 +1,9 @@
 #include "Engine/Audio.h"
 
-#include "fmod_studio.hpp"
-#include "fmod_errors.h"
-#include "fmod_common.h"
-
 /// <summary>
 /// filePath starts from 'Assets/Audio/'. 
 /// </summary>
-void Audio::PlaySound(std::string filePath, FMOD_MODE playMode)
+FMOD::Channel* Audio::PlaySound(std::string filePath, float volume, FMOD_MODE playMode)
 {
 	FMOD::Sound* sound = nullptr;
 	std::string path = "Assets/Audio/" + filePath;
@@ -17,6 +13,9 @@ void Audio::PlaySound(std::string filePath, FMOD_MODE playMode)
 	FMOD::Channel* channel = nullptr;
 	coreSystem->getChannel(0, &channel);
 	coreSystem->playSound(sound, 0, false, &channel);
+	channel->setVolume(volume);
+
+	return channel;
 }
 
 void Audio::Initialize()

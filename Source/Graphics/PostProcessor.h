@@ -9,9 +9,12 @@ class PostProcessor
 {
 public:
 	PostProcessor(unsigned int windowWidth, unsigned int windowHeight);
-
+	
+	void Update(float deltaTime);
 	void PostProcess(Framebuffer* sceneBuffer);
 	void DebugDrawImGui();
+
+	static inline bool runAlarmEffects = false;
 
 	// Chromatic Aberration // 
 	static inline bool chromaticAberrationFromCenter = true;
@@ -35,4 +38,6 @@ private:
 	unsigned int bloomFBO[2];
 	unsigned int bloomColorBuffer[2];
 	unsigned int bloomBufferIndex = 0;
+
+	float timer = 0.0f;
 };

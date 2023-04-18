@@ -76,6 +76,8 @@ void Engine::Run()
 		deltaTime = (t1 - t0).count() * .001;
 		t0 = t1;
 
+		deltaTime = glm::min(deltaTime, 0.016f);
+
 		// Start //
 		renderer->StartFrame();
 
@@ -83,6 +85,7 @@ void Engine::Run()
 		Audio::Update();
 		gameManager->Update(deltaTime);
 		collisionSystem->Update();
+		renderer->Update(deltaTime);
 
 		// Drawing //
 		gameManager->Draw();

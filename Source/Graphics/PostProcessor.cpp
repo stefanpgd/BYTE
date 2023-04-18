@@ -22,6 +22,14 @@ PostProcessor::PostProcessor(unsigned int windowWidth, unsigned int windowHeight
 	SetupBloom(windowWidth, windowHeight);
 }
 
+void PostProcessor::Update(float deltaTime)
+{
+	if (runAlarmEffects)
+	{
+		timer += deltaTime;
+	}
+}
+
 void PostProcessor::PostProcess(Framebuffer* sceneBuffer)
 {
 	// Apply post-processing effects to scene buffer // 
@@ -43,6 +51,8 @@ void PostProcessor::PostProcess(Framebuffer* sceneBuffer)
 	screenShader->SetVec2("bOffset", blueOffset);
 	screenShader->SetBool("centeredCA", chromaticAberrationFromCenter);
 	screenShader->SetFloat("centeredCAStrength", chromaticAberrationCenterStrength);
+
+	screenShader->SetFloat("time", timer);
 
 	sceneBuffer->BindTexture(0, 0);
 

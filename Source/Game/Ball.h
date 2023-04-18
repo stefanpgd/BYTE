@@ -1,8 +1,10 @@
 #pragma once
 #include "GameSystems/GameObject.h"
+#include <vector>
 
 class SpriteRenderer;
 class BoxCollider;
+class ParticleSystem;
 
 class Ball : public GameObject
 {
@@ -15,6 +17,8 @@ public:
 
 	virtual void ImGuiDraw();
 
+	void PanicMode();
+
 private:
 	void Bounce(glm::vec3 normal);
 	void BlockBounce(BoxCollider* collider, glm::vec3 normal);
@@ -23,12 +27,15 @@ private:
 	SpriteRenderer* ballHitSprite;
 	BoxCollider* collider;
 
+	std::vector<ParticleSystem*> particleSystems;
+
 	glm::vec3 moveDirection;
 	bool firstBounce = true;
 
 	float moveSpeed = 12.0f;
-	float speedIncreasePerBlock = 0.4f;
-	float maxSpeed = 27.5f;
+	float speedIncreasePerBlock = 0.42f;
+	float maxSpeed = 30.5f;
+
 	float paddleSteerStrength = 1.2f;
 
 	float rotationSpeed = 420.0f;
@@ -48,4 +55,7 @@ private:
 	float hitSpriteDelay = 0.4f;
 
 	float time = 0.0f;
+
+	// Game Elements //
+	float panicModeMultiplier = 2.25f;
 };

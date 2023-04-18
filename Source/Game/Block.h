@@ -11,12 +11,13 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
+	virtual void OnDestroy() override;
 
 private:
-	SpriteRenderer* sprite;
 	BoxCollider* collider;
+	SpriteRenderer* sprite;
 
-	float glowTimer = 0.0f;
 	float emission;
+	float glowTimer = 0.0f;
 	float speed;
 };

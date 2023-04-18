@@ -16,6 +16,7 @@ public:
 	static unsigned int GetWindowHeight();
 
 	void StartFrame();
+	void Update(float deltaTime);
 	void RenderFrame();
 
 private:

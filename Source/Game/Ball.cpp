@@ -6,6 +6,7 @@
 #include "GameSystems/GameTime.h"
 
 #include <imgui.h>
+#include "Graphics/ParticleSystem.h"
 
 Ball::Ball()
 {
@@ -76,6 +77,11 @@ void Ball::Update(float deltaTime)
 			Bounce(glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 	}
+
+	for (ParticleSystem* pSystem : particleSystems)
+	{
+		pSystem->Update(deltaTime);
+	}
 }
 
 void Ball::Draw(Camera* camera)
@@ -88,10 +94,20 @@ void Ball::Draw(Camera* camera)
 	{
 		ballSprite->Draw(camera);
 	}
+
+	for (ParticleSystem* pSystem : particleSystems)
+	{
+		pSystem->Draw(camera);
+	}
 }
 
 void Ball::OnCollision(BoxCollider* collider)
 {
+	if (collider->GetOwner() == nullptr || collider->GetOwner()->markedForDelete)
+	{
+		return;
+	}
+
 	if (collider->Tag == "player")
 	{
 		glm::vec3 playerPos = collider->GetOwner()->transform.Position;
@@ -160,6 +176,13 @@ void Ball::ImGuiDraw()
 	ImGui::End();
 }
 
+void Ball::PanicMode()
+{
+	moveSpeed *= panicModeMultiplier;
+	speedIncreasePerBlock *= panicModeMultiplier;
+	maxSpeed *= panicModeMultiplier;
+}
+
 void Ball::Bounce(glm::vec3 normal)
 {
 	Audio::PlaySound("ballHit.wav");
@@ -173,15 +196,42 @@ void Ball::Bounce(glm::vec3 normal)
 
 void Ball::BlockBounce(BoxCollider* collider, glm::vec3 normal)
 {
+	glm::vec3 blockPos = collider->GetOwner()->transform.Position;
+
 	collider->GetOwner()->DeleteGameObject();
 	Bounce(normal);
 	moveSpeed += speedIncreasePerBlock;
 	ballSprite->Emission += 0.03f;
 	ballHitSprite->Emission += 0.03f;
 
-	GameTime::QueuePauseTicks(4);
-
 	Camera::ApplyScreenshake(bounceShakeDuration * 1.5f, bounceShakeStrength * 2.0f);
-
 	Audio::PlaySound("blockWave1.wav");
+
+	ParticleSystemSettings settings;
+
+	Particle pMin;
+	pMin.Color = ballSprite->Color;
+	pMin.Emission = ballSprite->Emission;
+	pMin.LifeTime = 0.1f;
+	pMin.MoveSpeed = 0.25f * moveSpeed;
+	pMin.Size = 0.005 * moveSpeed;
+
+	Particle pMax;
+	pMax.Color = ballSprite->Color;
+	pMax.Emission = ballSprite->Emission + 3.0f;
+	pMax.LifeTime = 0.45f;
+	pMax.MoveSpeed = 0.5f * moveSpeed;
+	pMax.Size = 0.012 * moveSpeed;
+
+	settings.UseMinMax = true;
+	settings.MinParticle = pMin;
+	settings.MaxParticle = pMax;
+	settings.particlesPerSeconds = 5000;
+	settings.duration = 0.07f;
+
+	glm::vec3* pos = new glm::vec3(0.0f);
+	*pos = transform.Position;
+	ParticleSystem* system = new ParticleSystem(settings, *pos);
+	system->Activate();
+	particleSystems.push_back(system);
 }

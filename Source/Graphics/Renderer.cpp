@@ -57,6 +57,11 @@ void Renderer::StartFrame()
 	sceneBuffer->BindBuffer(glm::vec3(0.0f));
 }
 
+void Renderer::Update(float deltaTime)
+{
+	postProcessor->Update(deltaTime);
+}
+
 void Renderer::RenderFrame()
 {
 	postProcessor->PostProcess(sceneBuffer);

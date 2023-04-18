@@ -15,6 +15,7 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Draw(Camera* camera) = 0;
 	virtual void OnCollision(BoxCollider* collider);
+	virtual void OnDestroy();
 
 	virtual void ImGuiDraw();
 

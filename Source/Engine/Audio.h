@@ -2,6 +2,9 @@
 
 #include <string>
 #include "fmod.hpp"
+#include "fmod_studio.hpp"
+#include "fmod_errors.h"
+#include "fmod_common.h"
 
 namespace FMOD
 {
@@ -24,7 +27,7 @@ namespace FMOD
 class Audio
 {
 public:
-	static void PlaySound(std::string filePath, FMOD_MODE playMode = FMOD_2D);
+	static FMOD::Channel* PlaySound(std::string filePath, float volume = 1.0f, FMOD_MODE playMode = FMOD_2D);
 
 private:
 	static void Initialize();

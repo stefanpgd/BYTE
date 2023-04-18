@@ -18,7 +18,7 @@ struct Particle
 
 	// Position & Movement // 
 	glm::vec3 Position;
-	float Z;
+	float Z = 0.0f;
 	float Size;
 
 	float MoveSpeed = 0.0f;
