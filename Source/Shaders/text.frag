@@ -8,6 +8,9 @@ uniform sampler2D texture_albedo;
 uniform int framesInTexture;
 uniform int currentFrame;
 
+uniform vec4 color;
+uniform float emission;
+
 void main()
 {
 	float frameSize = 1.0 / framesInTexture;
@@ -18,6 +21,15 @@ void main()
 	if(diffuseTex.a < 0.5)
 	{
 		discard;
+	}
+
+	if(color != vec4(0.0, 0.0, 0.0, 0.0))
+	{
+		diffuseTex.rgb *= color.rgb;
+
+		FragColor = vec4(diffuseTex.rgb, color.a);
+		BrightColor = vec4(diffuseTex.rgb * emission, 1.0);
+		return;
 	}
 
     FragColor = vec4(diffuseTex.rgb, 1.0);

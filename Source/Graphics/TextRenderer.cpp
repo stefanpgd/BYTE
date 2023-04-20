@@ -20,7 +20,9 @@ TextRenderer::TextRenderer(const std::string& text, Transform* transform)
 void TextRenderer::Draw(Camera* camera)
 {
 	textPipeline->Bind();
-	textPipeline->SetInt("framesInTexture", 10);
+	textPipeline->SetInt("framesInTexture", 11);
+	textPipeline->SetFloat("emission", emission);
+	textPipeline->SetVec4("color", color);
 	font->Bind(textPipeline);
 	letterTransform = *transform;
 
@@ -33,6 +35,11 @@ void TextRenderer::Draw(Camera* camera)
 	}
 }
 
+void TextRenderer::UpdateText(const std::string& text)
+{
+	this->text = text;
+}
+
 unsigned int TextRenderer::GetFontPosition(char c)
 {
 	unsigned int v = static_cast<unsigned int>(c);
@@ -41,6 +48,11 @@ unsigned int TextRenderer::GetFontPosition(char c)
 	{
 		// is char value between 0 - 9 ( ASCII )
 		return v - 48;
+	}
+
+	if (v == 58)
+	{
+		return 10;
 	}
 
 	return 0;

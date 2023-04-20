@@ -4,6 +4,7 @@
 #include "Engine/Audio.h"
 
 class SpriteRenderer;
+class TextRenderer;
 class BoxCollider;
 
 class PanicButton : public GameObject
@@ -14,6 +15,7 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Draw(Camera* camera) override;
 	virtual void OnCollision(BoxCollider* collider);
+	virtual void ImGuiDraw() override;
 
 	bool pressed = false;
 
@@ -27,10 +29,14 @@ private:
 	bool playedMusic = false;
 	float t = 1.35f;
 
+	float eventTimer = 90.0f;
+
 	std::vector<Transform> droppingBlocks;
 	SpriteRenderer* block;
 	Transform blockTransform;
 	float blockFallSpeed = 24.0f;
 	float blockRotationSpeed = 650.0f;
 
+	TextRenderer* textRenderer;
+	Transform textTransform;
 };

@@ -11,9 +11,13 @@ class Camera;
 class TextRenderer
 {
 public:
-	TextRenderer(const std::string& fontName, Transform* transform);
+	TextRenderer(const std::string& text, Transform* transform);
 
 	void Draw(Camera* camera);
+	void UpdateText(const std::string& text);
+
+	glm::vec4 color;
+	float emission;
 
 private:
 	unsigned int GetFontPosition(char c);

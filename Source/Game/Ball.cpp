@@ -14,6 +14,8 @@ Ball::Ball()
 	ballHitSprite = new SpriteRenderer("ball_bounce.png", &transform);
 	collider = new BoxCollider(this, glm::vec2(0.5), "ball");
 
+	bounceTillBlip = RandomInRange(maxBounceTillBlip - 3, maxBounceTillBlip + 3);
+
 	transform.Position.y = -2.0f;
 	transform.Scale = glm::vec3(1.2f);
 
@@ -81,6 +83,27 @@ void Ball::Update(float deltaTime)
 	for (ParticleSystem* pSystem : particleSystems)
 	{
 		pSystem->Update(deltaTime);
+	}
+
+	if (bounceCount >= bounceTillBlip)
+	{
+		if (transform.Position.y <= blipJumpHeight)
+		{
+			if(transform.Position.x > -mapX + 2.8f && transform.Position.x < mapX - 2.8f)
+			if (glm::dot(glm::vec3(0.0f, -1.0f, 0.0f), glm::normalize(moveDirection)) > 0.5)
+			{
+				bounceCount = 0;
+				bounceTillBlip = RandomInRange(maxBounceTillBlip - 3, maxBounceTillBlip + 3);
+
+				float m = bounceTillBlip % 2 ? -1.0f : 1.0;
+				transform.Position.x += jumpLength * m;
+
+				Audio::PlaySound("laugh.wav");
+				Audio::PlaySound("jump.wav");
+
+				transform.Position.x = glm::clamp(transform.Position.x, -mapX + 0.25f, mapX - 0.25f);
+			}
+		}
 	}
 }
 
@@ -187,6 +210,7 @@ void Ball::Bounce(glm::vec3 normal)
 {
 	Audio::PlaySound("ballHit.wav");
 
+	bounceCount++;
 	hitTimer = 0.0f;
 	hitSpriteTimer = 0.0f;
 

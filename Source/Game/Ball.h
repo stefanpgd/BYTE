@@ -58,4 +58,10 @@ private:
 
 	// Game Elements //
 	float panicModeMultiplier = 2.25f;
+
+	float blipJumpHeight = -4.0f;
+	int bounceCount = 0;
+	int bounceTillBlip = 0;
+	int maxBounceTillBlip = 25;
+	float jumpLength = 5.5f;
 };
