@@ -1,6 +1,7 @@
 #pragma once
 #include "GameSystems/GameObject.h"
 #include <vector>
+#include "Engine/Audio.h"
 
 class SpriteRenderer;
 class BoxCollider;
@@ -25,5 +26,11 @@ private:
 	float timer = 0.0f;
 	bool playedMusic = false;
 	float t = 1.35f;
-};
 
+	std::vector<Transform> droppingBlocks;
+	SpriteRenderer* block;
+	Transform blockTransform;
+	float blockFallSpeed = 24.0f;
+	float blockRotationSpeed = 650.0f;
+
+};

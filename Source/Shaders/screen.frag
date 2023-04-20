@@ -41,8 +41,8 @@ void main()
     vec3 bloomColor = texture(bloomTexture, uv).rgb;
     color += bloomColor;
 
-    bloomColor *= mix(vec3(1.0), vec3(1.0, 0.25, 0.25), abs(sin(time * 2.75)));
-    color *= mix(vec3(1.0), vec3(1.0, 0.25, 0.25), abs(sin(time * 2.75)));
+    bloomColor *= mix(vec3(1.0), vec3(1.0, 0.2, 0.2), abs(sin(time * 2.75)));
+    color *= mix(vec3(1.0), vec3(1.0, 0.2, 0.2), abs(sin(time * 2.75)));
 
     vec3 mapped = vec3(1.0) - exp(-color * exposure);    // Exposure Tonemapping
     mapped = pow(mapped, vec3(1.0 / gamma));             // Gamma Correction
